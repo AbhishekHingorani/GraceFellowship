@@ -1,12 +1,3 @@
-<!-- <div class="page-header" filter-color="orange"> -->
-<!-- <div class="page-header-image" style="background-image:url(../assets/img/bg5.jpg)"></div> -->
-
-
-<!-- <div class="bgImage">
-    <img id="backgroundimage" src="../../assets/img/bg5.jpg" border="0" alt="">
-  </div> -->
-
-
 <img id="backgroundimage" src="../../assets/img/crossbg2_2.jpg" border="0" alt="">
 
 <div style="display: flex;
@@ -15,43 +6,71 @@
   height: 100vh;">
   <div class="col-md-4  ">
     <div class="card card-plain">
-      <form class="form" method="" action="">
+      <form class="form" method="" action="" #f="ngForm" (ngSubmit)="signIn(f.value)">
+        
+        <!-- Logo -->
         <div class="header header-primary text-center">
           <div style="width:100%; margin: auto">
             <img src="../../assets/img/grace-logo.png" alt="">
           </div>
         </div>
+        <!-- End: Logo -->
+        
+        <!-- Card -->
         <div class="card-body">
 
-          <!-- <div class="col-sm-6 col-lg-4"> -->
+          <!-- Username Textbox -->
           <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
             <div class="input-group-prepend">
               <span class="input-group-text">
                 <i class="fa fa-user"></i>
               </span>
             </div>
-            <input type="text" class="form-control" placeholder="Username..." (focus)="focus=true" (blur)="focus=false" style="color: gray">
-          </div>
-          <!-- </div> -->
 
-          <!-- <div class="col-sm-6 col-lg-4"> -->
+            <input 
+              ngModel
+              name="username"
+              type="text" 
+              class="form-control" 
+              placeholder="Username..." 
+              (focus)="focus=true" 
+              (blur)="focus=false" 
+              style="color: gray"
+            >
+          </div>
+          <!-- End: Username Textbox -->
+
+          <!-- Password Textbox -->
           <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
             <div class="input-group-prepend">
               <span class="input-group-text">
                 <i class="fa fa-key"></i>
               </span>
             </div>
-            <input type="password" class="form-control" placeholder="Password..." (focus)="focus1=true" (blur)="focus1=false" style="color: gray">
+            <input 
+              ngModel
+              name="password"
+              type="password" 
+              class="form-control" 
+              placeholder="Password..." 
+              (focus)="focus1=true" 
+              (blur)="focus1=false" 
+              style="color: gray"
+            >
           </div>
-          <!-- </div> -->
+          <!--End: Password Textbox -->
 
         </div>
+        <!-- End: Card -->
+
+        <!-- Login Button -->
         <div class="footer text-center">
-          <a href="#pablo" class="btn btn-primary btn-round btn-lg btn-block">Login</a>
+          <button type="submit" class="btn btn-primary btn-round btn-lg btn-block">Login</button>
         </div>
-        <div style="border-radius: 15px" class="alert alert-danger">Invalid username and/or password.</div>
+        <!-- End: Login Button -->
+        
+        <!-- Error Box -->
+        <div *ngIf="invalidLogin" style="border-radius: 15px" class="alert alert-danger">Invalid username and/or password.</div>
       </form>
     </div>
   </div>
-  <!-- </div> -->
-  <!-- </div> -->

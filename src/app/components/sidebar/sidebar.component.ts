@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 
 declare interface RouteInfo {
     path: string;
     title: string;
     icon: string;
     class: string;
+    type: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'design_app', class: '' },
-    
+    { path: '/dashboard', title: 'Dashboard',  icon: 'design_app', class: '', type: 'all' },
+    { path: '/add-member', title: 'Add Member',  icon: 'design_app', class: '', type: 'admin' },
+    { path: '/mark-attendance', title: 'Mark Attendance',  icon: 'design_app', class: '', type: 'volunteer' },    
 ];
 
 @Component({
@@ -19,7 +22,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -30,4 +33,12 @@ export class SidebarComponent implements OnInit {
       }
       return true;
   };
+
+  shouldBeVisible(type: string)
+  {
+    if(this.authService.currentUser && (this.authService.currentUser.type == type || type=="all"))
+        return true;
+    else 
+        return false;
+  }
 }
