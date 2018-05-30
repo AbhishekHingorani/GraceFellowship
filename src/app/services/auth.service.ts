@@ -14,14 +14,11 @@ export class AuthService {
   login(credentials) { 
     return this.http.get('https://my-json-server.typicode.com/dazzlervinu/MockBackend/auth', JSON.stringify(credentials))
      .map(response => {
-  
-      console.log(response.json().token);
-       
+
        let result = response.json();
        
        if (result && result.token) {
         localStorage.setItem('token', result.token);
-        console.log(localStorage.getItem('token'));
         //  let jwt = new JwtHelper();
         //  this.currentUser = jwt.decodeToken(localStorage.getItem('token'));
         
@@ -43,8 +40,6 @@ export class AuthService {
   get currentUser() {
     let token = localStorage.getItem('token');
     if(!token) return null;
-
-    console.log(new JwtHelper().decodeToken(token).type)
     return new JwtHelper().decodeToken(token);
   }
 }

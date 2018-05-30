@@ -14,6 +14,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './login/login.component'
 import { AuthGuard } from './services/auth-guard.service';
 import { NoAccessComponent } from './no-access/no-access.component';
+import { BackEndCalls } from "./services/backend-calls.service"
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import { NoAccessComponent } from './no-access/no-access.component';
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    BackEndCalls
   ],
   bootstrap: [AppComponent]
 })

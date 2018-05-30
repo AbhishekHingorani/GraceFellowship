@@ -1,3 +1,38 @@
-<p>
-  mark-attendance works!
-</p>
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Mark Attendance</h5>
+        </div>
+        <div class="card-body">
+
+          <form class="form" method="" action="" #f="ngForm" (ngSubmit)="submit(f.value)">
+
+            <input #btnn type="button" class="btn btn-primary btn-link " (click)="allPresent(btnn)" value="All Present">
+
+            <br><br>
+
+            <div class="row">
+              <div *ngFor="let member of members"  class="col-md-3">
+                <div class="form-check">
+                  <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" [checked]="member.isPresent" (change)="member.isPresent = !member.isPresent">
+                      {{ member.name }}
+                      <span class="form-check-sign"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <br><br>
+
+            <input type="submit" class="btn btn-danger pull-right" value="submit">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
