@@ -14,7 +14,10 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './login/login.component'
 import { AuthGuard } from './services/auth-guard.service';
 import { NoAccessComponent } from './no-access/no-access.component';
-import { BackEndCalls } from "./services/backend-calls.service"
+import { BackEndCalls } from "./services/backend-calls.service";
+import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
+import { ReportDetailsService } from './volunteer/report-details.sevice';
+import { ReportDetailAuthguard } from './services/report-detail-authguard.service';
 
 @NgModule({
   imports: [
@@ -24,7 +27,8 @@ import { BackEndCalls } from "./services/backend-calls.service"
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    SweetAlert2Module.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -35,7 +39,9 @@ import { BackEndCalls } from "./services/backend-calls.service"
   providers: [
     AuthService,
     AuthGuard,
-    BackEndCalls
+    BackEndCalls,
+    ReportDetailsService,
+    ReportDetailAuthguard
   ],
   bootstrap: [AppComponent]
 })

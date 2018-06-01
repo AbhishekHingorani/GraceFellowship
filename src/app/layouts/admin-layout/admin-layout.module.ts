@@ -9,6 +9,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { AddMemberComponent } from '../../admin/add-member/add-member.component';
 import { MarkAttendanceComponent } from '../../volunteer/mark-attendance/mark-attendance.component';
+import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
+import { ReportDetailComponent } from '../../volunteer/report-detail/report-detail.component';
 
 
 //import {LoginComponent} from '../../login/login.component'
@@ -20,12 +22,19 @@ import { MarkAttendanceComponent } from '../../volunteer/mark-attendance/mark-at
     FormsModule,
     ChartsModule,
     NgbModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    SweetAlert2Module.forRoot({
+      buttonsStyling: false,
+      customClass: 'modal-content',
+      confirmButtonClass: 'btn btn-primary',
+      cancelButtonClass: 'btn'
+  })
   ],
   declarations: [
     DashboardComponent,
     AddMemberComponent,
-    MarkAttendanceComponent
+    MarkAttendanceComponent,
+    ReportDetailComponent
   ]
 })
 

@@ -14,7 +14,6 @@ export class AuthService {
   login(credentials) { 
     return this.http.get('https://my-json-server.typicode.com/dazzlervinu/MockBackend/auth', JSON.stringify(credentials))
      .map(response => {
-
        let result = response.json();
        
        if (result && result.token) {

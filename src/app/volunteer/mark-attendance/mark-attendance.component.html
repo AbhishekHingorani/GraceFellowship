@@ -11,25 +11,31 @@
 
           <form class="form" method="" action="" #f="ngForm" (ngSubmit)="submit(f.value)">
 
+            <!-- All Present/Absent button -->
             <input #btnn type="button" class="btn btn-primary btn-link " (click)="allPresent(btnn)" value="All Present">
 
-            <br><br>
+            <br>
+            <br>
 
             <div class="row">
-              <div *ngFor="let member of members"  class="col-md-3">
+              <!-- Loop to generate checkboxes of batch members -->
+              <div *ngFor="let member of members" class="col-md-3">
                 <div class="form-check">
                   <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" [checked]="member.isPresent" (change)="member.isPresent = !member.isPresent">
-                      {{ member.name }}
-                      <span class="form-check-sign"></span>
+                    <input class="form-check-input" type="checkbox" [checked]="member.isPresent" (change)="member.isPresent = !member.isPresent"> {{ member.name }}
+                    <span class="form-check-sign"></span>
                   </label>
                 </div>
               </div>
+              <!-- End : Loop to generate batch members -->
             </div>
-            
-            <br><br>
 
+            <br>
+            <br>
+
+            <!-- Submit Button -->
             <input type="submit" class="btn btn-danger pull-right" value="submit">
+            
           </form>
         </div>
       </div>
