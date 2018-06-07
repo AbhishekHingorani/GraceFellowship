@@ -1,0 +1,142 @@
+<div class="card-header">
+  <h5 class="title">Add New Volunteer</h5>
+</div>
+
+<form #f="ngForm" (ngSubmit)="submit(f.value)" autocomplete="nope">
+  <div class="card-body">
+
+    <!-- FullName -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group" [ngClass]="{'input-group-focus':focus0===true}">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="now-ui-icons users_circle-08"></i>
+            </span>
+          </div>
+          <input type="text" required [(ngModel)]="volunteer.name" name="name" #fullname="ngModel" class="form-control" placeholder="*Full Name..." (focus)="focus0=true"
+            (blur)="focus0=false">
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="fullname.dirty && !fullname.valid && !fullname.value==''" class="error">
+      This feild must not be empty!
+    </div>
+    <!-- #FullName -->
+
+
+    <!-- Username -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="now-ui-icons users_single-02"></i>
+            </span>
+          </div>
+          <input type="text" required pattern="[A-Za-z]{1}-[A-Za-z0-9]+" [(ngModel)]="volunteer.username" name="username" #username="ngModel" class="form-control"
+            placeholder="*Username..." (focus)="focus=true" (blur)="focus=false">
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="username.dirty && !username.valid && !username.value==''" class="error">
+      Username should follow "#-###.." this pattern.
+    </div>
+    <!-- #Username -->
+
+
+    <!-- Password -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group" [ngClass]="{'input-group-focus':focus2===true}">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="now-ui-icons objects_key-25"></i>
+            </span>
+          </div>
+          <input [(ngModel)]="volunteer.password" name="password" required #password="ngModel" minlength="6" type="password" class="form-control" placeholder="*Password..."
+            (focus)="focus2=true" (blur)="focus2=false">
+        </div>
+      </div>
+
+    </div>
+    <div *ngIf="password.dirty && !password.valid && !password.value==''" class="error">
+      Password should be minimum 6 character.
+    </div>
+    <!-- #Password -->
+
+
+    <!-- Confirm Password -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group" [ngClass]="{'input-group-focus':focus3===true}">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="now-ui-icons objects_key-25"></i>
+            </span>
+          </div>
+          <input ngModel name="confirmPassword" #confirmPassword="ngModel" required type="password" class="form-control" placeholder="*Confirm Password..."
+            (focus)="focus3=true" (blur)="focus3=false" (input)="validatePassword(password.value, confirmPassword.value)">
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="doesPasswordMatch" style="color: darkred; margin: -10px 0px 10px 10px">
+      Password fields don't match.
+    </div>
+    <!-- #Confirm Password -->
+
+
+    <!-- Email -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group" [ngClass]="{'input-group-focus':focus4===true}">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="now-ui-icons ui-1_email-85"></i>
+            </span>
+          </div>
+          <input [(ngModel)]="volunteer.email" name="email" #email="ngModel" type="text" class="form-control" placeholder="Email Address..." pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}"
+            (focus)="focus4=true" (blur)="focus4=false">
+        </div>
+      </div>
+    </div>
+    <div *ngIf="email.dirty && !email.valid && !email.value==''" class="error">
+      Email is incorrect.
+    </div>
+    <!-- #Email -->
+
+
+    <!-- Contact No-->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group" [ngClass]="{'input-group-focus':focus5===true}">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="now-ui-icons tech_mobile"></i>
+            </span>
+          </div>
+          <input [(ngModel)]="volunteer.contact" name="contact" #contact="ngModel" type="number" class="form-control" placeholder="Contact No..." pattern="[789][0-9]{9}"
+            (focus)="focus5=true" (blur)="focus5=false">
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="contact.dirty && !contact.valid && !contact.value==''" class="error">
+      Contact should be a 10 digit no.
+    </div>
+    <!-- #Contact No -->
+
+    
+    <!-- Submit Btn -->
+    <div class="row">
+      <div class="col-md-6">
+        <button class="pull-right btn btn-danger btn-round" type="submit">Add</button>
+      </div>
+    </div>
+    <!-- #Submit Btn -->
+
+  </div>
+</form>

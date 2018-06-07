@@ -22,7 +22,7 @@
               <div *ngFor="let member of members" class="col-md-3">
                 <div class="form-check">
                   <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" [checked]="member.isPresent" (change)="member.isPresent = !member.isPresent"> {{ member.name }}
+                    <input value="aa" class="form-check-input" type="checkbox" [checked]="member.isPresent" (change)="member.isPresent = !member.isPresent"> {{ member.name }}
                     <span class="form-check-sign"></span>
                   </label>
                 </div>

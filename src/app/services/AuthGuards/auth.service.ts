@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { AuthHttp } from 'angular2-jwt';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt'; 
 import 'rxjs/add/operator/map'; 
 import { Router } from '@angular/router';
+import {BackEndCalls} from '../BackendHandling/backend-calls.service';
+import { Http } from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +14,12 @@ export class AuthService {
   }
 
   login(credentials) { 
-    return this.http.get('https://my-json-server.typicode.com/dazzlervinu/MockBackend/auth', JSON.stringify(credentials))
+    return this.http.post( BackEndCalls.BACKEND_URL + '/login', JSON.stringify(credentials))
      .map(response => {
        let result = response.json();
        
+       console.log(result);
+
        if (result && result.token) {
         localStorage.setItem('token', result.token);
         //  let jwt = new JwtHelper();

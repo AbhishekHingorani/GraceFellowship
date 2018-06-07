@@ -1,17 +1,21 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { AddMemberComponent } from '../../admin/add-member/add-member.component';
 import { MarkAttendanceComponent } from '../../volunteer/mark-attendance/mark-attendance.component';
-import { VolunteerAuthGuard } from '../../services/volunteer-auth-guard.service';
-import { AdminAuthGuard } from '../../services/admin-auth-guard.service';
+import { VolunteerAuthGuard } from '../../services/AuthGuards/volunteer-auth-guard.service';
+import { AdminAuthGuard } from '../../services/AuthGuards/admin-auth-guard.service';
 import { ReportDetailComponent } from '../../volunteer/report-detail/report-detail.component';
-import { ReportDetailAuthguard } from '../../services/report-detail-authguard.service';
+import { ReportDetailAuthguard } from '../../services/AuthGuards/report-detail-authguard.service';
+import { AddVolunteerComponent } from '../../admin/volunteer/add-volunteer/add-volunteer.component';
+import { VolunteerManagerComponent } from '../../admin/volunteer/volunteer-manager/volunteer-manager.component';
 
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'add-member', component: AddMemberComponent, canActivate: [AdminAuthGuard]},
-    { path: 'mark-attendance', component: MarkAttendanceComponent, canActivate: [VolunteerAuthGuard, ReportDetailAuthguard]},
-    { path: 'report-detail', component: ReportDetailComponent}
+    { path: 'admin/add-volunteer', component: AddVolunteerComponent, canActivate: [AdminAuthGuard]},
+    { path: 'admin/volunteer', component: VolunteerManagerComponent, canActivate: [AdminAuthGuard]},
+
+    
+    { path: 'volunteer/mark-attendance', component: MarkAttendanceComponent, canActivate: [VolunteerAuthGuard, ReportDetailAuthguard]},
+    { path: 'volunteer/report-detail', component: ReportDetailComponent}
 ];
