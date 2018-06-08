@@ -13,6 +13,7 @@ import { VolunteerManagerComponent } from '../../admin/volunteer/volunteer-manag
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent },
     { path: 'admin/add-volunteer', component: AddVolunteerComponent, canActivate: [AdminAuthGuard]},
+    { path: 'admin/volunteer/:id', component: VolunteerManagerComponent, canActivate: [AdminAuthGuard]},
     { path: 'admin/volunteer', component: VolunteerManagerComponent, canActivate: [AdminAuthGuard]},
 
     

@@ -6,13 +6,19 @@
 
       <div class="card">
 
-        <ngb-tabset type="tabs" justify="justified">
-          <ngb-tab title="View Volunteers">
+        <ngb-tabset #tabs="ngbTabset" type="tabs" justify="justified">
+          <ngb-tab id="view">
+              <ng-template ngbTabTitle>
+                <div (click)="tabChange('view')">View Volunteers</div>
+              </ng-template>
             <ng-template ngbTabContent>
               <view-volunteers></view-volunteers>
             </ng-template>
           </ngb-tab>
-          <ngb-tab title="Add Volunteer">
+          <ngb-tab id="add">
+            <ng-template ngbTabTitle>
+              <div (click)="tabChange('add')">Add Volunteer</div>
+            </ng-template>
             <ng-template ngbTabContent>
               <add-volunteer></add-volunteer>
             </ng-template>

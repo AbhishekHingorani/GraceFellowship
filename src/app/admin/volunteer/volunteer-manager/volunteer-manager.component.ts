@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import {Router, ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'volunteer-manager',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VolunteerManagerComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('tabs') ngbTabSet;
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private cd: ChangeDetectorRef) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ngAfterViewInit(){
+    let tab;
+
+    this.activatedRoute.queryParamMap
+      .subscribe(params => {
+        tab = params.get('tab');
+        this.ngbTabSet.select(tab);
+        this.cd.detectChanges();
+      });
   }
 
+  tabChange(e){
+    this.router.navigate(
+      ['.'], 
+      { relativeTo: this.activatedRoute, queryParams: {tab: e} }
+    );
+  }
 }

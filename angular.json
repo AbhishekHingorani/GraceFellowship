@@ -21,12 +21,15 @@
               "src/favicon.ico"
             ],
             "styles": [
+              "node_modules/datatables.net-dt/css/jquery.dataTables.css",
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
               "node_modules/ngx-toastr/toastr.css",
               "src/assets/scss/now-ui-dashboard.scss",
               "src/assets/demo/demo.css"
             ],
             "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/datatables.net/js/jquery.dataTables.js",
               "node_modules/chart.js/dist/Chart.min.js"
             ]
           },

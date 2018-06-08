@@ -6,6 +6,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
 import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DataTablesModule } from 'angular-datatables';
 import { ToastrModule } from 'ngx-toastr';
 import { MarkAttendanceComponent } from '../../volunteer/mark-attendance/mark-attendance.component';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
@@ -22,6 +23,7 @@ import { ViewVolunteersComponent } from '../../admin/volunteer/view-volunteers/v
     FormsModule,
     ChartsModule,
     NgbModule,
+    DataTablesModule,
     ToastrModule.forRoot(),
     SweetAlert2Module.forRoot({
       buttonsStyling: false,
