@@ -1,0 +1,54 @@
+<div class="card-header">
+  <h5 class="title">View Members</h5>
+</div>
+
+<div *ngIf="isLoading" class="loading"></div>
+   
+<div class="card-body">
+
+  <div style="font-size: 12px" class="text-muted">Select Branch:</div>
+  <div class="row">
+    <div class="col-md-12">
+      <angular2-multiselect [data]="campusList" 
+        [(ngModel)]="selectedItems"
+        name="abc"
+        [settings]="settings" 
+        (onSelect)="onItemSelect($event)">
+      </angular2-multiselect>
+    </div>
+  </div>
+  <br><br>
+  
+  <div style="overflow-x:auto;">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Email</th>
+          <th>Contact</th>
+          <th>Address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let member of members">
+          <td>{{member.name}}</td>
+          <td>{{member.gender}}</td>
+          <td>{{member.email}}</td>
+          <td>{{member.contact}}</td>
+          <td>{{member.address}}</td>
+          <td>
+            <a (click)="editMember(member.id)" style="color:#41a9f4; cursor: pointer;" placement="top" ngbTooltip="Edit {{member.name}}">
+              <i class="far fa-edit"></i>
+            </a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a (click)="deleteMember(member.id)" style="color: #f44141; cursor: pointer;" placement="top" ngbTooltip="Delete {{member.name}}">
+              <i class="far fa-trash-alt"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

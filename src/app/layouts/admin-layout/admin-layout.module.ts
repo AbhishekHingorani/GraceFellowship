@@ -14,6 +14,10 @@ import { ReportDetailComponent } from '../../volunteer/report-detail/report-deta
 import { AddVolunteerComponent } from '../../admin/volunteer/add-volunteer/add-volunteer.component';
 import { VolunteerManagerComponent } from '../../admin/volunteer/volunteer-manager/volunteer-manager.component';
 import { ViewVolunteersComponent } from '../../admin/volunteer/view-volunteers/view-volunteers.component';
+import { MembersManagerComponent } from '../../admin/members/members-manager/members-manager.component';
+import { ViewMembersComponent } from '../../admin/members/view-members/view-members.component';
+import { AddMemberComponent } from '../../admin/members/add-member/add-member.component';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 
 
 @NgModule({
@@ -30,7 +34,8 @@ import { ViewVolunteersComponent } from '../../admin/volunteer/view-volunteers/v
       customClass: 'modal-content',
       confirmButtonClass: 'btn btn-primary',
       cancelButtonClass: 'btn'
-  })
+     }),
+    AngularMultiSelectModule,
   ],
   declarations: [
     DashboardComponent,
@@ -39,6 +44,9 @@ import { ViewVolunteersComponent } from '../../admin/volunteer/view-volunteers/v
     AddVolunteerComponent,
     VolunteerManagerComponent,
     ViewVolunteersComponent,
+    MembersManagerComponent,
+    ViewMembersComponent,
+    AddMemberComponent,
   ]
 })
 

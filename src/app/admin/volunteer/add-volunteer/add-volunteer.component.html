@@ -1,5 +1,5 @@
 <div class="card-header">
-  <h5 class="title">Add New Volunteer</h5>
+  <h5 class="title">{{submitBtn}} Volunteer</h5>
 </div>
 
 <form #f="ngForm" (ngSubmit)="submit(f.value)" autocomplete="nope">
@@ -35,14 +35,14 @@
               <i class="now-ui-icons users_single-02"></i>
             </span>
           </div>
-          <input type="text" required pattern="[A-Za-z]{1}-[A-Za-z0-9]+" [(ngModel)]="volunteer.username" name="username" #username="ngModel" class="form-control"
+          <input type="text" required pattern="v-[A-Za-z0-9]+" [(ngModel)]="volunteer.username" name="username" #username="ngModel" class="form-control" style="text-transform: lowercase;"
             placeholder="*Username..." (focus)="focus=true" (blur)="focus=false">
         </div>
       </div>
     </div>
 
     <div *ngIf="username.dirty && !username.valid && !username.value==''" class="error">
-      Username should follow "#-###.." this pattern.
+      Username should follow "v-###.." this pattern.
     </div>
     <!-- #Username -->
 
@@ -128,12 +128,15 @@
       Contact should be a 10 digit no.
     </div>
     <!-- #Contact No -->
-
     
     <!-- Submit Btn -->
     <div class="row">
       <div class="col-md-6">
-        <button class="pull-right btn btn-danger btn-round" type="submit">{{submitBtn}}</button>
+        <button class="pull-right btn btn-danger btn-round" type="submit">
+          {{submitBtn}}
+          <img *ngIf="isLoading" src="../../../../assets/img/tail-spin.svg" class="pull-right"/>
+        </button>
+        
       </div>
     </div>
     <!-- #Submit Btn -->

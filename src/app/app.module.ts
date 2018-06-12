@@ -2,13 +2,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { AppComponent } from './app.component';
-import { AuthHttp, AUTH_PROVIDERS, provideAuth, AuthConfig } from 
-'angular2-jwt/angular2-jwt';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 
 import { AuthService } from './services/AuthGuards/auth.service'
 
@@ -21,11 +22,26 @@ import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { ReportDetailsService } from './volunteer/report-details.sevice';
 import { ReportDetailAuthguard } from './services/AuthGuards/report-detail-authguard.service';
 
+const jwtConf = {
+  config: {
+    tokenGetter: tokenGetter,
+    whitelistedDomains: ['grace-fellowship.herokuapp.com'],
+    throwNoTokenError: true,
+    authScheme: ' ',
+    globalHeaders: [{'Content-Type': 'application/json'}],
+  }
+};
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+};
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
@@ -35,7 +51,9 @@ import { ReportDetailAuthguard } from './services/AuthGuards/report-detail-authg
       customClass: 'modal-content',
       confirmButtonClass: 'btn btn-primary',
       cancelButtonClass: 'btn'
-    })
+    }),
+    AngularMultiSelectModule,
+    JwtModule.forRoot(jwtConf),
   ],
   declarations: [
     AppComponent,
@@ -49,7 +67,7 @@ import { ReportDetailAuthguard } from './services/AuthGuards/report-detail-authg
     BackEndCalls,
     ReportDetailsService,
     ReportDetailAuthguard,
-    AUTH_PROVIDERS
+
   ],
   bootstrap: [AppComponent]
 })

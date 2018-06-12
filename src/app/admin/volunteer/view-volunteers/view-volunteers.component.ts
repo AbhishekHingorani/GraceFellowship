@@ -19,6 +19,7 @@ export class ViewVolunteersComponent implements OnInit {
 
   dtOptions: any = {};
   dtTrigger: Subject<VolunteerModel> = new Subject();  
+  isLoading: boolean = true;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private service: BackEndCalls) { }
 
@@ -30,14 +31,15 @@ export class ViewVolunteersComponent implements OnInit {
     };
 
     this.service.getAllVolunteers()
-    .subscribe(data => {
-      this.volunteers = data.json();
+    .subscribe((data: VolunteerModel[])  => {
+      this.volunteers = data;
       this.dtTrigger.next();
+      this.isLoading = false;
     });
 
   }
 
-  deleteVolunteer(id){
+  deleteVolunteer(id: string){
     //searching id from array and deleting it
     let index = this.volunteers.map(function(x){ return x.id; }).indexOf(id);
     this.volunteers.splice(index,1);
@@ -47,7 +49,7 @@ export class ViewVolunteersComponent implements OnInit {
     //Sending delete reques to server
     this.service.deleteVolunteer(id)
     .subscribe(data => {
-      console.log(data.json());
+      console.log(data);
     });
   }
 
@@ -60,7 +62,10 @@ export class ViewVolunteersComponent implements OnInit {
     });
   }
 
-  editVolunteer(id){
+  editVolunteer(id: string){
+    
+    console.log(id);
+  
     this.router.navigate(['/admin/volunteer',id], { queryParams: { tab: 'add', edit: 'true'} });
   }
 }

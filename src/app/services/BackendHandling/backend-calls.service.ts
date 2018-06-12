@@ -1,30 +1,67 @@
 import { Injectable } from '@angular/core';
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
-import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable'
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+
+import { VolunteerModel } from "../../interfaces/VolunteerModel";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackEndCalls
 {
-  constructor(private authHttp: AuthHttp, private http: Http) {}
+  constructor(private http: HttpClient) {}
 
-  //public static BACKEND_URL = "https://grace-fellowship.herokuapp.com";
-  public static BACKEND_URL = "http://5b18c6fd3f38e20014a22f3f.mockapi.io";
+  private URL = "https://grace-fellowship.herokuapp.com";
+  //private URL = "http://5b18c6fd3f38e20014a22f3f.mockapi.io";
 
   //=====================================================================//
   //---------------------------- ADMIN ---------------------------------//
   //===================================================================//
 
   getAllVolunteers(){
-    return this.http.get(BackEndCalls.BACKEND_URL + '/admin/1/volunteers')
+    return this.http.get(this.URL + '/admin/volunteers')
   }
   
   getVolunteer(volunteerId){
-    return this.http.get(BackEndCalls.BACKEND_URL + '/admin/1/volunteers/' + volunteerId)
+    return this.http.get(this.URL + '/admin/volunteer/' + volunteerId)
   }
   
   deleteVolunteer(volunteerId){
-    return this.http.delete(BackEndCalls.BACKEND_URL + '/admin/1/volunteer/' + volunteerId)
+    return this.http.delete(this.URL + '/admin/volunteer/' + volunteerId)
+  }
+
+  addVolunteer(data){
+    return this.http.post(this.URL + '/admin/volunteer', data)
+  }
+
+  editVolunteer(id, data){
+    return this.http.patch(this.URL + "/admin/volunteer/" + id, data)
+  }
+
+  /*--------------*/
+
+  getAllCampuses(){
+    return this.http.get(this.URL + '/admin/campuses')
+  }
+
+  getBatchMembersOfCampus(campusId){
+    return this.http.get(this.URL + '/admin/campus/' + campusId + '/batch_members');
+  }
+
+  getMember(memberId){
+    return this.http.get(this.URL + '/admin/campus/' + memberId)
+  }
+
+  deleteMember(memberId){
+    return this.http.delete(this.URL + '/admin/campus/' + memberId)
+  }
+
+  editMember(id, data){
+    return this.http.patch(this.URL + "/admin/volunteer/" + id, data)
+  }
+
+
+  getURL(){
+    return this.URL;
   }
 }

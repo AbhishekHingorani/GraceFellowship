@@ -6,7 +6,7 @@
   height: 100vh;">
   <div class="col-md-4  ">
     <div class="card card-plain">
-      <form class="form" method="" action="" #f="ngForm" (ngSubmit)="signIn(f.value)">
+      <form class="form" #f="ngForm" (ngSubmit)="signIn(f.value)">
         
         <!-- Logo -->
         <div class="header header-primary text-center">
@@ -31,12 +31,18 @@
               ngModel
               name="username"
               type="text" 
+              required 
+              pattern="[acvt]{1}-[a-z0-9]+"
+              #username="ngModel"
               class="form-control" 
               placeholder="Username..." 
               (focus)="focus=true" 
               (blur)="focus=false" 
-              style="color: gray"
+              style="color: gray; text-transform: lowercase;"
             >
+          </div>
+          <div *ngIf="username.dirty && !username.valid && !username.value==''" class="error">
+            Username should follow "[a/c/v/t]-###.." this pattern.
           </div>
           <!-- End: Username Textbox -->
 
@@ -49,6 +55,7 @@
             </div>
             <input 
               ngModel
+              required
               name="password"
               type="password" 
               class="form-control" 
@@ -65,12 +72,15 @@
 
         <!-- Login Button -->
         <div class="footer text-center">
-          <button type="submit" class="btn btn-primary btn-round btn-lg btn-block">Login</button>
+          <button type="submit" class="btn btn-primary btn-round btn-lg btn-block" [disabled]="!f.valid">
+            {{submitBtn}}
+            <img *ngIf="isLoading" src="../../../../assets/img/tail-spin.svg"/>
+          </button>
         </div>
         <!-- End: Login Button -->
         
         <!-- Error Box -->
-        <div *ngIf="invalidLogin" style="border-radius: 15px" class="alert alert-danger">Invalid username and/or password.</div>
+        <div *ngIf="invalidLogin" class="alert alert-danger">{{errorMsg }}</div>
       </form>
     </div>
   </div>

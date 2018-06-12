@@ -2,39 +2,40 @@
   <h5 class="title">View Volunteers</h5>
 </div>
 
+<div *ngIf="isLoading" class="loading"></div>
+
 <div class="card-body">
 
-    <div class="table-responsive">
-  <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Email</th>
-        <th>Contact</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let volunteer of volunteers">
-        <td>{{volunteer.name}}</td>
-        <td>{{volunteer.username}}</td>
-        <td>{{volunteer.password}}</td>
-        <td>{{volunteer.email}}</td>
-        <td>{{volunteer.contact}}</td>
-        <td>
-          <a (click)="editVolunteer(volunteer.id)" style="color:#41a9f4; cursor: pointer;" placement="top" ngbTooltip="Edit {{volunteer.name}}">
-            <i class="far fa-edit"></i>
-          </a>
-          &nbsp;&nbsp;&nbsp;&nbsp;
-          <a (click)="deleteVolunteer(volunteer.id - 1)" style="color: #f44141; cursor: pointer;" placement="top" ngbTooltip="Delete {{volunteer.name}}">
-            <i class="far fa-trash-alt"></i>
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div style="overflow-x:auto;">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Contact</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let volunteer of volunteers">
+          <td>{{volunteer.name}}</td>
+          <td>{{volunteer.username}}</td>
+          <td>{{volunteer.email}}</td>
+          <td>{{volunteer.contact}}</td>
+          <td>
+            <a (click)="editVolunteer(volunteer.id)" style="color:#41a9f4; cursor: pointer;" placement="top" ngbTooltip="Edit {{volunteer.name}}">
+              <i class="far fa-edit"></i>
+            </a>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <a (click)="deleteVolunteer(volunteer.id)" style="color: #f44141; cursor: pointer;" placement="top" ngbTooltip="Delete {{volunteer.name}}">
+              <i class="far fa-trash-alt"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+  
 </div>
 

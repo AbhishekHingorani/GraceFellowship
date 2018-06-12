@@ -8,6 +8,7 @@ import { ReportDetailComponent } from '../../volunteer/report-detail/report-deta
 import { ReportDetailAuthguard } from '../../services/AuthGuards/report-detail-authguard.service';
 import { AddVolunteerComponent } from '../../admin/volunteer/add-volunteer/add-volunteer.component';
 import { VolunteerManagerComponent } from '../../admin/volunteer/volunteer-manager/volunteer-manager.component';
+import { MembersManagerComponent } from '../../admin/members/members-manager/members-manager.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -15,6 +16,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'admin/add-volunteer', component: AddVolunteerComponent, canActivate: [AdminAuthGuard]},
     { path: 'admin/volunteer/:id', component: VolunteerManagerComponent, canActivate: [AdminAuthGuard]},
     { path: 'admin/volunteer', component: VolunteerManagerComponent, canActivate: [AdminAuthGuard]},
+    { path: 'admin/member/:id', component: MembersManagerComponent, canActivate: [AdminAuthGuard]},
+    { path: 'admin/member', component: MembersManagerComponent, canActivate: [AdminAuthGuard]},
 
     
     { path: 'volunteer/mark-attendance', component: MarkAttendanceComponent, canActivate: [VolunteerAuthGuard, ReportDetailAuthguard]},

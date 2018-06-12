@@ -1,0 +1,126 @@
+<div class="card-header">
+  <h5 class="title">Add New Member</h5>
+</div>
+
+<form #f="ngForm" (ngSubmit)="submit(f.value)" autocomplete="nope">
+  <div class="card-body">
+
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <select placeholder="Select" ngModel name="campus" class="form-control custom-select select-box">
+          <option style="color: lightgray" value="" disabled selected>- Select Campus -</option>
+          <option value="1">Grace Airport</option>
+          <option value="2">Grace Central</option>
+          <option value="3">Grace North</option>
+          <option value="4">Grace South</option>
+        </select>
+      </div>
+    </div>
+    
+    <!-- FullName -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group" [ngClass]="{'input-group-focus':focus0===true}">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="now-ui-icons users_circle-08"></i>
+            </span>
+          </div>
+          <input type="text" required [(ngModel)]="member.name" name="name" #fullname="ngModel" class="form-control" placeholder="*Full Name..." (focus)="focus0=true"
+            (blur)="focus0=false">
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="fullname.dirty && !fullname.valid && !fullname.value==''" class="error">
+      This feild must not be empty!
+    </div>
+    <!-- #FullName -->
+
+    <!-- Email -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="now-ui-icons ui-1_email-85"></i>
+            </span>
+          </div>
+          <input [(ngModel)]="member.email" name="email" #email="ngModel" type="text" class="form-control" placeholder="Email Address..." pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}"
+            (focus)="focus1=true" (blur)="focus1=false">
+        </div>
+      </div>
+    </div>
+    <div *ngIf="email.dirty && !email.valid && !email.value==''" class="error">
+      Email is incorrect.
+    </div>
+    <!-- #Email -->
+
+    <!-- Contact No-->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group" [ngClass]="{'input-group-focus':focus5===true}">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="now-ui-icons tech_mobile"></i>
+            </span>
+          </div>
+          <input [(ngModel)]="member.contact" name="contact" #contact="ngModel" type="number" class="form-control" placeholder="Contact No..." pattern="[789][0-9]{9}"
+            (focus)="focus5=true" (blur)="focus5=false">
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="contact.dirty && !contact.valid && !contact.value==''" class="error">
+      Contact should be a 10 digit no.
+    </div>
+    <!-- #Contact No -->
+
+    <!-- Address -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="input-group" [ngClass]="{'input-group-focus':focus6===true}">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="now-ui-icons shopping_shop"></i>
+            </span>
+          </div>
+          <input [(ngModel)]="member.address" name="address" #address="ngModel" type="text" class="form-control" placeholder="Address..." (focus)="focus6=true" (blur)="focus6=false">
+        </div>
+      </div>
+    </div>
+    <!-- #Address -->
+
+    <!-- Gender -->
+    <div class="row">
+      <div class="form-check form-check-radio col-md-3">
+        <label class="form-check-label">
+          <input [(ngModel)]="member.gender" class="form-check-input" type="radio" name="gender" id="m" value="m" >
+            Male
+          <span class="form-check-sign"></span>
+        </label>
+      </div>
+      <div class="form-check form-check-radio col-md-3">
+        <label class="form-check-label">
+          <input [(ngModel)]="member.gender" class="form-check-input" type="radio" name="gender" id="f" value="f">
+            Female
+          <span class="form-check-sign"></span>
+        </label>
+      </div>
+    </div>
+    <!-- #Gender -->
+
+    <!-- Submit Btn -->
+    <div class="row">
+      <div class="col-md-6">
+        <button class="pull-right btn btn-danger btn-round" type="submit">
+          {{submitBtn}}
+          <img *ngIf="isLoading" src="../../../../assets/img/tail-spin.svg" class="pull-right"/>
+        </button>
+        
+      </div>
+    </div>
+    <!-- #Submit Btn -->
+
+  </div>
+</form>
