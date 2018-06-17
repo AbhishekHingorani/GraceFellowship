@@ -18,6 +18,7 @@ import { MembersManagerComponent } from '../../admin/members/members-manager/mem
 import { ViewMembersComponent } from '../../admin/members/view-members/view-members.component';
 import { AddMemberComponent } from '../../admin/members/add-member/add-member.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
+import { InstrumentsComponent } from '../../admin/instruments/instruments.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2
     MembersManagerComponent,
     ViewMembersComponent,
     AddMemberComponent,
+    InstrumentsComponent
   ]
 })
 

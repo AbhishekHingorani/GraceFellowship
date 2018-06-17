@@ -12,8 +12,9 @@ export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'design_app', class: '', type: 'all' },
     
     //----Admin Routes----//
-    { path: '/admin/volunteer', title: 'Volunteer',  icon: 'design_app', class: '', type: 'admin' },
-    { path: '/admin/member', title: 'Member',  icon: 'design_app', class: '', type: 'admin' },
+    { path: '/admin/volunteer', title: 'Volunteer',  icon: 'sport_user-run', class: '', type: 'admin' },
+    { path: '/admin/member', title: 'Member',  icon: 'users_single-02', class: '', type: 'admin' },
+    { path: '/admin/instruments', title: 'Instruments',  icon: 'media-2_note-03', class: '', type: 'admin' },
 
     //----Volunteer Routes----//
     { path: '/volunteer/report-detail', title: 'Report Detail',  icon: 'design_app', class: '', type: 'volunteer' },

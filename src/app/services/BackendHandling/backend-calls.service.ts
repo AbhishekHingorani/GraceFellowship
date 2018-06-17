@@ -44,6 +44,8 @@ export class BackEndCalls
     return this.http.get(this.URL + '/admin/campuses')
   }
 
+  /*--------------*/
+
   getBatchMembersOfCampus(campusId){
     return this.http.get(this.URL + '/admin/campus/' + campusId + '/batch_members');
   }
@@ -52,14 +54,37 @@ export class BackEndCalls
     return this.http.get(this.URL + '/admin/campus/' + memberId)
   }
 
-  deleteMember(memberId){
-    return this.http.delete(this.URL + '/admin/campus/' + memberId)
+  deleteMember(campusId, memberId){
+    return this.http.delete(this.URL + '/admin/campus/' + campusId + '/batch_member/' + memberId)
   }
 
   editMember(id, data){
     return this.http.patch(this.URL + "/admin/volunteer/" + id, data)
   }
 
+  addMember(campusId, data){
+    return this.http.post(this.URL + '/admin/campus/' + campusId + '/batch_member', data);
+  }
+
+  /*--------------*/
+
+  getAllInstrumentOfCampus(campusId){
+    return this.http.get(this.URL + '/admin/campus/' + campusId + '/instruments');
+  }
+
+  deleteInstrument(campusId, instrumentId){
+    return this.http.delete(this.URL + '/admin/campus/' + campusId + '/instrument/' + instrumentId)
+  }
+
+  addInstrument(campusId, data){
+    return this.http.post(this.URL + '/admin/campus/' + campusId + '/instrument', data);
+  }
+
+  editInstrument(campusId, insId, data){
+    return this.http.patch(this.URL + '/admin/campus/' + campusId + '/instrument/' + insId, data);
+  }
+
+  /*--------------*/
 
   getURL(){
     return this.URL;

@@ -2,6 +2,8 @@
   <h5 class="title">Add New Member</h5>
 </div>
 
+<div *ngIf="campusLoading" class="loading"></div>
+
 <form #f="ngForm" (ngSubmit)="submit(f.value)" autocomplete="nope">
   <div class="card-body">
 
@@ -9,10 +11,7 @@
       <div class="col-md-6 form-group">
         <select placeholder="Select" ngModel name="campus" class="form-control custom-select select-box">
           <option style="color: lightgray" value="" disabled selected>- Select Campus -</option>
-          <option value="1">Grace Airport</option>
-          <option value="2">Grace Central</option>
-          <option value="3">Grace North</option>
-          <option value="4">Grace South</option>
+          <option *ngFor="let campus of campusList" [value]="campus.id" >{{campus.name}}</option>
         </select>
       </div>
     </div>

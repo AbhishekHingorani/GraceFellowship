@@ -5,6 +5,7 @@ import { MemberModel } from "../../../interfaces/MemberModel";
 import { BackEndCalls } from "../../../services/BackendHandling/backend-calls.service";
 import { Subject } from 'rxjs';
 import PerfectScrollbar from 'perfect-scrollbar';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'view-members',
@@ -17,38 +18,14 @@ export class ViewMembersComponent implements OnInit {
   dtElement: DataTableDirective;
 
   members: MemberModel[] = [];
-  m: MemberModel[] = [
-    {
-      id: '1',
-      name: 'aa',
-      gender: 'm',
-      email: 'aaa',
-      contact: '55',
-      address: 'aa'
-    },
-    {
-      id: '2',
-      name: 'bb',
-      gender: 'f',
-      email: 'aaa',
-      contact: '55',
-      address: 'aa'
-    },
-    {
-      id: '3',
-      name: 'cc',
-      gender: 'm',
-      email: 'aaa',
-      contact: '55',
-      address: 'aa'
-    }
-  ];
-
+  
   dtOptions: any = {};
   dtTrigger: Subject<MemberModel> = new Subject();  
   campusList = [];
+  currentlySelectedCampusId: string;
   settings = {};
   isLoading: boolean = true;
+  isTableLoadingForTheFirstTime: boolean = true;
   
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private service: BackEndCalls) { }
 
@@ -65,22 +42,34 @@ export class ViewMembersComponent implements OnInit {
       this.settings = {singleSelection: true, text:"Select Campus"};
       this.isLoading = false;
       console.log(this.campusList);
-
-
-      this.members = this.m;
-      this.dtTrigger.next();
     })
-
-    
   }
     
   onItemSelect(item:any){
-    this.service.getBatchMembersOfCampus(item.id)
+    this.isLoading = true;
+    this.fetchBatchMembers(item.id);
+    this.currentlySelectedCampusId = item.id;
+  }
+
+  fetchBatchMembers(id){
+    this.service.getBatchMembersOfCampus(id)
     .subscribe((data: MemberModel[]) => {
-      if(data) console.log(data);
-      //console.log(data);
-      //this.members = data;
-      //  this.dtTrigger.next();
+      //this.members = JSON.parse(JSON.stringify(data)).batch_members;
+      this.members = data;
+      console.log(this.members);
+      
+      if(this.isTableLoadingForTheFirstTime){
+        this.dtTrigger.next();
+        this.isTableLoadingForTheFirstTime = false;
+      }
+      else
+        this.rerenderTable();
+
+      this.isLoading = false;
+    },
+    error => {
+      this.isLoading = false;
+      swal('Error', 'Some error occured fetching the data..', 'error');
     });
   }
 
@@ -92,7 +81,7 @@ export class ViewMembersComponent implements OnInit {
     this.rerenderTable();
     
     //Sending delete request to server
-    this.service.deleteMember(id)
+    this.service.deleteMember(this.currentlySelectedCampusId, id)
     .subscribe(data => {
       console.log(data);
     });

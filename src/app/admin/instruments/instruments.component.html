@@ -1,0 +1,94 @@
+<div class="panel-header panel-header-sm">
+</div>
+
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="card">
+
+        <div class="card-header">
+          <h5 class="title">Instruments List</h5>
+        </div>
+
+        <div *ngIf="isLoading" class="loading"></div>                  
+        
+        <div class="card-body">
+      
+          <div class="container">
+           
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <select 
+                  placeholder="Select" 
+                  ngModel 
+                  (change)="onCampusChange($event.target.value)" 
+                  name="campus" 
+                  class="form-control custom-select select-box"
+                >
+                  <option style="color: lightgray" value="" disabled selected>- Select Campus -</option>
+                  <option *ngFor="let campus of campusList" [value]="campus.id" >{{campus.name}}</option>
+                </select>
+              </div>
+            </div>
+
+            <br>
+
+
+            <div *ngIf="selectedCampusId != ''">
+              <div style="font-size: 12px" class="text-muted">Current Instruments:</div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  
+                  <ul class="list-group">
+                    <li
+                      *ngFor="let instrument of instrumentList" 
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      <a 
+                        style="cursor: pointer;"
+                        [swal]="{ title: 'Edit Instrument', input: 'text', inputValue: instrument.name, showCancelButton: true, confirmButtonColor: '#dc3545'}"
+                        (confirm)="editInstrument(instrument.id, $event)"
+                      >
+                        {{instrument.name}}
+                      </a>
+                      <span 
+                        (click)="deleteInstrument(instrument.id);" 
+                        class="badge badge-danger badge-pill"
+                        style="cursor: pointer;"
+                      >
+                        <i style="padding:5px" class="far fa-trash-alt"></i>
+                      </span>
+                    </li>
+                  </ul>
+
+                </div>
+
+              </div>
+              <br>
+              <div class="row">
+                  <div class="col-md-5">
+                      <div class="form-group">
+                          <input [(ngModel)]="newInstrumentName" type="text" value="" placeholder="Add New Instrument..." class="form-control" />
+                      </div>
+                  </div>
+    
+                  <div class="col-md-1">
+                    <button class="bttn pull-right btn-round"
+                      (click)="addInstrument()"
+                    >
+                        {{submitBtn}}
+                        <img *ngIf="isAddInstrumentLoading" src="../../../../assets/img/tail-spin.svg" class="pull-right"/>
+                      </button>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

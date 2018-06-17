@@ -3,6 +3,7 @@ import { MemberModel } from "../../../interfaces/MemberModel";
 import { BackEndCalls } from '../../../services/BackendHandling/backend-calls.service';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/combineLatest';
 import swal from 'sweetalert2';
 
 @Component({
@@ -16,7 +17,9 @@ export class AddMemberComponent implements OnInit {
   submitBtn: string = "Add";
   isEdit: boolean;
   isLoading: boolean = false;
+  campusLoading: boolean = true;
   id: string;
+  campusList;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private service: BackEndCalls) { }
 
@@ -46,38 +49,56 @@ export class AddMemberComponent implements OnInit {
       if (event instanceof NavigationEnd) { 
         //if routing is complete, then fetch volunteer's data
         if(this.isEdit){ 
+          console.log("idhar aya toh sahi");
           this.submitBtn = "Edit";
           this.service.getMember(this.id)
             .subscribe((data: MemberModel) => this.member = data);
         }
       }
-    });  
+    });
+
+    //getting list of campuses
+    this.service.getAllCampuses()
+    .subscribe(data => {
+      this.campusList = data;
+      this.campusLoading = false;
+      console.log(this.campusList);
+    })
   }
 
   submit(formValues){
     this.toggleLoading();
-    let data = JSON.stringify(formValues);
 
-    console.log(data);
-    
     //If isEdit is false then send request to add the member else to edit.
-    // if(this.isEdit == false){
-    //   this.service.addVolunteer(data)
-    //   .subscribe(response => {
-    //     if(response >= 1)
-    //       swal('Success', 'Volunteer Added Successfully', 'success');
-    //       this.toggleLoading();
-    //   });
-    // }
-    // else{
-    //   this.service.editVolunteer(this.id, data)
-    //   .subscribe(response => {
-    //     console.log(response == 1);
-    //     if(response >= 1)
-    //       swal('Success', 'Volunteer Edited Successfully', 'success');
-    //       this.toggleLoading();
-    //   })
-    // }
+    if(this.isEdit == false){
+      let campusId = formValues.campus;
+      delete formValues.campus;
+      
+      this.service.addMember(campusId, formValues)
+      .subscribe(response => {
+        if(response >= 1)
+          swal('Success', 'Member Added Successfully', 'success');
+          this.toggleLoading();
+          
+          this.member = {
+            id: '',
+            name: '',
+            email: '',
+            contact: '',
+            gender: '',
+            address: ''
+          }
+      });
+    }
+    else{
+        // this.service.editVolunteer(this.id, data)
+        // .subscribe(response => {
+        //   console.log(response == 1);
+        //   if(response >= 1)
+        //     swal('Success', 'Volunteer Edited Successfully', 'success');
+        //     this.toggleLoading();
+        // })
+    }
     
   }
 
