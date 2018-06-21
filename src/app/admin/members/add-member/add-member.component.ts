@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
 import swal from 'sweetalert2';
+import { DataStorage } from '../../../services/Providers/DataStorage';
 
 @Component({
   selector: 'add-member',
@@ -18,10 +19,15 @@ export class AddMemberComponent implements OnInit {
   isEdit: boolean;
   isLoading: boolean = false;
   campusLoading: boolean = true;
-  id: string;
   campusList;
+  campusId: string;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private service: BackEndCalls) { }
+  constructor(
+    private router: Router, 
+    private activatedRoute: ActivatedRoute, 
+    private service: BackEndCalls,
+    private storage: DataStorage,
+  ) { }
 
   ngOnInit() {
     this.member = {
@@ -33,36 +39,33 @@ export class AddMemberComponent implements OnInit {
       address: ''
     }
 
-    //This function combines multiple Observables
-    Observable.combineLatest([
-      this.activatedRoute.paramMap,
-      this.activatedRoute.queryParamMap
-    ])
+    this.activatedRoute.queryParamMap
     .subscribe(params => {
-      this.id = params[0].get("id"); //getting id from URL 
-      console.log("edit : " + this.id);
-      this.isEdit = Boolean(params[1].get("edit")); //Saving 'Edit' query param if available
+      this.isEdit = Boolean(params.get("edit")); //Saving 'Edit' query param if available
+      this.campusId = params.get("campusId");
     });
 
-    //checking if routing is complete and this.activatedRoute.snapshot is up to date
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) { 
-        //if routing is complete, then fetch volunteer's data
-        if(this.isEdit){ 
-          console.log("idhar aya toh sahi");
-          this.submitBtn = "Edit";
-          this.service.getMember(this.id)
-            .subscribe((data: MemberModel) => this.member = data);
-        }
-      }
-    });
+    if(this.storage.campusList == null){
+      this.getCampusList();
+    }
+    else{
+      this.campusList = this.storage.campusList;
+      this.campusLoading = false;   
+    }
 
+    if(this.isEdit && this.member != null){
+      this.submitBtn = "Edit";
+      this.member = this.storage.member;
+    }
+  }
+
+  getCampusList(){
     //getting list of campuses
     this.service.getAllCampuses()
     .subscribe(data => {
       this.campusList = data;
+      this.storage.campusList = this.campusList;
       this.campusLoading = false;
-      console.log(this.campusList);
     })
   }
 
@@ -91,13 +94,13 @@ export class AddMemberComponent implements OnInit {
       });
     }
     else{
-        // this.service.editVolunteer(this.id, data)
-        // .subscribe(response => {
-        //   console.log(response == 1);
-        //   if(response >= 1)
-        //     swal('Success', 'Volunteer Edited Successfully', 'success');
-        //     this.toggleLoading();
-        // })
+        this.service.editMember(this.campusId, this.member)
+        .subscribe(response => {
+          console.log(response == 1);
+          if(response >= 1)
+            swal('Success', 'Member Edited Successfully', 'success');
+            this.toggleLoading();
+        })
     }
     
   }

@@ -50,16 +50,16 @@ export class BackEndCalls
     return this.http.get(this.URL + '/admin/campus/' + campusId + '/batch_members');
   }
 
-  getMember(memberId){
-    return this.http.get(this.URL + '/admin/campus/' + memberId)
+  getMember(campusId, memberId){
+    return this.http.get(this.URL + '/admin/campus/' + campusId + '/batch_member/' + memberId)
   }
 
   deleteMember(campusId, memberId){
     return this.http.delete(this.URL + '/admin/campus/' + campusId + '/batch_member/' + memberId)
   }
 
-  editMember(id, data){
-    return this.http.patch(this.URL + "/admin/volunteer/" + id, data)
+  editMember(campusId, data){
+    return this.http.patch(this.URL + '/admin/campus/' + campusId + '/batch_member/' + data.id, data)
   }
 
   addMember(campusId, data){
@@ -82,6 +82,24 @@ export class BackEndCalls
 
   editInstrument(campusId, insId, data){
     return this.http.patch(this.URL + '/admin/campus/' + campusId + '/instrument/' + insId, data);
+  }
+
+  /*--------------*/
+
+  getAllDonationCategories(campusId){
+    return this.http.get(this.URL + '/admin/campus/' + campusId + '/donation_category');
+  }
+
+  deleteDonationCategory(campusId, donationCatId){
+    return this.http.delete(this.URL + '/admin/campus/' + campusId + '/donation_category/' + donationCatId)
+  }
+
+  addDonationCategory(campusId, data){
+    return this.http.post(this.URL + '/admin/campus/' + campusId + '/donation_category', data);
+  }
+
+  editDonationCategory(campusId, donationCatId, data){
+    return this.http.patch(this.URL + '/admin/campus/' + campusId + '/donation_category/' + donationCatId, data);
   }
 
   /*--------------*/

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BackEndCalls } from '../../services/BackendHandling/backend-calls.service';
 import swal from 'sweetalert2';
+import { DataStorage } from '../../services/Providers/DataStorage';
 
 @Component({
   selector: 'instruments',
@@ -18,14 +19,28 @@ export class InstrumentsComponent implements OnInit {
   isAddInstrumentLoading = false;
   newInstrumentName: string = "";
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private service: BackEndCalls) { }
+  constructor(
+    private router: Router, 
+    private storage: DataStorage, 
+    private service: BackEndCalls
+  ) { }
 
   ngOnInit() {
+    if(this.storage.campusList == null){
+      this.getCampusList();
+    }
+    else{
+      this.campusList = this.storage.campusList;
+      this.isLoading = false;   
+    }
+  }
+
+  getCampusList(){
     this.service.getAllCampuses()
     .subscribe(data => {
       this.campusList = data;
+      this.storage.campusList = this.campusList;
       this.isLoading = false;
-      console.log(this.campusList);
     })
   }
 

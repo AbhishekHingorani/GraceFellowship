@@ -15,6 +15,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/admin/volunteer', title: 'Volunteer',  icon: 'sport_user-run', class: '', type: 'admin' },
     { path: '/admin/member', title: 'Member',  icon: 'users_single-02', class: '', type: 'admin' },
     { path: '/admin/instruments', title: 'Instruments',  icon: 'media-2_note-03', class: '', type: 'admin' },
+    { path: '/admin/donationCategories', title: 'Donation Categories',  icon: 'design_bullet-list-67', class: '', type: 'admin' },
 
     //----Volunteer Routes----//
     { path: '/volunteer/report-detail', title: 'Report Detail',  icon: 'design_app', class: '', type: 'volunteer' },

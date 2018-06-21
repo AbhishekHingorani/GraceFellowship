@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { MemberModel } from "../../../interfaces/MemberModel";
 import { BackEndCalls } from "../../../services/BackendHandling/backend-calls.service";
+import { DataStorage } from "../../../services/Providers/DataStorage";
 import { Subject } from 'rxjs';
 import PerfectScrollbar from 'perfect-scrollbar';
 import swal from 'sweetalert2';
@@ -21,13 +22,17 @@ export class ViewMembersComponent implements OnInit {
   
   dtOptions: any = {};
   dtTrigger: Subject<MemberModel> = new Subject();  
-  campusList = [];
+  campusList;
   currentlySelectedCampusId: string;
   settings = {};
   isLoading: boolean = true;
   isTableLoadingForTheFirstTime: boolean = true;
   
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private service: BackEndCalls) { }
+  constructor(
+    private router: Router, 
+    private storage: DataStorage,
+    private service: BackEndCalls
+  ) { }
 
   ngOnInit() {
     this.dtOptions = {
@@ -36,12 +41,25 @@ export class ViewMembersComponent implements OnInit {
       pageLength: 10
     };
 
-    this.service.getAllCampuses()
-    .subscribe(data => {
+    if(this.storage.campusList == null){
+      this.getCampusList();
+    }
+    else{
+      let data = this.storage.campusList;
       this.campusList = JSON.parse(JSON.stringify(data).split('"name":').join('"itemName":'));
-      this.settings = {singleSelection: true, text:"Select Campus"};
+      this.isLoading = false;   
+      console.log("loaded without call");
+    }
+   
+    this.settings = {singleSelection: true, text:"Select Campus"};
+  }
+
+  getCampusList(){
+    this.service.getAllCampuses()
+    .subscribe((data: any[]) => {
+      this.campusList = JSON.parse(JSON.stringify(data).split('"name":').join('"itemName":'));
+      this.storage.campusList = data;
       this.isLoading = false;
-      console.log(this.campusList);
     })
   }
     
@@ -96,10 +114,9 @@ export class ViewMembersComponent implements OnInit {
     });
   }
 
-  editMember(id: string){
-    
-    console.log(id);
-  
-    this.router.navigate(['/admin/member',id], { queryParams: { tab: 'add', edit: 'true'} });
+  editMember(member){
+    this.storage.member = member;
+    let id = member.id;
+    this.router.navigate(['/admin/member',id], { queryParams: { tab: 'add', edit: 'true', campusId: this.currentlySelectedCampusId} });
   }
 }

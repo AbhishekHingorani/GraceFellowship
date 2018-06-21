@@ -21,6 +21,7 @@ import { BackEndCalls } from "./services/BackendHandling/backend-calls.service";
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { ReportDetailsService } from './volunteer/report-details.sevice';
 import { ReportDetailAuthguard } from './services/AuthGuards/report-detail-authguard.service';
+import { DataStorage } from './services/Providers/DataStorage';
 
 const jwtConf = {
   config: {
@@ -59,7 +60,7 @@ export function tokenGetter() {
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    NoAccessComponent,
+    NoAccessComponent
   ],
   providers: [
     AuthService,
@@ -67,7 +68,7 @@ export function tokenGetter() {
     BackEndCalls,
     ReportDetailsService,
     ReportDetailAuthguard,
-
+    DataStorage
   ],
   bootstrap: [AppComponent]
 })

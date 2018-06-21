@@ -19,6 +19,7 @@ import { ViewMembersComponent } from '../../admin/members/view-members/view-memb
 import { AddMemberComponent } from '../../admin/members/add-member/add-member.component';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 import { InstrumentsComponent } from '../../admin/instruments/instruments.component';
+import { ManageDonationCategoriesComponent } from '../../admin/manage-donation-categories/manage-donation-categories.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { InstrumentsComponent } from '../../admin/instruments/instruments.compon
     MembersManagerComponent,
     ViewMembersComponent,
     AddMemberComponent,
-    InstrumentsComponent
+    InstrumentsComponent,
+    ManageDonationCategoriesComponent
   ]
 })
 

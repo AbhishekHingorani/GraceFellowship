@@ -10,6 +10,7 @@ import { AddVolunteerComponent } from '../../admin/volunteer/add-volunteer/add-v
 import { VolunteerManagerComponent } from '../../admin/volunteer/volunteer-manager/volunteer-manager.component';
 import { MembersManagerComponent } from '../../admin/members/members-manager/members-manager.component';
 import { InstrumentsComponent } from '../../admin/instruments/instruments.component';
+import { ManageDonationCategoriesComponent } from '../../admin/manage-donation-categories/manage-donation-categories.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -20,6 +21,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'admin/member/:id', component: MembersManagerComponent, canActivate: [AdminAuthGuard]},
     { path: 'admin/member', component: MembersManagerComponent, canActivate: [AdminAuthGuard]},
     { path: 'admin/instruments', component: InstrumentsComponent, canActivate: [AdminAuthGuard]},
+    { path: 'admin/donationCategories', component: ManageDonationCategoriesComponent, canActivate: [AdminAuthGuard]},
 
     
     { path: 'volunteer/mark-attendance', component: MarkAttendanceComponent, canActivate: [VolunteerAuthGuard, ReportDetailAuthguard]},
