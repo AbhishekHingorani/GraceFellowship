@@ -36,7 +36,8 @@ export class AddMemberComponent implements OnInit {
       email: '',
       contact: '',
       gender: '',
-      address: ''
+      address: '',
+      active: false,
     }
 
     this.activatedRoute.queryParamMap
@@ -53,7 +54,7 @@ export class AddMemberComponent implements OnInit {
       this.campusLoading = false;   
     }
 
-    if(this.isEdit && this.member != null){
+    if(this.isEdit && this.storage.member != null){
       this.submitBtn = "Edit";
       this.member = this.storage.member;
     }
@@ -89,7 +90,8 @@ export class AddMemberComponent implements OnInit {
             email: '',
             contact: '',
             gender: '',
-            address: ''
+            address: '',
+            active: false
           }
       });
     }

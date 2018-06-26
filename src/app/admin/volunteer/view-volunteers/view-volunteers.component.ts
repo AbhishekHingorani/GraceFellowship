@@ -4,6 +4,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { VolunteerModel } from "../../../interfaces/VolunteerModel";
 import { BackEndCalls } from "../../../services/BackendHandling/backend-calls.service";
 import { Subject } from 'rxjs';
+import { DataStorage } from '../../../services/Providers/DataStorage';
 
 
 @Component({
@@ -21,7 +22,11 @@ export class ViewVolunteersComponent implements OnInit {
   dtTrigger: Subject<VolunteerModel> = new Subject();  
   isLoading: boolean = true;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private service: BackEndCalls) { }
+  constructor(
+    private router: Router, 
+    private storage: DataStorage,
+    private service: BackEndCalls
+  ) { }
 
   ngOnInit() {
     this.dtOptions = {
@@ -62,10 +67,8 @@ export class ViewVolunteersComponent implements OnInit {
     });
   }
 
-  editVolunteer(id: string){
-    
-    console.log(id);
-  
-    this.router.navigate(['/admin/volunteer',id], { queryParams: { tab: 'add', edit: 'true'} });
+  editVolunteer(volunteer){
+    this.storage.volunteer = volunteer;
+    this.router.navigate(['/admin/volunteer',volunteer.id], { queryParams: { tab: 'add', edit: 'true'} });
   }
 }

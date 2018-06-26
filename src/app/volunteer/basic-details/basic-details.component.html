@@ -1,0 +1,81 @@
+<div class="card-header">
+  <h5 class="title">Edit Basic Details</h5>
+</div>
+
+<div class="card-body">
+  <form #f="ngForm"  (ngSubmit)="submit(f.value)">
+    <div class="row">
+
+      <!-- Date -->
+      <div class="form-group col-sm-4">
+        <label for="datePicker">&nbsp;&nbsp;&nbsp;Date: </label>
+        <div class="datepicker-container">
+          <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-calendar-alt"></i>
+              </span>
+            </div>
+            <input id="datePicker" class="form-control datetimepicker" placeholder="Enter Date..." name="date" [(ngModel)]="storage.selectedReport.report.dateModel" ngbDatepicker
+              #d="ngbDatepicker" (click)="d.toggle()" (focus)="focus1=true" (blur)="focus1=false">
+          </div>
+        </div>
+      </div>
+      <!-- End: Date  -->
+
+
+      <!-- Time -->
+      <div class="form-group col-sm-4">
+        <label for="time">&nbsp;&nbsp;&nbsp;Beginning Time: </label>
+        <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-clock"></i>
+              <!-- Time:  -->
+            </span>
+          </div>
+          <input [(ngModel)]="storage.selectedReport.report.begining.start" name="beginTime" type="time" class="form-control" (focus)="focus=true" (blur)="focus=false">
+        </div>
+      </div>
+      <!-- End: Time -->
+
+    </div>
+
+    <!-- Language -->
+    <div class="row">
+      <div class="col-md-8 form-group">
+        <label for="">&nbsp;&nbsp;&nbsp;Language:</label>
+        <select [(ngModel)]="storage.selectedReport.report.language" name="language" class="form-control custom-select select-box">
+          <option value="English">English</option>
+          <option value="Hindi">Hindi</option>
+          <option value="Gujarati">Gujarati</option>
+        </select>
+      </div>
+    </div>
+    <!-- End: Language -->
+
+    <!-- Report Filed by -->
+    <div class="row">
+      <div class="col-md-8 form-group">
+        <label for="incharge">&nbsp;&nbsp;&nbsp;Report filed by: </label>
+        <input [(ngModel)]="storage.selectedReport.report.filedby" name="filedBy" id="incharge" type="text" class="form-control">
+      </div>
+    </div>
+    <!-- END : Report filer by -->
+
+    <!-- Prayer -->
+    <div class="row">
+      <div class="col-md-8 form-group">
+        <label for="Prayer">&nbsp;&nbsp;&nbsp;Beginning Prayer: </label>
+        <input [(ngModel)]="storage.selectedReport.report.begining.prayer" name="prayer" id="Prayer" type="text" class="form-control">
+      </div>
+    </div>
+    <!-- END : Prayer -->
+
+    <div class="row">
+      <div class="col-md-8">
+        <button type="submit" class="btn btn-danger btn-round pull-right">Edit</button>
+      </div>
+    </div>
+  </form>
+</div>

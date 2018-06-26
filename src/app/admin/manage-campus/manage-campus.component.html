@@ -1,0 +1,176 @@
+<div class="panel-header panel-header-sm">
+</div>
+
+<div class="main-content">
+  <div class="row">
+
+    <div class="col-md-4">
+
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Change Password</h5>
+        </div>
+
+        <div *ngIf="isLoading" class="loading"></div>
+
+        <div class="card-body">
+
+
+          <ul class="list-group">
+            <li *ngFor="let campus of campusList" class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                {{campus.name}}
+              </div>
+              <span (click)="changePassword(campus);" class="badge badge-danger badge-pill" style="cursor: pointer;">
+                <i style="padding:5px" class="fas fa-cog"></i>
+              </span>
+            </li>
+          </ul>
+
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-8">
+
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">Add New Campus</h5>
+        </div>
+
+        <div class="card-body">
+
+          <form #f="ngForm">
+
+            <!-- Username -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="input-group" [ngClass]="{'input-group-focus':focus0===true}">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      c-
+                    </span>
+                  </div>
+                  <input type="text" required ngModel name="username" #username="ngModel" class="form-control" placeholder="*User Name..."
+                    (focus)="focus0=true" (blur)="focus0=false">
+                </div>
+              </div>
+            </div>
+            <div *ngIf="username.dirty && !username.valid && !username.value==''" class="error">
+              This field must not be empty!
+            </div>
+            <!-- #Username -->
+
+            <!-- FullName -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="now-ui-icons users_circle-08"></i>
+                    </span>
+                  </div>
+                  <input type="text" required ngModel name="name" #fullname="ngModel" class="form-control" placeholder="*Campus Name..." (focus)="focus1=true"
+                    (blur)="focus1=false">
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="fullname.dirty && !fullname.valid && !fullname.value==''" class="error">
+              This feild must not be empty!
+            </div>
+            <!-- #FullName -->
+
+            <!-- FullName -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="input-group" [ngClass]="{'input-group-focus':focus4===true}">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="now-ui-icons location_pin"></i>
+                    </span>
+                  </div>
+                  <input type="text" required ngModel name="address" #address="ngModel" class="form-control" placeholder="*Address..." (focus)="focus4=true"
+                    (blur)="focus4=false">
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="address.dirty && !address.valid && !address.value==''" class="error">
+              This feild must not be empty!
+            </div>
+            <!-- #FullName -->
+
+            <!-- Password -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="input-group" [ngClass]="{'input-group-focus':focus2===true}">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="now-ui-icons objects_key-25"></i>
+                    </span>
+                  </div>
+                  <input ngModel name="password" required #password="ngModel" minlength="6" type="password" class="form-control" placeholder="*Password..."
+                  (focus)="focus2=true" (blur)="focus2=false" (input)="validatePassword(password.value, confirmPassword.value)">
+                </div>
+              </div>
+
+            </div>
+            <div *ngIf="password.dirty && !password.valid && !password.value==''" class="error">
+              Password should be minimum 6 character.
+            </div>
+            <!-- #Password -->
+
+
+            <!-- Confirm Password -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="input-group" [ngClass]="{'input-group-focus':focus3===true}">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="now-ui-icons objects_key-25"></i>
+                    </span>
+                  </div>
+                  <input ngModel name="confirmPassword" #confirmPassword="ngModel" required type="password" class="form-control" placeholder="*Confirm Password..."
+                    (focus)="focus3=true" (blur)="focus3=false" (input)="validatePassword(password.value, confirmPassword.value)">
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="!doesPasswordMatch" style="color: darkred; margin: -10px 0px 10px 10px">
+              Password fields don't match.
+            </div>
+            <!-- #Confirm Password -->
+
+            <!-- Submit Btn -->
+            <div class="row">
+              <div class="col-md-12">
+                <button 
+                  [disabled]="!f.valid || !doesPasswordMatch" 
+                  [swal]="{ 
+                    title: 'Confirm', 
+                    type: 'warning',
+                    text: 'Campus details once saved cannot be edited, so please check that all fields are correct before clicking submit', 
+                    showCancelButton: true, 
+                    confirmButtonText: 'submit'
+                  }"
+                  (confirm)="submit(f.value)"
+                  class="pull-right btn btn-danger btn-round" 
+                  type="submit">
+                  {{submitBtn}}
+                  <img *ngIf="isAddCampusLoading" src="../../../../assets/img/tail-spin.svg" class="pull-right" />
+                </button>
+
+              </div>
+            </div>
+            <!-- #Submit Btn -->
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

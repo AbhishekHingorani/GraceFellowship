@@ -1,0 +1,200 @@
+<div class="panel-header panel-header-md">
+  <div class="row">
+    <div class="col-11 col-sm-6  ">
+      <div *ngIf="storage.selectedReport" class="header-txt">
+        {{storage.selectedReport.report.date}} ~ {{storage.selectedReport.report.begining.start}} ~ {{storage.selectedReport.report.language}}</div>
+    </div>
+    <div class="col-1 col-sm-6  ">
+      <button (click)="open(reportsModal)" style="margin-right: 30px;" class="btn btn-outline-dark pull-right">
+        Select Report
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="main-content">
+
+    <div *ngIf="isLoading" class="loading"></div>  
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="card">
+
+        <ngb-tabset *ngIf="storage.selectedReport" #tabs="ngbTabset" type="tabs" justify="justified">
+
+          <ngb-tab id="basic">
+            <ng-template ngbTabTitle>
+              <div (click)="tabChange('basic')">Basic Details</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <basic-details></basic-details>
+            </ng-template>
+          </ngb-tab>
+
+
+          <ngb-tab id="attendance">
+            <ng-template ngbTabTitle>
+              <div (click)="tabChange('attendance')">Mark Attendance</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <mark-attendance></mark-attendance>
+            </ng-template>
+          </ngb-tab>
+
+
+        </ngb-tabset>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- =========================================================================== -->
+
+<ng-template #reportsModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Select / Delete Report: </h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div style="overflow-x:auto;">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Language</th>
+            <th>Filled By</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of reportsList">
+            <td>{{report.date}}</td>
+            <td>{{report.begining.start}}</td>
+            <td>{{report.language}}</td>
+            <td>{{report.filedby}}</td>
+            <td>
+              <a (click)="selectReport(report.id); c('selected')" style="color:#41a9f4; cursor: pointer;" placement="top" ngbTooltip="Select report">
+                <i class="far fa-edit"></i>
+              </a>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+            <a 
+              [swal]="{ 
+                title: 'Confirm', 
+                text: 'Are you sure you want to delete?',
+                showCancelButton: true, 
+                type: 'warning'
+              }"
+              (confirm)="deleteReport(report.id)" 
+              style="color: #f44141; cursor: pointer;" 
+              placement="top" 
+              ngbTooltip="Delete Report"
+            >
+              <i class="far fa-trash-alt"></i>
+            </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger btn-round" (click)="c('new'); open(content2)">New Report</button>
+  </div>
+</ng-template>
+
+
+<!-- ========================================================================================== -->
+
+<ng-template #content2 let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add New Report</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm">
+      <div class="row">
+      
+        <!-- Date -->
+        <div class="form-group col-sm-6 col-lg-6">
+          <label for="datePicker">&nbsp;&nbsp;&nbsp;Date: </label>
+          <div class="datepicker-container">
+            <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-calendar-alt"></i>
+                </span>
+              </div>
+              <input id="datePicker" class="form-control datetimepicker" placeholder="Enter Date..." name="date" [(ngModel)]="model" ngbDatepicker
+                #d="ngbDatepicker" (click)="d.toggle()" (focus)="focus1=true" (blur)="focus1=false">
+            </div>
+          </div>
+        </div>
+        <!-- End: Date  -->
+
+
+        <!-- Time -->
+        <div class="form-group col-sm-6 col-lg-6">
+          <label for="time">&nbsp;&nbsp;&nbsp;Beginning Time: </label>
+          <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-clock"></i>
+                <!-- Time:  -->
+              </span>
+            </div>
+            <input [(ngModel)]="time" name="beginTime" type="time" class="form-control" (focus)="focus=true" (blur)="focus=false">
+          </div>
+        </div>
+        <!-- End: Time -->
+
+      </div>
+
+      <!-- Language -->
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label for="">&nbsp;&nbsp;&nbsp;Language:</label>
+          <select ngModel name="language" class="form-control custom-select select-box">
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Gujarati">Gujarati</option>
+          </select>
+        </div>
+      </div>
+      <!-- End: Language -->
+
+      <!-- Report Filed by -->
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label for="incharge">&nbsp;&nbsp;&nbsp;Report filed by: </label>
+          <input ngModel name="filedBy" id="incharge" type="text" class="form-control">
+        </div>
+      </div>
+      <!-- END : Report filer by -->
+
+      <!-- Prayer -->
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label for="Prayer">&nbsp;&nbsp;&nbsp;Beginning Prayer: </label>
+          <input ngModel name="prayer" id="Prayer" type="text" class="form-control">
+        </div>
+      </div>
+      <!-- END : Prayer -->
+    
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button (click)="generateNewReport(f.value); c('C');" class="btn btn-danger btn-round">Save</button>
+  </div>
+</ng-template>

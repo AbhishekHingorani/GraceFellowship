@@ -83,6 +83,7 @@ export class ManageDonationCategoriesComponent implements OnInit {
   }
 
   onCampusChange(id){
+    this.isLoading = true;   
     this.selectedCampusId = id;
 
     this.service.getAllDonationCategories(id)

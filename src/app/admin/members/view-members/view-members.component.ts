@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { MemberModel } from "../../../interfaces/MemberModel";
 import { BackEndCalls } from "../../../services/BackendHandling/backend-calls.service";
@@ -24,7 +24,6 @@ export class ViewMembersComponent implements OnInit {
   dtTrigger: Subject<MemberModel> = new Subject();  
   campusList;
   currentlySelectedCampusId: string;
-  settings = {};
   isLoading: boolean = true;
   isTableLoadingForTheFirstTime: boolean = true;
   
@@ -45,28 +44,25 @@ export class ViewMembersComponent implements OnInit {
       this.getCampusList();
     }
     else{
-      let data = this.storage.campusList;
-      this.campusList = JSON.parse(JSON.stringify(data).split('"name":').join('"itemName":'));
+      this.campusList = this.storage.campusList;
       this.isLoading = false;   
-      console.log("loaded without call");
     }
    
-    this.settings = {singleSelection: true, text:"Select Campus"};
   }
 
   getCampusList(){
     this.service.getAllCampuses()
     .subscribe((data: any[]) => {
-      this.campusList = JSON.parse(JSON.stringify(data).split('"name":').join('"itemName":'));
+      this.campusList = data;
       this.storage.campusList = data;
       this.isLoading = false;
     })
   }
     
-  onItemSelect(item:any){
+  onItemSelect(id){
     this.isLoading = true;
-    this.fetchBatchMembers(item.id);
-    this.currentlySelectedCampusId = item.id;
+    this.fetchBatchMembers(id);
+    this.currentlySelectedCampusId = id;
   }
 
   fetchBatchMembers(id){
@@ -116,7 +112,6 @@ export class ViewMembersComponent implements OnInit {
 
   editMember(member){
     this.storage.member = member;
-    let id = member.id;
-    this.router.navigate(['/admin/member',id], { queryParams: { tab: 'add', edit: 'true', campusId: this.currentlySelectedCampusId} });
+    this.router.navigate(['/admin/member',member.id], { queryParams: { tab: 'add', edit: 'true', campusId: this.currentlySelectedCampusId} });
   }
 }

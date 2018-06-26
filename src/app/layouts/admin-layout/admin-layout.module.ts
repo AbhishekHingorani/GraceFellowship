@@ -10,7 +10,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { ToastrModule } from 'ngx-toastr';
 import { MarkAttendanceComponent } from '../../volunteer/mark-attendance/mark-attendance.component';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
-import { ReportDetailComponent } from '../../volunteer/report-detail/report-detail.component';
 import { AddVolunteerComponent } from '../../admin/volunteer/add-volunteer/add-volunteer.component';
 import { VolunteerManagerComponent } from '../../admin/volunteer/volunteer-manager/volunteer-manager.component';
 import { ViewVolunteersComponent } from '../../admin/volunteer/view-volunteers/view-volunteers.component';
@@ -20,6 +19,10 @@ import { AddMemberComponent } from '../../admin/members/add-member/add-member.co
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 import { InstrumentsComponent } from '../../admin/instruments/instruments.component';
 import { ManageDonationCategoriesComponent } from '../../admin/manage-donation-categories/manage-donation-categories.component';
+import { ManageCampusComponent } from '../../admin/manage-campus/manage-campus.component';
+import { TrusteeComponent } from '../../admin/trustee/trustee.component';
+import { ReportDetailsManagerComponent } from '../../volunteer/report-details-manager/report-details-manager.component';
+import { BasicDetailsComponent } from '../../volunteer/basic-details/basic-details.component';
 
 
 @NgModule({
@@ -42,7 +45,6 @@ import { ManageDonationCategoriesComponent } from '../../admin/manage-donation-c
   declarations: [
     DashboardComponent,
     MarkAttendanceComponent,
-    ReportDetailComponent,
     AddVolunteerComponent,
     VolunteerManagerComponent,
     ViewVolunteersComponent,
@@ -50,7 +52,12 @@ import { ManageDonationCategoriesComponent } from '../../admin/manage-donation-c
     ViewMembersComponent,
     AddMemberComponent,
     InstrumentsComponent,
-    ManageDonationCategoriesComponent
+    ManageDonationCategoriesComponent,
+    ManageCampusComponent,
+    TrusteeComponent,
+
+    ReportDetailsManagerComponent,
+    BasicDetailsComponent,
   ]
 })
 

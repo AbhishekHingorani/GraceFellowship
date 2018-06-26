@@ -83,6 +83,7 @@ export class InstrumentsComponent implements OnInit {
   }
 
   onCampusChange(id){
+    this.isLoading = true;   
     this.selectedCampusId = id;
 
     this.service.getAllInstrumentOfCampus(id)

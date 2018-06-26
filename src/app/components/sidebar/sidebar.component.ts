@@ -16,10 +16,11 @@ export const ROUTES: RouteInfo[] = [
     { path: '/admin/member', title: 'Member',  icon: 'users_single-02', class: '', type: 'admin' },
     { path: '/admin/instruments', title: 'Instruments',  icon: 'media-2_note-03', class: '', type: 'admin' },
     { path: '/admin/donationCategories', title: 'Donation Categories',  icon: 'design_bullet-list-67', class: '', type: 'admin' },
+    { path: '/admin/manageCampus', title: 'Campus',  icon: 'business_bank', class: '', type: 'admin' },
+    { path: '/admin/trustee', title: 'Trustee',  icon: 'education_agenda-bookmark', class: '', type: 'admin' },
 
     //----Volunteer Routes----//
-    { path: '/volunteer/report-detail', title: 'Report Detail',  icon: 'design_app', class: '', type: 'volunteer' },
-    { path: '/volunteer/mark-attendance', title: 'Mark Attendance',  icon: 'design_app', class: '', type: 'volunteer' },    
+    { path: '/campus/report-detail-manager', title: 'Report Detail',  icon: 'design_app', class: '', type: 'campus' },  
 ];
 
 @Component({
@@ -46,7 +47,11 @@ export class SidebarComponent implements OnInit {
   {
     if(this.authService.currentUser && (this.authService.currentUser.type == type || type=="all"))
         return true;
-    else 
-        return false;
+    else{
+        if(type=="campus" && this.authService.currentUser.type == "volunteer")
+            return true;
+        else
+            return false;
+    }
   }
 }

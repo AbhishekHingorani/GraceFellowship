@@ -7,6 +7,7 @@ import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import swal from 'sweetalert2';
+import { DataStorage } from '../../../services/Providers/DataStorage';
 
 @Component({
   selector: 'add-volunteer',
@@ -20,9 +21,13 @@ export class AddVolunteerComponent implements OnInit {
   submitBtn: string = "Add";
   isEdit: boolean;
   isLoading: boolean = false;
-  id: string;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private service: BackEndCalls) { }
+  constructor(
+    private router: Router, 
+    private activatedRoute: ActivatedRoute, 
+    private service: BackEndCalls,
+    private storage: DataStorage,
+  ) { }
 
   ngOnInit() {
     this.volunteer = {
@@ -34,28 +39,15 @@ export class AddVolunteerComponent implements OnInit {
       contact: ''
     }
 
-    //This function combines multiple Observables
-    Observable.combineLatest([
-      this.activatedRoute.paramMap,
-      this.activatedRoute.queryParamMap
-    ])
+    this.activatedRoute.queryParamMap
     .subscribe(params => {
-      this.id = params[0].get("id"); //getting id from URL 
-      console.log("edit : " + this.id);
-      this.isEdit = Boolean(params[1].get("edit")); //Saving 'Edit' query param if available
+      this.isEdit = Boolean(params.get("edit")); //Saving 'Edit' query param if available
     });
 
-    //checking if routing is complete and this.activatedRoute.snapshot is up to date
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) { 
-        //if routing is complete, then fetch volunteer's data
-        if(this.isEdit){ 
-          this.submitBtn = "Edit";
-          this.service.getVolunteer(this.id)
-            .subscribe((data: VolunteerModel) => this.volunteer = data);
-        }
-      }
-    });  
+    if(this.isEdit && this.storage.volunteer != null){
+      this.submitBtn = "Edit";
+      this.volunteer = this.storage.volunteer;
+    }
   }
 
   validatePassword(pass, pass2){
@@ -67,10 +59,9 @@ export class AddVolunteerComponent implements OnInit {
     (pass==pass2) ? this.doesPasswordMatch = false:this.doesPasswordMatch = true;
   }
 
-  submit(formValues){
+  submit(data){
     this.toggleLoading();
-    delete formValues.confirmPassword;
-    let data = JSON.stringify(formValues);
+    delete data.confirmPassword;
 
     console.log(data);
     
@@ -84,7 +75,7 @@ export class AddVolunteerComponent implements OnInit {
       });
     }
     else{
-      this.service.editVolunteer(this.id, data)
+      this.service.editVolunteer(this.volunteer.id, data)
       .subscribe(response => {
         console.log(response == 1);
         if(response >= 1)

@@ -19,16 +19,15 @@ import { AuthGuard } from './services/AuthGuards/auth-guard.service';
 import { NoAccessComponent } from './no-access/no-access.component';
 import { BackEndCalls } from "./services/BackendHandling/backend-calls.service";
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
-import { ReportDetailsService } from './volunteer/report-details.sevice';
-import { ReportDetailAuthguard } from './services/AuthGuards/report-detail-authguard.service';
 import { DataStorage } from './services/Providers/DataStorage';
+import { BasicDetailsComponent } from './volunteer/basic-details/basic-details.component';
 
 const jwtConf = {
   config: {
     tokenGetter: tokenGetter,
     whitelistedDomains: ['grace-fellowship.herokuapp.com'],
     throwNoTokenError: true,
-    authScheme: ' ',
+    //authScheme: ' ',
     globalHeaders: [{'Content-Type': 'application/json'}],
   }
 };
@@ -60,14 +59,12 @@ export function tokenGetter() {
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    NoAccessComponent
+    NoAccessComponent,
   ],
   providers: [
     AuthService,
     AuthGuard,
     BackEndCalls,
-    ReportDetailsService,
-    ReportDetailAuthguard,
     DataStorage
   ],
   bootstrap: [AppComponent]

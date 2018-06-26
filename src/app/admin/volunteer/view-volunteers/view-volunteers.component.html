@@ -24,11 +24,22 @@
           <td>{{volunteer.email}}</td>
           <td>{{volunteer.contact}}</td>
           <td>
-            <a (click)="editVolunteer(volunteer.id)" style="color:#41a9f4; cursor: pointer;" placement="top" ngbTooltip="Edit {{volunteer.name}}">
+            <a (click)="editVolunteer(volunteer)" style="color:#41a9f4; cursor: pointer;" placement="top" ngbTooltip="Edit {{volunteer.name}}">
               <i class="far fa-edit"></i>
             </a>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <a (click)="deleteVolunteer(volunteer.id)" style="color: #f44141; cursor: pointer;" placement="top" ngbTooltip="Delete {{volunteer.name}}">
+            <a 
+              [swal]="{ 
+                title: 'Confirm', 
+                text: 'Are you sure you want to delete?',
+                showCancelButton: true, 
+                type: 'warning'
+              }"
+              (confirm)="deleteVolunteer(volunteer.id)" 
+              style="color: #f44141; cursor: pointer;" 
+              placement="top" 
+              ngbTooltip="Delete {{volunteer.name}}"
+            >
               <i class="far fa-trash-alt"></i>
             </a>
           </td>

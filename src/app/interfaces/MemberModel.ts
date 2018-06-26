@@ -5,4 +5,5 @@ export interface MemberModel {
     email: string;
     contact: string;
     address: string;
+    active: boolean;
 }

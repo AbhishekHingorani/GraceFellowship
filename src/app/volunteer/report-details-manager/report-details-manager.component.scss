@@ -1,0 +1,33 @@
+.panel-header-md{
+    height: 150px;
+    padding-top: 60px;
+}
+
+.loading {
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+   background: rgba(0,0,0,0.5) 
+                url('../../../assets/img/tail-spin.svg')
+                no-repeat
+                fixed
+                center;
+    background-size: 15vw 15vh;
+    background-position: 50% 50%; 
+}
+
+.header-txt{
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.35em;
+    border: none;
+    margin: 10px 1px;
+    border-radius: 0.1875rem;
+    padding: 11px 22px;
+    color: rgb(160, 160, 160);
+}

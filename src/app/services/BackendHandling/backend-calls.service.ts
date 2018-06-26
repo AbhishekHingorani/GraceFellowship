@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable'
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-
-import { VolunteerModel } from "../../interfaces/VolunteerModel";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +10,11 @@ export class BackEndCalls
 
   private URL = "https://grace-fellowship.herokuapp.com";
   //private URL = "http://5b18c6fd3f38e20014a22f3f.mockapi.io";
+
+   
+  getURL(){
+    return this.URL;
+  }
 
   //=====================================================================//
   //---------------------------- ADMIN ---------------------------------//
@@ -42,6 +44,14 @@ export class BackEndCalls
 
   getAllCampuses(){
     return this.http.get(this.URL + '/admin/campuses')
+  }
+
+  changeCampusPassword(campusId, data){
+    return this.http.post(this.URL + "/admin/campus/" + campusId + "/password", data)
+  }
+
+  insertCampus(data){
+    return this.http.post(this.URL + '/admin/campus', data)
   }
 
   /*--------------*/
@@ -86,6 +96,20 @@ export class BackEndCalls
 
   /*--------------*/
 
+  getAllTrustees(){
+    return this.http.get(this.URL + '/admin/trustee');
+  }
+
+  deleteTrustee(trusteeId){
+    return this.http.delete(this.URL + '/admin/trustee/' + trusteeId)
+  }
+
+  addTrustee(data){
+    return this.http.post(this.URL + '/admin/trustee', data);
+  }
+
+  /*--------------*/
+
   getAllDonationCategories(campusId){
     return this.http.get(this.URL + '/admin/campus/' + campusId + '/donation_category');
   }
@@ -102,9 +126,27 @@ export class BackEndCalls
     return this.http.patch(this.URL + '/admin/campus/' + campusId + '/donation_category/' + donationCatId, data);
   }
 
-  /*--------------*/
+  //=====================================================================//
+  //-------------------------- Volunteer -------------------------------//
+  //===================================================================//
 
-  getURL(){
-    return this.URL;
+  getAllReports(campusId){
+    return this.http.get(this.URL + '/campus/' + campusId + '/report');
+  }
+
+  getSingleReport(campusId, reportId){
+    return this.http.get(this.URL + '/campus/' + campusId + '/report/' + reportId);
+  }
+
+  addNewReport(campusId, data){
+    return this.http.post(this.URL + '/campus/' + campusId + '/report/basic', data);
+  }
+
+  deleteReport(campusId, reportId){
+    return this.http.delete(this.URL + '/campus/' + campusId + '/report/' + reportId)
+  }
+
+  editBasicReportDetails(campusId, reportId, data){
+    return this.http.patch(this.URL + '/campus/' + campusId + '/report/' + reportId, data);
   }
 }

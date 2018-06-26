@@ -6,15 +6,19 @@
    
 <div class="card-body">
 
-  <div style="font-size: 12px" class="text-muted">Select Branch:</div>
   <div class="row">
     <div class="col-md-12">
-      <angular2-multiselect [data]="campusList" 
-        [(ngModel)]="selectedItems"
-        name="abc"
-        [settings]="settings" 
-        (onSelect)="onItemSelect($event)">
-      </angular2-multiselect>
+
+      <select 
+        placeholder="Select" 
+        ngModel
+        (change)="onItemSelect($event.target.value)" 
+        name="campus" 
+        class="form-control custom-select select-box"
+      >
+        <option style="color: lightgray" value="" disabled selected>- Select Campus -</option>
+        <option *ngFor="let campus of campusList" [value]="campus.id" >{{campus.name}}</option>
+      </select>
     </div>
   </div>
   <br><br>
@@ -43,7 +47,18 @@
               <i class="far fa-edit"></i>
             </a>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <a (click)="deleteMember(member.id)" style="color: #f44141; cursor: pointer;" placement="top" ngbTooltip="Delete {{member.name}}">
+            <a
+              [swal]="{ 
+                title: 'Confirm', 
+                text: 'Are you sure you want to delete?',
+                showCancelButton: true, 
+                type: 'warning'
+              }"
+              (confirm)="deleteMember(member.id)"
+              style="color: #f44141; cursor: pointer;" 
+              placement="top" 
+              ngbTooltip="Delete {{member.name}}"
+            >
               <i class="far fa-trash-alt"></i>
             </a>
           </td>

@@ -57,7 +57,7 @@
             </span>
           </div>
           <input [(ngModel)]="volunteer.password" name="password" required #password="ngModel" minlength="6" type="password" class="form-control" placeholder="*Password..."
-            (focus)="focus2=true" (blur)="focus2=false">
+          (focus)="focus2=true" (blur)="focus2=false" (input)="validatePassword(password.value, confirmPassword.value)">
         </div>
       </div>
 
@@ -132,7 +132,7 @@
     <!-- Submit Btn -->
     <div class="row">
       <div class="col-md-6">
-        <button class="pull-right btn btn-danger btn-round" type="submit">
+        <button [disabled]="(!f.valid || doesPasswordMatch) && !isEdit" class="pull-right btn btn-danger btn-round" type="submit">
           {{submitBtn}}
           <img *ngIf="isLoading" src="../../../../assets/img/tail-spin.svg" class="pull-right"/>
         </button>
