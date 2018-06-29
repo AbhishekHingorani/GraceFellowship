@@ -4,10 +4,10 @@ import { NgbDateStruct, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-b
 import { BackEndCalls } from '../../services/BackendHandling/backend-calls.service';
 import { AuthService } from '../../services/AuthGuards/auth.service';
 import { DataStorage } from '../../services/Providers/DataStorage';
-import { ReportModel } from "../../interfaces/ReportModel";
+import { ReportModel, Report } from "../../interfaces/ReportModel";
 import swal from 'sweetalert2';
 
-const now = new Date();
+let now = new Date();
 
 @Component({
   selector: 'report-details-manager',
@@ -20,6 +20,7 @@ export class ReportDetailsManagerComponent implements OnInit {
   model: NgbDateStruct;
   time= "00:00:00";
   isLoading: boolean = true;
+  headerText = "";
 
   reportsList;
  
@@ -43,10 +44,12 @@ export class ReportDetailsManagerComponent implements OnInit {
       this.reportsList = this.storage.allReports;
       this.isLoading = false;
       
-      if(!this.storage.selectedReport)
+      if(!this.storage.selectedReport){
         this.open(this.reportsModal)
+      }
       else{
-        let data = this.storage.selectedReport;
+        let data = this.storage.selectedReport.report;
+        this.headerText = data.date + " ~ " + data.begining.start + " ~ " + data.language;
       }
       
     }else{
@@ -78,6 +81,8 @@ export class ReportDetailsManagerComponent implements OnInit {
   }
 
   setCurrentTime(){
+    now = new Date();
+    
     this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
     
     if(now.getMinutes() < 10)
@@ -92,7 +97,6 @@ export class ReportDetailsManagerComponent implements OnInit {
   getAllreports(){
     this.service.getAllReports(this.authService.currentUser.id)
     .subscribe(data => {
-      console.log(data);
       this.reportsList = data;
       this.storage.allReports = this.reportsList;
       this.isLoading = false;
@@ -111,12 +115,15 @@ export class ReportDetailsManagerComponent implements OnInit {
 
     this.service.getSingleReport(this.authService.currentUser.id, id)
     .subscribe((data: ReportModel) => {
-      console.log(data);
-
+      console.dir(data);
       let date = data.report.date.split('/').map(Number);
       data.report.dateModel = {year: date[2], month: date[1], day: date[0]}; 
 
       this.storage.selectedReport = data;
+
+      let d = this.storage.selectedReport.report;
+      this.headerText = d.date + " ~ " + d.begining.start + " ~ " + d.language;
+
       this.isLoading = false;
     },
     error => {
@@ -127,7 +134,7 @@ export class ReportDetailsManagerComponent implements OnInit {
 
   generateNewReport(f){
     this.isLoading = true;
-
+    
     let data: any = {}; 
     data = {
       language: f.language,
@@ -139,18 +146,14 @@ export class ReportDetailsManagerComponent implements OnInit {
       }
     }
 
+    this.headerText = data.date + " ~ " + data.begining.start + " ~ " + data.language;
+
     this.service.addNewReport(this.authService.currentUser.id, data)
-    .subscribe((result: string) => {
-      this.storage.selectedReport = {} as ReportModel;
-      this.storage.selectedReport.report.id = result;
-      this.storage.selectedReport.report.language = data.language;
-      this.storage.selectedReport.report.date = data.date;
-      this.storage.selectedReport.report.filedby = data.filedby;
-      this.storage.selectedReport.report.begining = data.begining;
+    .subscribe((result: ReportModel) => {
+       this.storage.selectedReport = result;
+      this.storage.selectedReport.report.dateModel = {year: f.date.year, month: f.date.month, day: f.date.day}; 
 
-      data.id = result;                   //Adding id to data object 
       this.storage.allReports.push(data);  //and pushing data obj to array
-
       this.isLoading = false;
     },
     error => {

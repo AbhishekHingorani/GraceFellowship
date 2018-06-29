@@ -1,0 +1,58 @@
+<div class="card-header">
+  <h5 class="title">Edit Sermon  Details</h5>
+</div>
+
+<div class="card-body">
+  <form #f="ngForm" (ngSubmit)="submit(f.value)">
+
+    <div class="row">
+      <div class="col-md-8">
+        <!-- Worship Leader -->
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label for="title">&nbsp;&nbsp;&nbsp;Title: </label>
+            <input [(ngModel)]="storage.selectedReport.report.sermon.title" name="title" id="title" type="text" class="form-control">
+          </div>
+        </div>
+        <!-- END : Worship Leader -->
+
+        <!-- Worship Leader -->
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label for="preacher">&nbsp;&nbsp;&nbsp;Preacher: </label>
+            <input [(ngModel)]="storage.selectedReport.report.sermon.preacher" name="preacher" id="preacher" type="text" class="form-control">
+          </div>
+        </div>
+        <!-- END : Worship Leader -->
+
+
+        <div class="row">
+          <!-- Computer Incharge -->
+          <div class="col-md-6 form-group">
+            <label for="startTime">&nbsp;&nbsp;&nbsp;Start Time: </label>
+            <input [(ngModel)]="storage.selectedReport.report.sermon.start" name="start" id="startTime" type="time" class="form-control">
+          </div>
+          <!-- END : Computer Incharge -->
+
+          <!-- Sound Incharge -->
+          <div class="col-md-6 form-group">
+            <label for="endTime">&nbsp;&nbsp;&nbsp;End Time: </label>
+            <input [(ngModel)]="storage.selectedReport.report.sermon.end" name="end" id="endTime" type="time" class="form-control">
+          </div>
+          <!-- END : Sound Incharge -->
+
+          
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+              <button [disabled]="isLoading" type="submit" class="btn btn-danger btn-round pull-right">
+                {{submitBtn}}
+                <img *ngIf="isLoading" src="../../../../assets/img/tail-spin.svg" class="pull-right" />
+              </button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </form>
+</div>

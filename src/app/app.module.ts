@@ -20,7 +20,6 @@ import { NoAccessComponent } from './no-access/no-access.component';
 import { BackEndCalls } from "./services/BackendHandling/backend-calls.service";
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { DataStorage } from './services/Providers/DataStorage';
-import { BasicDetailsComponent } from './volunteer/basic-details/basic-details.component';
 
 const jwtConf = {
   config: {

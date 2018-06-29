@@ -68,18 +68,12 @@ export interface Sermon {
 
 export interface Worship {
     choir_members: string[];
-    inchrage:      Inchrage;
-    instrument:    WorshipInstrument;
+    incharge:      Incharge;
+    instrument:    any;
     leader:        string;
 }
 
-export interface Inchrage {
+export interface Incharge {
     computer: string;
     sound:    string;
-}
-
-export interface WorshipInstrument {
-    piano:  string;
-    tabla:  string;
-    violin: string;
 }

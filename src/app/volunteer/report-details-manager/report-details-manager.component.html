@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col-11 col-sm-6  ">
       <div *ngIf="storage.selectedReport" class="header-txt">
-        {{storage.selectedReport.report.date}} ~ {{storage.selectedReport.report.begining.start}} ~ {{storage.selectedReport.report.language}}</div>
+        {{storage.selectedReport.report.date}} ~ {{storage.selectedReport.report.begining.start}} ~ {{storage.selectedReport.report.language}}
+      </div>
     </div>
     <div class="col-1 col-sm-6  ">
       <button (click)="open(reportsModal)" style="margin-right: 30px;" class="btn btn-outline-dark pull-right">
@@ -35,13 +36,30 @@
 
           <ngb-tab id="attendance">
             <ng-template ngbTabTitle>
-              <div (click)="tabChange('attendance')">Mark Attendance</div>
+              <div (click)="tabChange('attendance')">Attendance</div>
             </ng-template>
             <ng-template ngbTabContent>
               <mark-attendance></mark-attendance>
             </ng-template>
           </ngb-tab>
 
+          <ngb-tab id="worship">
+            <ng-template ngbTabTitle>
+              <div (click)="tabChange('worship')">Worship</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <worship-details></worship-details>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab id="sermon">
+            <ng-template ngbTabTitle>
+              <div (click)="tabChange('sermon')">Sermon</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <sermon-detail></sermon-detail>
+            </ng-template>
+          </ngb-tab>
 
         </ngb-tabset>
 
@@ -107,7 +125,7 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger btn-round" (click)="c('new'); open(content2)">New Report</button>
+    <button type="button" class="btn btn-danger btn-round" (click)="c('new'); setCurrentTime(); open(content2);">New Report</button>
   </div>
 </ng-template>
 

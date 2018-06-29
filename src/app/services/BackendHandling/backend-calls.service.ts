@@ -147,6 +147,24 @@ export class BackEndCalls
   }
 
   editBasicReportDetails(campusId, reportId, data){
-    return this.http.patch(this.URL + '/campus/' + campusId + '/report/' + reportId, data);
+    return this.http.patch(this.URL + '/campus/' + campusId + '/report/' + reportId + "/basic", data);
+  }
+
+  /* ------------------ */
+
+  markAttendance(campusId, reportId, data){
+    return this.http.patch(this.URL + '/campus/' + campusId + '/report/' + reportId + '/attendance_attendees', data);
+  }
+
+  /* ------------------ */
+
+  editWorshipDetails(campusId, reportId, data){
+    return this.http.patch(this.URL + '/campus/' + campusId + '/report/' + reportId + "/worship", data);
+  }
+
+  /* ------------------ */
+
+  editSermonDetails(campusId, reportId, data){
+    return this.http.patch(this.URL + '/campus/' + campusId + '/report/' + reportId + "/sermon", data);
   }
 }

@@ -20,7 +20,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/admin/trustee', title: 'Trustee',  icon: 'education_agenda-bookmark', class: '', type: 'admin' },
 
     //----Volunteer Routes----//
-    { path: '/campus/report-detail-manager', title: 'Report Detail',  icon: 'design_app', class: '', type: 'campus' },  
+    { path: '/campus/report-detail-manager', title: 'Report Detail',  icon: 'education_atom', class: '', type: 'campus' },  
 ];
 
 @Component({

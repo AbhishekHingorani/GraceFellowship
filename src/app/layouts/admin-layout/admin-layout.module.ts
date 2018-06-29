@@ -23,6 +23,8 @@ import { ManageCampusComponent } from '../../admin/manage-campus/manage-campus.c
 import { TrusteeComponent } from '../../admin/trustee/trustee.component';
 import { ReportDetailsManagerComponent } from '../../volunteer/report-details-manager/report-details-manager.component';
 import { BasicDetailsComponent } from '../../volunteer/basic-details/basic-details.component';
+import { WorshipDetailsComponent } from '../../volunteer/worship-details/worship-details.component';
+import { SermonDetailComponent } from '../../volunteer/sermon-detail/sermon-detail.component';
 
 
 @NgModule({
@@ -58,6 +60,8 @@ import { BasicDetailsComponent } from '../../volunteer/basic-details/basic-detai
 
     ReportDetailsManagerComponent,
     BasicDetailsComponent,
+    WorshipDetailsComponent,
+    SermonDetailComponent,
   ]
 })
 

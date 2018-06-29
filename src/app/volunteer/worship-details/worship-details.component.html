@@ -1,0 +1,100 @@
+<div class="card-header">
+  <h5 class="title">Edit Worship Details</h5>
+</div>
+
+<div class="card-body">
+  <form #f="ngForm" (ngSubmit)="submit(f.value)">
+
+    <div class="row">
+      <div class="col-md-8">
+        <!-- Worship Leader -->
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label for="leader">&nbsp;&nbsp;&nbsp;Worship Leader: </label>
+            <input [(ngModel)]="storage.selectedReport.report.worship.leader" name="leader" id="leader" type="text" class="form-control">
+          </div>
+        </div>
+        <!-- END : Worship Leader -->
+
+        
+        <div class="row">
+          <!-- Computer Incharge -->
+          <div class="col-md-6 form-group">
+            <label for="computer">&nbsp;&nbsp;&nbsp;Computer Incharge: </label>
+            <input [(ngModel)]="storage.selectedReport.report.worship.incharge.computer" name="computer" id="computer" type="text" class="form-control">
+          </div>
+          <!-- END : Computer Incharge -->
+
+          <!-- Sound Incharge -->
+          <div class="col-md-6 form-group">
+            <label for="sound">&nbsp;&nbsp;&nbsp;Sound Incharge: </label>
+            <input [(ngModel)]="storage.selectedReport.report.worship.incharge.sound" name="sound" id="sound" type="text" class="form-control">
+          </div>
+          <!-- END : Sound Incharge -->
+        </div>
+        
+        <hr>
+
+        <!-- Instruments -->
+        <div class="row">
+            <div *ngFor="let item of storage.selectedReport.instruments" class="col-md-6 form-group">
+              <label for="sound">&nbsp;&nbsp;&nbsp;{{item.name}} </label>
+              <input [(ngModel)]="storage.selectedReport.report.worship.instrument[item.name.toLowerCase()]" name="{{item.name}}" id="sound" type="text" class="form-control">
+            </div>
+        </div>
+        <!-- END: Instruments -->
+        
+      </div>
+
+
+
+      <!-- Choir Members -->
+      <div class="col-md-4">
+        <div style="font-size: 12px" class="text-muted">Choir Members:</div>
+
+        <div class="row">
+          <div class="col-md-9">
+            <div class="form-group">
+              <input ngModel name="newMember" #newMem="ngModel" type="text" value="" placeholder="Add Choir Members..." class="form-control"
+                onfocus="this.value=''" />
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <button type="button" class="bttn pull-right btn-round" (click)="addChoirMember(newMem.value);">
+              +
+            </button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <ul class="list-group">
+              <li *ngFor="let member of storage.selectedReport.report.worship.choir_members; let i=index" class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  {{member}}
+                </div>
+                <span (click)="storage.selectedReport.report.worship.choir_members.splice(i,1);" class="badge badge-danger badge-pill" style="cursor: pointer;">
+                  <i style="padding:5px" class="far fa-trash-alt"></i>
+                </span>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+      <!-- END: Choir Members -->
+      
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+          <button [disabled]="isLoading" type="submit" class="btn btn-danger btn-round pull-right">
+            {{submitBtn}}
+            <img *ngIf="isLoading" src="../../../../assets/img/tail-spin.svg" class="pull-right" />
+          </button>
+        </div>
+      </div>
+  </form>
+</div>
