@@ -24,6 +24,10 @@ export class SermonDetailComponent implements OnInit {
   ngOnInit() {
     if(!this.storage.selectedReport.report.sermon){
       this.storage.selectedReport.report.sermon = {} as Sermon;
+      this.storage.selectedReport.report.sermon.start = "00:00:00";
+      this.storage.selectedReport.report.sermon.end = "00:00:00";
+      this.storage.selectedReport.report.sermon.preacher = "";
+      this.storage.selectedReport.report.sermon.title = "";
     }
   }
 

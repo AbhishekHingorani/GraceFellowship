@@ -1,0 +1,64 @@
+<div class="card-header">
+  <h5 class="title">Edit Sermon Details</h5>
+</div>
+
+<div class="card-body">
+  <form #f="ngForm" (ngSubmit)="submit(f.value)">
+
+    <div class="row">
+      <div class="col-md-8">
+
+        
+
+        <!-- Announcement -->
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <label for="announcement">&nbsp;&nbsp;&nbsp;Announcement: </label>
+            <input [(ngModel)]="storage.selectedReport.report.activities.announcement" name="announcement" id="announcement" type="text"
+              class="form-control">
+          </div>
+        </div>
+        <!-- END : Announcement -->
+
+        <!-- Lords Table -->
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input value="aa" class="form-check-input" type="checkbox" [(ngModel)]="storage.selectedReport.report.activities.lords_table"
+                  name="lordsTable"> Lord's Table
+                <span class="form-check-sign"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <!-- END : Lords Table -->  
+
+        <div class="row">
+          <!-- Prayer -->
+          <div class="col-md-6 form-group">
+            <label for="prayer">&nbsp;&nbsp;&nbsp;Ending Prayer: </label>
+            <input [(ngModel)]="storage.selectedReport.report.ending.prayer" name="prayer" id="prayer" type="text" class="form-control">
+          </div>
+          <!-- END : Prayer Time -->
+
+          <!-- End Time  -->
+          <div class="col-md-6 form-group">
+            <label for="endTime">&nbsp;&nbsp;&nbsp;Ending Time: </label>
+            <input [(ngModel)]="storage.selectedReport.report.ending.time" name="endTime" id="endTime" type="time" class="form-control">
+          </div>
+          <!-- END : End Time -->
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <button [disabled]="isLoading" type="submit" class="btn btn-danger btn-round pull-right">
+              {{submitBtn}}
+              <img *ngIf="isLoading" src="../../../../assets/img/tail-spin.svg" class="pull-right" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

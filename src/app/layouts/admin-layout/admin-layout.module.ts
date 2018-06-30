@@ -25,6 +25,10 @@ import { ReportDetailsManagerComponent } from '../../volunteer/report-details-ma
 import { BasicDetailsComponent } from '../../volunteer/basic-details/basic-details.component';
 import { WorshipDetailsComponent } from '../../volunteer/worship-details/worship-details.component';
 import { SermonDetailComponent } from '../../volunteer/sermon-detail/sermon-detail.component';
+import { EndingDetailsComponent } from '../../volunteer/ending-details/ending-details.component';
+import { CampusMembersManagerComponent } from '../../volunteer/manage-members/campus-members-manager/campus-members-manager.component';
+import { AddCampusMemberComponent } from '../../volunteer/manage-members/add-campus-member/add-campus-member.component';
+import { ViewCampusMembersComponent } from '../../volunteer/manage-members/view-campus-members/view-campus-members.component';
 
 
 @NgModule({
@@ -62,6 +66,11 @@ import { SermonDetailComponent } from '../../volunteer/sermon-detail/sermon-deta
     BasicDetailsComponent,
     WorshipDetailsComponent,
     SermonDetailComponent,
+    EndingDetailsComponent,
+
+    CampusMembersManagerComponent,
+    AddCampusMemberComponent,
+    ViewCampusMembersComponent,
   ]
 })
 

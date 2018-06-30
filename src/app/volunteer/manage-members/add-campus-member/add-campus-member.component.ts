@@ -1,32 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { MemberModel } from "../../../interfaces/MemberModel";
+import { MemberModel } from '../../../interfaces/MemberModel';
+import { ActivatedRoute } from '@angular/router';
 import { BackEndCalls } from '../../../services/BackendHandling/backend-calls.service';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/combineLatest';
-import swal from 'sweetalert2';
 import { DataStorage } from '../../../services/Providers/DataStorage';
+import swal from 'sweetalert2';
+import { AuthService } from '../../../services/AuthGuards/auth.service';
 
 @Component({
-  selector: 'add-member',
-  templateUrl: './add-member.component.html',
-  styleUrls: ['./add-member.component.scss']
+  selector: 'add-campus-member',
+  templateUrl: './add-campus-member.component.html',
+  styleUrls: ['./add-campus-member.component.scss']
 })
-export class AddMemberComponent implements OnInit {
+export class AddCampusMemberComponent implements OnInit {
 
   member: MemberModel;
   submitBtn: string = "Add";
   isEdit: boolean;
   isLoading: boolean = false;
-  campusLoading: boolean = true;
-  campusList;
-  campusId: string;
 
   constructor(
-    private router: Router, 
     private activatedRoute: ActivatedRoute, 
     private service: BackEndCalls,
     private storage: DataStorage,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -43,16 +39,7 @@ export class AddMemberComponent implements OnInit {
     this.activatedRoute.queryParamMap
     .subscribe(params => {
       this.isEdit = Boolean(params.get("edit")); //Saving 'Edit' query param if available
-      this.campusId = params.get("campusId");
     });
-
-    if(this.storage.campusList == null){
-      this.getCampusList();
-    }
-    else{
-      this.campusList = this.storage.campusList;
-      this.campusLoading = false;   
-    }
 
     if(this.isEdit && this.storage.member != null){
       this.submitBtn = "Edit";
@@ -60,30 +47,30 @@ export class AddMemberComponent implements OnInit {
     }
   }
 
-  getCampusList(){
-    //getting list of campuses
-    this.service.getAllCampuses()
-    .subscribe(data => {
-      this.campusList = data;
-      this.storage.campusList = this.campusList;
-      this.campusLoading = false;
-    })
+  toggleLoading(){
+    if(this.isLoading){
+      this.isLoading = false;
+      this.submitBtn = this.isEdit ? "Edit" : "Add";
+    }else{
+      this.isLoading = true;
+      this.submitBtn = "";
+    }
   }
 
   submit(formValues){
     this.toggleLoading();
+    let campusId = this.authService.currentUser.id;
 
     //If isEdit is false then send request to add the member else to edit.
     if(this.isEdit == false){
-      let campusId = formValues.campus;
-      delete formValues.campus;
-      
+     
       this.service.addMember(campusId, formValues)
       .subscribe(response => {
         if(response >= 1)
           swal('Success', 'Member Added Successfully', 'success');
           this.toggleLoading();
           
+          this.storage.membersList.push(this.member);
           this.member = {
             id: '',
             name: '',
@@ -99,28 +86,18 @@ export class AddMemberComponent implements OnInit {
       });
     }
     else{
-        this.service.editMember(this.campusId, this.member)
+        this.service.editMember(campusId, this.member)
         .subscribe(response => {
           console.log(response == 1);
-          if(response >= 1){
+          if(response >= 1)
             swal('Success', 'Member Edited Successfully', 'success');
             this.toggleLoading();
-          }
-        },error => {
-          swal('Error', 'There was an error, cannot add member', 'error'); 
-          this.toggleLoading();
-        });
+          },error => {
+            swal('Error', 'There was an error, cannot edit member', 'error');
+            this.toggleLoading();
+          });
     }
     
   }
 
-  toggleLoading(){
-    if(this.isLoading){
-      this.isLoading = false;
-      this.submitBtn = this.isEdit ? "Edit" : "Add";
-    }else{
-      this.isLoading = true;
-      this.submitBtn = "";
-    }
-  }
 }

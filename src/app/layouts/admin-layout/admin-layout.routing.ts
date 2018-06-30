@@ -13,6 +13,7 @@ import { ManageDonationCategoriesComponent } from '../../admin/manage-donation-c
 import { ManageCampusComponent } from '../../admin/manage-campus/manage-campus.component';
 import { TrusteeComponent } from '../../admin/trustee/trustee.component';
 import { ReportDetailsManagerComponent } from '../../volunteer/report-details-manager/report-details-manager.component';
+import { CampusMembersManagerComponent } from '../../volunteer/manage-members/campus-members-manager/campus-members-manager.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -32,5 +33,7 @@ export const AdminLayoutRoutes: Routes = [
 
     //-----------------------------------------------------------------------------------------//    
     
-    { path: 'campus/report-detail-manager', component: ReportDetailsManagerComponent}
+    { path: 'campus/report-detail-manager', component: ReportDetailsManagerComponent},
+    { path: 'campus/campus-members-manager', component: CampusMembersManagerComponent},
+    { path: 'campus/campus-members-manager/:id', component: CampusMembersManagerComponent}
 ];

@@ -5,7 +5,6 @@ import { MemberModel } from "../../../interfaces/MemberModel";
 import { BackEndCalls } from "../../../services/BackendHandling/backend-calls.service";
 import { DataStorage } from "../../../services/Providers/DataStorage";
 import { Subject } from 'rxjs';
-import PerfectScrollbar from 'perfect-scrollbar';
 import swal from 'sweetalert2';
 
 @Component({

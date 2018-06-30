@@ -1,0 +1,35 @@
+<div class="panel-header panel-header-sm">
+  </div>
+  <div class="main-content">
+    <div class="row">
+      <div class="col-md-12">
+  
+        <div class="card">
+  
+          <ngb-tabset #tabs="ngbTabset" type="tabs" justify="justified">
+
+            <ngb-tab id="view">
+                <ng-template ngbTabTitle>
+                  <div (click)="tabChange('view')">View Members</div>
+                </ng-template>
+              <ng-template ngbTabContent>
+                <view-campus-members></view-campus-members>
+              </ng-template>
+            </ngb-tab>
+            
+            <ngb-tab id="add">
+              <ng-template ngbTabTitle>
+                <div (click)="tabChange('add')">Add Member</div>
+              </ng-template>
+              <ng-template ngbTabContent>
+                <add-campus-member></add-campus-member>
+              </ng-template>
+            </ngb-tab>
+            
+          </ngb-tabset>
+  
+        </div>
+  
+      </div>
+    </div>
+  </div>

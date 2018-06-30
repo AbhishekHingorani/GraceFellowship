@@ -13,5 +13,7 @@ export class DataStorage {
     public allReports: any[];
     public selectedReport: ReportModel;
 
+    public membersList: MemberModel[];
+
     public constructor() { }
 }

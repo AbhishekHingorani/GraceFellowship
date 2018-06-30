@@ -60,6 +60,15 @@
               <sermon-detail></sermon-detail>
             </ng-template>
           </ngb-tab>
+          
+          <ngb-tab id="ending">
+            <ng-template ngbTabTitle>
+              <div (click)="tabChange('ending')">Ending</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <ending-details></ending-details>
+            </ng-template>
+          </ngb-tab>
 
         </ngb-tabset>
 

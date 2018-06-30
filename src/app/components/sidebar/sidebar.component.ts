@@ -21,6 +21,7 @@ export const ROUTES: RouteInfo[] = [
 
     //----Volunteer Routes----//
     { path: '/campus/report-detail-manager', title: 'Report Detail',  icon: 'education_atom', class: '', type: 'campus' },  
+    { path: '/campus/campus-members-manager', title: 'Members',  icon: 'users_single-02', class: '', type: 'campus' },  
 ];
 
 @Component({

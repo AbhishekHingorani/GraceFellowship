@@ -167,4 +167,10 @@ export class BackEndCalls
   editSermonDetails(campusId, reportId, data){
     return this.http.patch(this.URL + '/campus/' + campusId + '/report/' + reportId + "/sermon", data);
   }
+
+  /* ------------------ */
+
+  editEndingDetails(campusId, reportId, data){
+    return this.http.patch(this.URL + '/campus/' + campusId + '/report/' + reportId + "/activities_ending", data);
+  }
 }
