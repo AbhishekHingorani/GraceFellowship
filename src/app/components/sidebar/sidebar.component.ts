@@ -49,10 +49,7 @@ export class SidebarComponent implements OnInit {
     if(this.authService.currentUser && (this.authService.currentUser.type == type || type=="all"))
         return true;
     else{
-        if(type=="campus" && this.authService.currentUser.type == "volunteer")
-            return true;
-        else
-            return false;
+        return false;
     }
   }
 }

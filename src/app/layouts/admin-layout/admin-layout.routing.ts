@@ -33,7 +33,11 @@ export const AdminLayoutRoutes: Routes = [
 
     //-----------------------------------------------------------------------------------------//    
     
-    { path: 'campus/report-detail-manager', component: ReportDetailsManagerComponent},
-    { path: 'campus/campus-members-manager', component: CampusMembersManagerComponent},
-    { path: 'campus/campus-members-manager/:id', component: CampusMembersManagerComponent}
+    { path: 'campus/report-detail-manager', component: ReportDetailsManagerComponent, canActivate: [CampusAuthGuard]},
+    { path: 'campus/campus-members-manager', component: CampusMembersManagerComponent, canActivate: [CampusAuthGuard]},
+    { path: 'campus/campus-members-manager/:id', component: CampusMembersManagerComponent, canActivate: [CampusAuthGuard]}
+
+    // ----------------------------------------------------------------------------------------//
+
+    
 ];

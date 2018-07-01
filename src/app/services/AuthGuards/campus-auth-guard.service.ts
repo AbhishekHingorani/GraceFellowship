@@ -14,7 +14,7 @@ export class CampusAuthGuard implements CanActivate {
   ) { }
 
   canActivate(route, state: RouterStateSnapshot) {
-    if(this.authService.currentUser.type == "campus" || this.authService.currentUser.type == "volunteer")
+    if(this.authService.currentUser.type == "campus")
       return true;
     
     this.router.navigate(['/no-access']);
