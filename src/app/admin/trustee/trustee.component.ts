@@ -13,16 +13,7 @@ export class TrusteeComponent implements OnInit {
 
   isLoading: boolean = true;
   isAddTrusteeLoading: boolean = false;
-  trusteeList = [
-    {
-      id: 1,
-      name: 'Sherlock Holmes'
-    },
-    {
-      id: 2,
-      name: 'James Moriarty'
-    }
-  ];
+  trusteeList = [];
   doesPasswordMatch: boolean = true;
   submitBtn: string = "Add";
 
@@ -32,11 +23,11 @@ export class TrusteeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.service.getAllTrustees()
-    //   .subscribe(data => {
-    //     this.trusteeList = data;
-    //     this.isLoading = false;
-    //   })
+    this.service.getAllTrustees()
+    .subscribe((data: any[]) => {
+      this.trusteeList = data;
+      this.isLoading = false;
+    })
   }
 
   validatePassword(pass, pass2) {
@@ -52,14 +43,13 @@ export class TrusteeComponent implements OnInit {
     this.toggleLoading();
     
     delete f.confirmPassword;
-    f.username = 't-' + f.username;
 
     this.service.addTrustee(f)
     .subscribe(result => {
-      if(result >= 1){
-        swal('Success!', 'New Trustee Inserted!', 'success'); 
-        this.toggleLoading();
-      }
+      swal('Success!', 'New Trustee Inserted!', 'success'); 
+      this.toggleLoading();
+      f.id = result;
+      this.trusteeList.push(f);
     },
     error => {
       swal('Error!', 'There was some error, please try adding a new campus later!', 'error');

@@ -8,7 +8,7 @@ import { ChartsModule } from 'ng2-charts';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DataTablesModule } from 'angular-datatables';
 import { ToastrModule } from 'ngx-toastr';
-import { MarkAttendanceComponent } from '../../volunteer/mark-attendance/mark-attendance.component';
+import { MarkAttendanceComponent } from '../../campus/mark-attendance/mark-attendance.component';
 import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { AddVolunteerComponent } from '../../admin/volunteer/add-volunteer/add-volunteer.component';
 import { VolunteerManagerComponent } from '../../admin/volunteer/volunteer-manager/volunteer-manager.component';
@@ -21,14 +21,18 @@ import { InstrumentsComponent } from '../../admin/instruments/instruments.compon
 import { ManageDonationCategoriesComponent } from '../../admin/manage-donation-categories/manage-donation-categories.component';
 import { ManageCampusComponent } from '../../admin/manage-campus/manage-campus.component';
 import { TrusteeComponent } from '../../admin/trustee/trustee.component';
-import { ReportDetailsManagerComponent } from '../../volunteer/report-details-manager/report-details-manager.component';
-import { BasicDetailsComponent } from '../../volunteer/basic-details/basic-details.component';
-import { WorshipDetailsComponent } from '../../volunteer/worship-details/worship-details.component';
-import { SermonDetailComponent } from '../../volunteer/sermon-detail/sermon-detail.component';
-import { EndingDetailsComponent } from '../../volunteer/ending-details/ending-details.component';
-import { CampusMembersManagerComponent } from '../../volunteer/manage-members/campus-members-manager/campus-members-manager.component';
-import { AddCampusMemberComponent } from '../../volunteer/manage-members/add-campus-member/add-campus-member.component';
-import { ViewCampusMembersComponent } from '../../volunteer/manage-members/view-campus-members/view-campus-members.component';
+import { ReportDetailsManagerComponent } from '../../campus/report-details-manager/report-details-manager.component';
+import { BasicDetailsComponent } from '../../campus/basic-details/basic-details.component';
+import { WorshipDetailsComponent } from '../../campus/worship-details/worship-details.component';
+import { SermonDetailComponent } from '../../campus/sermon-detail/sermon-detail.component';
+import { EndingDetailsComponent } from '../../campus/ending-details/ending-details.component';
+import { CampusMembersManagerComponent } from '../../campus/manage-members/campus-members-manager/campus-members-manager.component';
+import { AddCampusMemberComponent } from '../../campus/manage-members/add-campus-member/add-campus-member.component';
+import { ViewCampusMembersComponent } from '../../campus/manage-members/view-campus-members/view-campus-members.component';
+import { DonationManagerComponent } from '../../volunteer/donation-manager/donation-manager.component';
+import { GeneralDonationComponent } from '../../volunteer/general-donation/general-donation.component';
+import { ChequeDonationComponent } from '../../volunteer/cheque-donation/cheque-donation.component';
+import { TitheDonationComponent } from '../../volunteer/tithe-donation/tithe-donation.component';
 
 
 @NgModule({
@@ -71,6 +75,11 @@ import { ViewCampusMembersComponent } from '../../volunteer/manage-members/view-
     CampusMembersManagerComponent,
     AddCampusMemberComponent,
     ViewCampusMembersComponent,
+
+    DonationManagerComponent,
+    GeneralDonationComponent,
+    ChequeDonationComponent,
+    TitheDonationComponent,
   ]
 })
 

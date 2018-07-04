@@ -14,6 +14,7 @@ export class DataStorage {
     public selectedReport: ReportModel;
 
     public membersList: MemberModel[];
+    public donation: any;
 
     public constructor() { }
 }

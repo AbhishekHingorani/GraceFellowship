@@ -5,8 +5,21 @@
 
   <form class="form" method="" action="" #f="ngForm" (ngSubmit)="submit(f.value)">
 
-    <!-- All Present/Absent button -->
-    <input #btnn type="button" class="btn btn-primary btn-link " (click)="allPresent(btnn)" value="All Present">
+    <div class="row">
+      <div class="col">
+        <!-- All Present/Absent button -->
+        <input #btnn type="button" class="btn btn-primary btn-link " (click)="allPresent(btnn)" value="All Present">
+        <!-- END: All Present/Absent button -->
+      </div>
+      <div class="col">
+        <h6 class="pull-right" style="padding: 0.5rem 0.7rem;">
+            M: {{this.storage.selectedReport.report.attendance.male}} + 
+            F: {{this.storage.selectedReport.report.attendance.female}} + 
+            N: {{this.storage.selectedReport.report.attendees.new.length + othersCount}} =
+            {{this.storage.selectedReport.report.attendance.male + this.storage.selectedReport.report.attendance.female + this.storage.selectedReport.report.attendees.new.length + othersCount}}
+        </h6>
+      </div>
+    </div>
 
     <br>
     <br>
@@ -16,7 +29,7 @@
       <div *ngFor="let member of members" class="col-md-3">
         <div class="form-check">
           <label class="form-check-label">
-            <input value="aa" class="form-check-input" type="checkbox" [checked]="member.active" (change)="member.active = !member.active"> {{ member.name }}
+            <input value="aa" class="form-check-input" type="checkbox" [checked]="member.active" (change)="attendanceChanged(member)"> {{ member.name }}
             <span class="form-check-sign"></span>
           </label>
         </div>
@@ -40,6 +53,13 @@
         <button type="button" class="bttn pull-right btn-round" (click)="addNewMember(newMem.value);">
           +
         </button>
+      </div>
+
+      <div class="col-md-1 text-muted" for="others">Others Count:</div>
+      <div class="col-md-5">
+        <div class="form-group">
+          <input [(ngModel)]="othersCount" name="others" type="number" placeholder="Add count of new members other than the names entered..." class="form-control"  />
+        </div>
       </div>
     </div>
 

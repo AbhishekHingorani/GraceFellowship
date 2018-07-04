@@ -16,11 +16,9 @@ let now = new Date();
 })
 export class ReportDetailsManagerComponent implements OnInit {
 
-  closeResult: string;
   model: NgbDateStruct;
   time= "00:00:00";
   isLoading: boolean = true;
-  headerText = "";
 
   reportsList;
  
@@ -37,24 +35,16 @@ export class ReportDetailsManagerComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    
     this.setCurrentTime();
     
     if(this.storage.allReports){
       this.reportsList = this.storage.allReports;
       this.isLoading = false;
       
-      if(!this.storage.selectedReport){
+      if(!this.storage.selectedReport)
         this.open(this.reportsModal)
-      }
-      else{
-        let data = this.storage.selectedReport.report;
-        this.headerText = data.date + " ~ " + data.begining.start + " ~ " + data.language;
-      }
-      
-    }else{
+    }else
       this.getAllreports();
-    }
   }
 
   ngAfterViewInit(){
@@ -122,7 +112,6 @@ export class ReportDetailsManagerComponent implements OnInit {
       this.storage.selectedReport = data;
 
       let d = this.storage.selectedReport.report;
-      this.headerText = d.date + " ~ " + d.begining.start + " ~ " + d.language;
 
       this.isLoading = false;
     },
@@ -145,8 +134,6 @@ export class ReportDetailsManagerComponent implements OnInit {
         prayer: f.prayer
       }
     }
-
-    this.headerText = data.date + " ~ " + data.begining.start + " ~ " + data.language;
 
     this.service.addNewReport(this.authService.currentUser.id, data)
     .subscribe((result: ReportModel) => {

@@ -84,10 +84,8 @@
 
 <ng-template #reportsModal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Select / Delete Report: </h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <h4 class="modal-title" style="margin-top: 10px">Select / Delete Report: </h4>
+    <button type="button" class="btn btn-danger btn-round" (click)="c('new'); setCurrentTime(); open(content2);">New Report</button>
   </div>
   <div class="modal-body">
     <div style="overflow-x:auto;">
@@ -134,7 +132,9 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger btn-round" (click)="c('new'); setCurrentTime(); open(content2);">New Report</button>
+    <button type="button" class="btn btn-light" (click)="d('Cross click')">
+      Close
+    </button>
   </div>
 </ng-template>
 

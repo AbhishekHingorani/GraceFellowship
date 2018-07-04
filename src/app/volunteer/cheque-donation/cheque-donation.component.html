@@ -1,0 +1,108 @@
+<div class="card-header">
+  <h5 class="title">Cheque</h5>
+</div>
+
+<div class="card-body">
+
+  <div *ngIf="isLoading" class="loading"></div>
+
+  <div class="row">
+
+    <div class="col-md-2 form-group">
+      <label for="name">&nbsp;&nbsp;&nbsp;Name: </label>
+      <input ngModel name="name" #pname="ngModel" id="name" type="text" class="form-control">
+    </div>
+
+    <div class="col-md-2 form-group">
+      <label for="leader">&nbsp;&nbsp;&nbsp;Category: </label>
+      <select placeholder="Select" [(ngModel)]="se" name="category" #category="ngModel" class="form-control custom-select select-box">
+        <option value="tithe" selected>Tithe</option>
+        <option *ngFor="let item of storage.donation.donation_categories" [value]="item">
+          {{item}}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-md-2 form-group">
+      <label for="bank">&nbsp;&nbsp;&nbsp;Bank: </label>
+      <input ngModel name="bank" #bank="ngModel" id="bank" type="text" class="form-control">
+    </div>
+
+    <div class="col-md-2 form-group">
+      <label for="cheque_no">&nbsp;&nbsp;&nbsp;Cheque No: </label>
+      <input ngModel name="chequeNo" #chequeno="ngModel" id="cheque_no" type="text" class="form-control">
+    </div>
+
+    <div class="form-group col-md-2">
+      <label for="datePicker">&nbsp;&nbsp;&nbsp;Cheque date: </label>
+      <div class="datepicker-container">
+        <div class="input-group" [ngClass]="{'input-group-focus':focus10===true}">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-calendar-alt"></i>
+            </span>
+          </div>
+          <input id="datePicker" class="form-control datetimepicker" placeholder="Cheque Date..." name="join_date" [(ngModel)]="model"
+            ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" (focus)="focus10=true" (blur)="focus10=false">
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-2 amt form-group">
+      <label for="amt">&nbsp;&nbsp;&nbsp;Amount: </label>
+      <input ngModel name="amt" #amt="ngModel" id="amt" type="number" class="form-control">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <button type="button" class="bttn btn-round pull-right" (click)="addToTable(pname.value, category.value, bank.value, chequeno.value, amt.value);">
+        +
+      </button>
+    </div>
+  </div>
+
+  <div style="overflow-x: auto;" class="row">
+    <div class="col-md-12 text-center">
+      <table class="table">
+        <thead class=" text-primary">
+          <th> Name</th>
+          <th> Category</th>
+          <th> Bank</th>
+          <th> Cheque No</th>
+          <th> Cheque Date</th>
+          <th> Amount</th>
+          <th> Delete</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of storage.donation.cheque; let i = index">
+            <td> {{item.name}} </td>
+            <td> {{item.category}} </td>
+            <td> {{item.bank}} </td>
+            <td> {{item.cheque_no}} </td>
+            <td> {{item.cheque_date}} </td>
+            <td> {{item.amount}}</td>
+            <td>
+              <a (click)="storage.donation.cheque.splice(i, 1); calculateSum();" style="color: #f44141; cursor: pointer;">
+                <i class="far fa-trash-alt"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="text-primary">Grand Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{sum}}</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+</div>

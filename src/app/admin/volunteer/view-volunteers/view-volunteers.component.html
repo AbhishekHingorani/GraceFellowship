@@ -6,6 +6,23 @@
 
 <div class="card-body">
 
+  <div class="row">
+    <div class="col-md-12">
+
+      <select 
+        placeholder="Select" 
+        ngModel
+        (change)="onItemSelect($event.target.value)" 
+        name="campus" 
+        class="form-control custom-select select-box"
+      >
+        <option style="color: lightgray" value="" disabled selected>- Select Campus -</option>
+        <option *ngFor="let campus of campusList" [value]="campus.id" >{{campus.name}}</option>
+      </select>
+    </div>
+  </div>
+  <br><br>
+
   <div style="overflow-x:auto;">
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
       <thead>

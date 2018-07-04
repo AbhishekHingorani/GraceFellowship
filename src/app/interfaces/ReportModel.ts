@@ -38,10 +38,10 @@ export interface Activities {
 }
 
 export interface Attendance {
-    female: string;
-    male:   string;
-    new:    string;
-    total:  string;
+    female: number;
+    male:   number;
+    new:    number;
+    total:  number;
 }
 
 export interface Attendees {

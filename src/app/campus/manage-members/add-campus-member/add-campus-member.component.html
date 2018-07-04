@@ -6,7 +6,24 @@
   
   <form #f="ngForm" (ngSubmit)="submit(f.value)" autocomplete="nope">
     <div class="card-body">
-        
+      <!-- Date -->
+      <div class="row">
+        <div class="form-group col-md-6">
+          <div class="datepicker-container">
+            <div class="input-group" [ngClass]="{'input-group-focus':focus10===true}">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-calendar-alt"></i>
+                </span>
+              </div>
+              <input id="datePicker" class="form-control datetimepicker" placeholder="Enter Date..." name="join_date" [(ngModel)]="model" ngbDatepicker
+                #d="ngbDatepicker" (click)="d.toggle()" (focus)="focus10=true" (blur)="focus10=false">
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End: Date  -->
+
       <!-- FullName -->
       <div class="row">
         <div class="col-md-6">

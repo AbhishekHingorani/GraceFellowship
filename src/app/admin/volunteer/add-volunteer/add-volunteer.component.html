@@ -5,6 +5,19 @@
 <form #f="ngForm" (ngSubmit)="submit(f.value)" autocomplete="nope">
   <div class="card-body">
 
+    <div *ngIf="campusLoading" class="loading"></div>
+
+     <!-- Campus -->
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <select [disabled]="isEdit" placeholder="Select" [(ngModel)]="campusId" name="campus" class="form-control custom-select select-box">
+          <option style="color: lightgray" value="" disabled selected>- Select Campus -</option>
+          <option *ngFor="let campus of campusList" [value]="campus.id" >{{campus.name}}</option>
+        </select>
+      </div>
+    </div>
+    <!-- #Campus -->
+
     <!-- FullName -->
     <div class="row">
       <div class="col-md-6">

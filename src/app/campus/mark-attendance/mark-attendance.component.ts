@@ -29,6 +29,7 @@ export class MarkAttendanceComponent implements OnInit {
   members: MemberModel[];
   submitBtn = "Submit";
   isLoading = false;
+  othersCount: number;
   
   constructor(
     private service: BackEndCalls,
@@ -61,6 +62,7 @@ export class MarkAttendanceComponent implements OnInit {
       this.data.attendees.new = this.storage.selectedReport.report.attendees.new;
     }
 
+    this.othersCount = (+this.storage.selectedReport.report.attendance.new - this.storage.selectedReport.report.attendees.new.length);
     this.members = this.storage.selectedReport.batch_members;      
   }
 
@@ -86,27 +88,25 @@ export class MarkAttendanceComponent implements OnInit {
 
     for (var i = 0; i < this.members.length; i++) {
       this.members[i].active = val;
+      this.attendanceChanged(this.members[i]);
     }
   }
 
   submit(formData){
     this.toggleLoading();
-    this.data.attendance.male = this.data.attendance.female = 0;
     this.data.attendees.members = [];
 
     for (var i = 0; i < this.members.length; i++) {
-      if(this.members[i].active){
+      if(this.members[i].active)
         this.data.attendees.members.push(this.members[i].id);
-        if(this.members[i].gender=="m")
-          this.data.attendance.male++;
-        else
-          this.data.attendance.female++;
-      }
     }
 
-    this.data.attendance.total = this.data.attendance.male + this.data.attendance.female;
-    this.data.attendance.new = this.data.attendees.new.length;
-    console.log(JSON.stringify(this.data));
+    this.data.attendance.male = this.storage.selectedReport.report.attendance.male;
+    this.data.attendance.female = this.storage.selectedReport.report.attendance.female;
+    this.data.attendance.new = this.data.attendees.new.length + this.othersCount;
+    this.data.attendance.total = (this.storage.selectedReport.report.attendance.male + this.storage.selectedReport.report.attendance.female + this.data.attendance.new);
+
+    console.log(this.data);
 
     this.service.markAttendance(this.authService.currentUser.id, this.storage.selectedReport.report.id, this.data)
     .subscribe(response => {
@@ -134,5 +134,14 @@ export class MarkAttendanceComponent implements OnInit {
       this.isLoading = true;
       this.submitBtn = "";
     }
+  }
+
+  attendanceChanged(member){
+    if(member.active)
+      member.gender == 'm' ? this.storage.selectedReport.report.attendance.male-- : this.storage.selectedReport.report.attendance.female--;
+    else
+      member.gender == 'm' ? this.storage.selectedReport.report.attendance.male++ : this.storage.selectedReport.report.attendance.female++;
+
+    member.active = !member.active;
   }
 }

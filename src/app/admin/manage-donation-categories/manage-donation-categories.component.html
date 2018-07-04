@@ -16,25 +16,6 @@
         <div class="card-body">
       
           <div class="container">
-           
-            <div class="row">
-              <div class="col-md-6 form-group">
-                <select 
-                  placeholder="Select" 
-                  ngModel 
-                  (change)="onCampusChange($event.target.value)" 
-                  name="campus" 
-                  class="form-control custom-select select-box"
-                >
-                  <option style="color: lightgray" value="" disabled selected>- Select Campus -</option>
-                  <option *ngFor="let campus of campusList" [value]="campus.id" >{{campus.name}}</option>
-                </select>
-              </div>
-            </div>
-
-            <br>
-
-
             <div *ngIf="selectedCampusId != ''">
               <div style="font-size: 12px" class="text-muted">Current Donation Categories:</div>
 

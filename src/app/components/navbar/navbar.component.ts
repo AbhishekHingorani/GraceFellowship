@@ -4,6 +4,7 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 import { Router } from '@angular/router';
 import Chart from 'chart.js';
 import { AuthService } from '../../services/AuthGuards/auth.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -157,5 +158,13 @@ export class NavbarComponent implements OnInit {
           }
       }
       return 'Dashboard';
+    }
+
+    viewCurrentUser(){
+        swal(this.authService.currentUser.type + ": " + this.authService.currentUser.name);
+    }
+
+    showCreatorDetail(){
+        swal('Made by: <br><br> Abhishek Hingorani, <br> Dhruvil Shah & <br> Dhruv Acharya');
     }
 }

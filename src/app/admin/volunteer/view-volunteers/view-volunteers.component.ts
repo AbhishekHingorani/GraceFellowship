@@ -5,7 +5,7 @@ import { VolunteerModel } from "../../../interfaces/VolunteerModel";
 import { BackEndCalls } from "../../../services/BackendHandling/backend-calls.service";
 import { Subject } from 'rxjs';
 import { DataStorage } from '../../../services/Providers/DataStorage';
-
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'view-volunteers',
@@ -21,6 +21,9 @@ export class ViewVolunteersComponent implements OnInit {
   dtOptions: any = {};
   dtTrigger: Subject<VolunteerModel> = new Subject();  
   isLoading: boolean = true;
+  currentlySelectedCampusId: string;
+  campusList;
+  isTableLoadingForTheFirstTime: boolean = true;
 
   constructor(
     private router: Router, 
@@ -35,26 +38,61 @@ export class ViewVolunteersComponent implements OnInit {
       pageLength: 10
     };
 
-    this.service.getAllVolunteers()
+    if(this.storage.campusList == null){
+      this.getCampusList();
+    }
+    else{
+      this.campusList = this.storage.campusList;
+      this.isLoading = false;   
+    }
+  }
+
+  getCampusList(){
+    this.service.getAllCampuses()
+    .subscribe((data: any[]) => {
+      this.campusList = data;
+      this.storage.campusList = data;
+      this.isLoading = false;
+    })
+  }
+
+  onItemSelect(id){
+    this.isLoading = true;
+    this.getAllVolunteersOfCampus(id);
+    this.currentlySelectedCampusId = id;
+  }
+
+  getAllVolunteersOfCampus(id){
+    this.service.getAllVolunteers(id)
     .subscribe((data: VolunteerModel[])  => {
       this.volunteers = data;
-      this.dtTrigger.next();
+     
+      if(this.isTableLoadingForTheFirstTime){
+        this.dtTrigger.next();
+        this.isTableLoadingForTheFirstTime = false;
+      }
+      else
+        this.rerenderTable();
+
       this.isLoading = false;
     });
-
   }
 
   deleteVolunteer(id: string){
     //searching id from array and deleting it
     let index = this.volunteers.map(function(x){ return x.id; }).indexOf(id);
+    let tempVolunteer = this.volunteers[index];
     this.volunteers.splice(index,1);
 
     this.rerenderTable();
     
     //Sending delete reques to server
-    this.service.deleteVolunteer(id)
+    this.service.deleteVolunteer(this.currentlySelectedCampusId, id)
     .subscribe(data => {
       console.log(data);
+    },error => {
+      swal('Error','There was an error deleting the volunteer','error');
+      this.volunteers.push(tempVolunteer);
     });
   }
 
@@ -69,6 +107,6 @@ export class ViewVolunteersComponent implements OnInit {
 
   editVolunteer(volunteer){
     this.storage.volunteer = volunteer;
-    this.router.navigate(['/admin/volunteer',volunteer.id], { queryParams: { tab: 'add', edit: 'true'} });
+    this.router.navigate(['/admin/volunteer',volunteer.id], { queryParams: { tab: 'add', edit: 'true', campusId: this.currentlySelectedCampusId} });
   }
 }

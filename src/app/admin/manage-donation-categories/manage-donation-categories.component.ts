@@ -12,8 +12,6 @@ import { DataStorage } from '../../services/Providers/DataStorage';
 export class ManageDonationCategoriesComponent implements OnInit {
 
   submitBtn = "+";
-  selectedCampusId: string = "";
-  campusList;
   categoryList;
   isLoading: boolean = true;
   isAddCategoryLoading = false;
@@ -26,22 +24,7 @@ export class ManageDonationCategoriesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.storage.campusList == null){
-      this.getCampusList();
-    }
-    else{
-      this.campusList = this.storage.campusList;
-      this.isLoading = false;   
-    }
-  }
-
-  getCampusList(){
-    this.service.getAllCampuses()
-    .subscribe(data => {
-      this.campusList = data;
-      this.storage.campusList = this.campusList;
-      this.isLoading = false;
-    })
+    this.loadCategories();
   }
 
   addCategory(){
@@ -54,7 +37,7 @@ export class ManageDonationCategoriesComponent implements OnInit {
 
     let data = {category: this.newCategoryName}
     
-    this.service.addDonationCategory(this.selectedCampusId, data)
+    this.service.addDonationCategory(data)
     .subscribe(data => {
       //swal('Success','Category added successfully','success');
       swal({
@@ -82,11 +65,10 @@ export class ManageDonationCategoriesComponent implements OnInit {
     });
   }
 
-  onCampusChange(id){
+  loadCategories(){
     this.isLoading = true;   
-    this.selectedCampusId = id;
 
-    this.service.getAllDonationCategories(id)
+    this.service.getAllDonationCategories()
     .subscribe(data => {
       this.categoryList = data;
       this.isLoading = false;
@@ -100,7 +82,7 @@ export class ManageDonationCategoriesComponent implements OnInit {
     
     let deletedCategory = this.categoryList[index];
     
-    this.service.deleteDonationCategory(this.selectedCampusId, id)
+    this.service.deleteDonationCategory(id)
     .subscribe(data => {
       if(data < 1 || data == null){
         swal('Error','There was an error deleting the category','error');
@@ -120,7 +102,7 @@ export class ManageDonationCategoriesComponent implements OnInit {
 
     let data = {category: newName}
 
-    this.service.editDonationCategory(this.selectedCampusId, id, data)
+    this.service.editDonationCategory(id, data)
     .subscribe(data => {
       console.log("data : ");
       console.log(data);

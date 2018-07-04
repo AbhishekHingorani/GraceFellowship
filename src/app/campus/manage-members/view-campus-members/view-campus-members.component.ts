@@ -47,7 +47,7 @@ export class ViewCampusMembersComponent implements OnInit {
   }
 
   fetchBatchMembers(id){
-    this.service.getBatchMembersOfCampus(id)
+    this.service.getBatchMembersOfCampus_Campus(id)
     .subscribe((data: MemberModel[]) => {
       this.storage.membersList = data;
       console.log(this.storage.membersList);
@@ -70,7 +70,7 @@ export class ViewCampusMembersComponent implements OnInit {
     this.rerenderTable();
     
     //Sending delete request to server
-    this.service.deleteMember(this.authService.currentUser.id, id)
+    this.service.deleteMember_Campus(this.authService.currentUser.id, id)
     .subscribe(data => {
       console.log(data);
     });

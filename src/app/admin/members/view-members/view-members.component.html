@@ -28,6 +28,7 @@
       <thead>
         <tr>
           <th>Name</th>
+          <th>Date</th>
           <th>Gender</th>
           <th>Email</th>
           <th>Contact</th>
@@ -38,6 +39,7 @@
       <tbody>
         <tr *ngFor="let member of members">
           <td>{{member.name}}</td>
+          <td>{{member.join_date}}</td>
           <td>{{member.gender}}</td>
           <td>{{member.email}}</td>
           <td>{{member.contact}}</td>

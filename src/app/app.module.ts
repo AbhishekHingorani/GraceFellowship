@@ -58,7 +58,7 @@ export function tokenGetter() {
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    NoAccessComponent,
+    NoAccessComponent
   ],
   providers: [
     AuthService,

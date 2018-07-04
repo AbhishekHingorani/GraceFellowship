@@ -1,0 +1,109 @@
+<div class="panel-header panel-header-md">
+  <div class="row">
+    <div class="col-11 col-sm-6  ">
+      <div *ngIf="storage.selectedReport" class="header-txt">
+        {{storage.selectedReport.report.date}} ~ {{storage.selectedReport.report.begining.start}} ~ {{storage.selectedReport.report.language}}
+      </div>
+    </div>
+    <div class="col-1 col-sm-6  ">
+      <button (click)="open(reportsModal)" style="margin-right: 30px;" class="btn btn-outline-dark pull-right">
+        Select Report
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="main-content">
+
+    <div *ngIf="isLoading" class="loading"></div>  
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="card">
+
+        <!-- <ngb-tabset *ngIf="storage.selectedReport" #tabs="ngbTabset" type="tabs" justify="justified"> -->
+        <ngb-tabset #tabs="ngbTabset" type="tabs" justify="justified">
+
+          <ngb-tab id="offerings">
+            <ng-template ngbTabTitle>
+              <div (click)="tabChange('offerings')">Offerings</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <general-donation></general-donation>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab id="tithe">
+            <ng-template ngbTabTitle>
+              <div (click)="tabChange('tithe')">Tithe</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <tithe-donation></tithe-donation>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab id="cheque">
+            <ng-template ngbTabTitle>
+              <div (click)="tabChange('cheque')">Cheque</div>
+            </ng-template>
+            <ng-template ngbTabContent>
+              <cheque-donation></cheque-donation>
+            </ng-template>
+          </ngb-tab>
+
+        </ngb-tabset>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- =========================================================================== -->
+
+<ng-template #reportsModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Select / Delete Report: </h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div style="overflow-x:auto;">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Language</th>
+            <th>Filled By</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let report of reportsList">
+            <td>{{report.date}}</td>
+            <td>{{report.begining.start}}</td>
+            <td>{{report.language}}</td>
+            <td>{{report.filedby}}</td>
+            <td>
+              <button 
+                (click)="selectReport(report.id); c('selected')" 
+                style="color:#41a9f4; cursor: pointer;" 
+                placement="top" 
+                ngbTooltip="Select report"
+                class="btn btn-primary"
+              >
+                select
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</ng-template>

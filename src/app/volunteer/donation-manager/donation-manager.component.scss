@@ -1,3 +1,8 @@
+.panel-header-md{
+    height: 150px;
+    padding-top: 60px;
+}
+
 .loading {
     z-index: 5;
     width: 100%;
@@ -16,6 +21,13 @@
     background-position: 50% 50%; 
 }
 
-.error {
-    color: darkred; margin: -10px 0px 10px 10px;
+.header-txt{
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.35em;
+    border: none;
+    margin: 10px 1px;
+    border-radius: 0.1875rem;
+    padding: 11px 22px;
+    color: rgb(160, 160, 160);
 }

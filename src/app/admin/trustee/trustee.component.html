@@ -21,16 +21,16 @@
                 <div class="input-group" [ngClass]="{'input-group-focus':focus0===true}">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
-                      t-
+                      <i class="fa fa-user"></i>
                     </span>
                   </div>
-                  <input type="text" required ngModel name="username" #username="ngModel" class="form-control" placeholder="*User Name..."
+                  <input type="text" pattern="t-[a-z0-9]+" required ngModel name="username" #username="ngModel" class="form-control" placeholder="*User Name..."
                     (focus)="focus0=true" (blur)="focus0=false">
                 </div>
               </div>
             </div>
             <div *ngIf="username.dirty && !username.valid && !username.value==''" class="error">
-              This field must not be empty!
+              Field should match the pattern 't-###..''
             </div>
             <!-- #Username -->
 
@@ -138,7 +138,9 @@
             <!-- Submit Btn -->
             <div class="row">
               <div class="col-md-12">
-                <button [disabled]="!f.valid || !doesPasswordMatch" [swal]="{ 
+                <button 
+                    [disabled]="!f.valid || !doesPasswordMatch || isAddTrusteeLoading" 
+                    [swal]="{ 
                       title: 'Confirm', 
                       type: 'warning',
                       text: 'Campus details once saved cannot be edited, so please check that all fields are correct before clicking submit', 
@@ -146,7 +148,7 @@
                       confirmButtonText: 'submit'
                     }" (confirm)="submit(f.value)" class="pull-right btn btn-danger btn-round" type="submit">
                   {{submitBtn}}
-                  <img *ngIf="isAddCampusLoading" src="../../../../assets/img/tail-spin.svg" class="pull-right" />
+                  <img *ngIf="isAddTrusteeLoading" src="../../../assets/img/tail-spin.svg" class="pull-right" />
                 </button>
 
               </div>

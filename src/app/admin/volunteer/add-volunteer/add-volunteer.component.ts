@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { BackEndCalls } from '../../../services/BackendHandling/backend-calls.service';
 import { VolunteerModel } from "../../../interfaces/VolunteerModel";
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
@@ -21,6 +20,9 @@ export class AddVolunteerComponent implements OnInit {
   submitBtn: string = "Add";
   isEdit: boolean;
   isLoading: boolean = false;
+  campusLoading: boolean = true;
+  campusList;
+  campusId: string;
 
   constructor(
     private router: Router, 
@@ -42,12 +44,31 @@ export class AddVolunteerComponent implements OnInit {
     this.activatedRoute.queryParamMap
     .subscribe(params => {
       this.isEdit = Boolean(params.get("edit")); //Saving 'Edit' query param if available
+      this.campusId = params.get("campusId");  
     });
+
+    if(this.storage.campusList == null){
+      this.getCampusList();
+    }
+    else{
+      this.campusList = this.storage.campusList;
+      this.campusLoading = false;   
+    }
 
     if(this.isEdit && this.storage.volunteer != null){
       this.submitBtn = "Edit";
       this.volunteer = this.storage.volunteer;
     }
+  }
+
+  getCampusList(){
+    //getting list of campuses
+    this.service.getAllCampuses()
+    .subscribe(data => {
+      this.campusList = data;
+      this.storage.campusList = this.campusList;
+      this.campusLoading = false;
+    })
   }
 
   validatePassword(pass, pass2){
@@ -60,6 +81,8 @@ export class AddVolunteerComponent implements OnInit {
   }
 
   submit(data){
+    if(this.isLoading) return;  //once user has submited, he cannot click btn again while loading
+
     this.toggleLoading();
     delete data.confirmPassword;
 
@@ -67,7 +90,7 @@ export class AddVolunteerComponent implements OnInit {
     
     //If isEdit is false then send request to add the volunteer else to edit.
     if(this.isEdit == false){
-      this.service.addVolunteer(data)
+      this.service.addVolunteer(this.campusId, data)
       .subscribe(response => {
         if(response >= 1)
           swal('Success', 'Volunteer Added Successfully', 'success');
@@ -75,7 +98,7 @@ export class AddVolunteerComponent implements OnInit {
       });
     }
     else{
-      this.service.editVolunteer(this.volunteer.id, data)
+      this.service.editVolunteer(this.campusId, this.volunteer.id, data)
       .subscribe(response => {
         console.log(response == 1);
         if(response >= 1)
@@ -83,7 +106,6 @@ export class AddVolunteerComponent implements OnInit {
           this.toggleLoading();
       })
     }
-    
   }
 
   toggleLoading(){

@@ -1,0 +1,87 @@
+<div class="card-header">
+  <h5 class="title">Tithe</h5>
+</div>
+
+<div class="card-body">
+
+  <div *ngIf="isLoading" class="loading"></div>
+
+  <div class="row">
+
+    <div class="col-md-4 form-group">
+        <label for="name">&nbsp;&nbsp;&nbsp;Name: </label>
+        <input ngModel name="name" #pname="ngModel" id="name" type="text" class="form-control">
+      </div>
+
+    <div class="col-md-4 form-group">
+      <label for="leader">&nbsp;&nbsp;&nbsp;Category: </label>
+      <select 
+        placeholder="Select" 
+        [(ngModel)]="se"
+        name="category"
+        #category="ngModel" 
+        class="form-control custom-select select-box"
+      >
+        <option value="tithe" selected>Tithe</option>
+        <option 
+          *ngFor="let item of storage.donation.donation_categories" 
+          [value]="item" 
+        >
+          {{item}}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-md-3 form-group">
+      <label for="amt">&nbsp;&nbsp;&nbsp;Amount: </label>
+      <input ngModel name="amt" #amt="ngModel" id="amt" type="number" class="form-control">
+    </div>
+
+    <div class="col-md-1">
+      <button type="button" class="bttn pull-right btn-round" (click)="addToTable(pname.value, category.value, amt.value);">
+        +
+      </button>
+    </div>
+  </div>
+
+  <div style="overflow-x: auto;" class="row">
+    <div class="col-md-12 text-center">
+      <table class="table">
+          <thead class=" text-primary">
+            <th> Name
+            </th>
+            <th> Category
+            </th>
+            <th> Amount
+            </th>
+            <th> Delete
+            </th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of storage.donation.tithe; let i = index">
+              <td> {{item.name}} </td>
+              <td> {{item.category}} </td>
+              <td> {{item.amount}}</td>
+              <td>
+                <a
+                  (click)="storage.donation.tithe.splice(i, 1); calculateSum();"
+                  style="color: #f44141; cursor: pointer;"
+                >
+                  <i class="far fa-trash-alt"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td class="text-primary">Grand Total</td>
+              <td></td>
+              <td>{{sum}}</td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+  </div>
+
+</div>

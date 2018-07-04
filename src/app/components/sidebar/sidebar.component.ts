@@ -19,9 +19,12 @@ export const ROUTES: RouteInfo[] = [
     { path: '/admin/manageCampus', title: 'Campus',  icon: 'business_bank', class: '', type: 'admin' },
     { path: '/admin/trustee', title: 'Trustee',  icon: 'education_agenda-bookmark', class: '', type: 'admin' },
 
-    //----Volunteer Routes----//
+    //----Campus Routes----//
     { path: '/campus/report-detail-manager', title: 'Report Detail',  icon: 'education_atom', class: '', type: 'campus' },  
     { path: '/campus/campus-members-manager', title: 'Members',  icon: 'users_single-02', class: '', type: 'campus' },  
+    
+    //----Volunteer Routes----//
+    { path: '/volunteer/donation', title: 'Donation',  icon: 'business_money-coins', class: '', type: 'volunteer' },  
 ];
 
 @Component({

@@ -20,24 +20,24 @@ export class BackEndCalls
   //---------------------------- ADMIN ---------------------------------//
   //===================================================================//
 
-  getAllVolunteers(){
-    return this.http.get(this.URL + '/admin/volunteers')
+  getAllVolunteers(campusId){
+    return this.http.get(this.URL + '/admin/campus/'+ campusId +'/volunteers')
   }
   
-  getVolunteer(volunteerId){
-    return this.http.get(this.URL + '/admin/volunteer/' + volunteerId)
+  getVolunteer(campusId, volunteerId){
+    return this.http.get(this.URL + '/admin/campus/' + campusId + '/volunteer/' + volunteerId)
   }
   
-  deleteVolunteer(volunteerId){
-    return this.http.delete(this.URL + '/admin/volunteer/' + volunteerId)
+  deleteVolunteer(campusId, volunteerId){
+    return this.http.delete(this.URL + '/admin/campus/' + campusId + '/volunteer/' + volunteerId)
   }
 
-  addVolunteer(data){
-    return this.http.post(this.URL + '/admin/volunteer', data)
+  addVolunteer(campusId, data){
+    return this.http.post(this.URL + '/admin/campus/' + campusId + '/volunteer', data)
   }
 
-  editVolunteer(id, data){
-    return this.http.patch(this.URL + "/admin/volunteer/" + id, data)
+  editVolunteer(campusId, id, data){
+    return this.http.patch(this.URL + '/admin/campus/' + campusId + '/volunteer/' + id, data)
   }
 
   /*--------------*/
@@ -97,7 +97,7 @@ export class BackEndCalls
   /*--------------*/
 
   getAllTrustees(){
-    return this.http.get(this.URL + '/admin/trustee');
+    return this.http.get(this.URL + '/admin/trustees');
   }
 
   deleteTrustee(trusteeId){
@@ -110,24 +110,24 @@ export class BackEndCalls
 
   /*--------------*/
 
-  getAllDonationCategories(campusId){
-    return this.http.get(this.URL + '/admin/campus/' + campusId + '/donation_category');
+  getAllDonationCategories(){
+    return this.http.get(this.URL + '/admin/donation_category');
   }
 
-  deleteDonationCategory(campusId, donationCatId){
-    return this.http.delete(this.URL + '/admin/campus/' + campusId + '/donation_category/' + donationCatId)
+  deleteDonationCategory(donationCatId){
+    return this.http.delete(this.URL + '/admin/donation_category/' + donationCatId)
   }
 
-  addDonationCategory(campusId, data){
-    return this.http.post(this.URL + '/admin/campus/' + campusId + '/donation_category', data);
+  addDonationCategory(data){
+    return this.http.post(this.URL + '/admin/donation_category', data);
   }
 
-  editDonationCategory(campusId, donationCatId, data){
-    return this.http.patch(this.URL + '/admin/campus/' + campusId + '/donation_category/' + donationCatId, data);
+  editDonationCategory(donationCatId, data){
+    return this.http.patch(this.URL + '/admin/donation_category/' + donationCatId, data);
   }
 
   //=====================================================================//
-  //-------------------------- Volunteer -------------------------------//
+  //---------------------------- Campus --------------------------------//
   //===================================================================//
 
   getAllReports(campusId){
@@ -172,5 +172,35 @@ export class BackEndCalls
 
   editEndingDetails(campusId, reportId, data){
     return this.http.patch(this.URL + '/campus/' + campusId + '/report/' + reportId + "/activities_ending", data);
+  }
+
+  /* ------------------ */
+
+  getBatchMembersOfCampus_Campus(campusId){
+    return this.http.get(this.URL + '/campus/' + campusId + '/batch_members');
+  }
+
+  getMember_Campus(campusId, memberId){
+    return this.http.get(this.URL + '/campus/' + campusId + '/batch_member/' + memberId)
+  }
+
+  deleteMember_Campus(campusId, memberId){
+    return this.http.delete(this.URL + '/campus/' + campusId + '/batch_member/' + memberId)
+  }
+
+  editMember_Campus(campusId, data){
+    return this.http.patch(this.URL + '/campus/' + campusId + '/batch_member/' + data.id, data)
+  }
+
+  addMember_Campus(campusId, data){
+    return this.http.post(this.URL + '/campus/' + campusId + '/batch_member', data);
+  }
+
+  //=====================================================================//
+  //--------------------------- Volunteer-------------------------------//
+  //===================================================================//
+
+  getAllReports_Volunteer(volunteerId){
+    return this.http.get(this.URL + '/volunteer/' + volunteerId + '/reports');
   }
 }

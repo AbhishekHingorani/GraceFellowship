@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MemberModel } from "../../../interfaces/MemberModel";
 import { BackEndCalls } from '../../../services/BackendHandling/backend-calls.service';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/observable/combineLatest';
 import swal from 'sweetalert2';
 import { DataStorage } from '../../../services/Providers/DataStorage';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+
+const date = new Date;
 
 @Component({
   selector: 'add-member',
@@ -21,18 +23,21 @@ export class AddMemberComponent implements OnInit {
   campusLoading: boolean = true;
   campusList;
   campusId: string;
+  model: NgbDateStruct;
 
   constructor(
-    private router: Router, 
     private activatedRoute: ActivatedRoute, 
     private service: BackEndCalls,
     private storage: DataStorage,
   ) { }
 
   ngOnInit() {
+    this.model = {year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate()};
+    
     this.member = {
       id: '',
       name: '',
+      join_date: '',
       email: '',
       contact: '',
       gender: '',
@@ -72,13 +77,13 @@ export class AddMemberComponent implements OnInit {
 
   submit(formValues){
     this.toggleLoading();
-
+    formValues.join_date = this.model.day + '-' + this.model.month + '-' + this.model.year;
+    
     //If isEdit is false then send request to add the member else to edit.
     if(this.isEdit == false){
-      let campusId = formValues.campus;
       delete formValues.campus;
       
-      this.service.addMember(campusId, formValues)
+      this.service.addMember(this.campusId, formValues)
       .subscribe(response => {
         if(response >= 1)
           swal('Success', 'Member Added Successfully', 'success');
@@ -87,6 +92,7 @@ export class AddMemberComponent implements OnInit {
           this.member = {
             id: '',
             name: '',
+            join_date: '',
             email: '',
             contact: '',
             gender: '',

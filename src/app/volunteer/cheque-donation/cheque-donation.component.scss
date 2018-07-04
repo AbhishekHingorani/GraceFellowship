@@ -1,3 +1,24 @@
+.col-md-2 {
+    padding-right: 0px;
+    padding-left: 5px;
+}
+
+.amt {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.bttn {
+    font-weight: 400;
+    font-size: 1.5em;
+    border: none;
+    margin-left: 5px;
+    background-color: #ffffff;
+    border: 1.5px solid #dc3545;
+    color: #dc3545;
+    cursor: pointer;
+}
+
 .loading {
     z-index: 5;
     width: 100%;
@@ -14,8 +35,4 @@
                 center;
     background-size: 15vw 15vh;
     background-position: 50% 50%; 
-}
-
-.error {
-    color: darkred; margin: -10px 0px 10px 10px;
 }
