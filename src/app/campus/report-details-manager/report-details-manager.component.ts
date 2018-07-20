@@ -16,6 +16,7 @@ let now = new Date();
 })
 export class ReportDetailsManagerComponent implements OnInit {
 
+  focus; focus1;
   model: NgbDateStruct;
   time= "00:00:00";
   isLoading: boolean = true;
@@ -25,13 +26,13 @@ export class ReportDetailsManagerComponent implements OnInit {
   @ViewChild('tabs') ngbTabSet;
   @ViewChild('reportsModal') reportsModal;
   constructor(
-    private router: Router, 
-    private activatedRoute: ActivatedRoute, 
-    private cd: ChangeDetectorRef,
-    private service: BackEndCalls,
-    private modalService: NgbModal,
-    private authService: AuthService,
-    private storage: DataStorage
+    public router: Router, 
+    public activatedRoute: ActivatedRoute, 
+    public cd: ChangeDetectorRef,
+    public service: BackEndCalls,
+    public modalService: NgbModal,
+    public authService: AuthService,
+    public storage: DataStorage
   ) {}
 
   ngOnInit() {
@@ -105,8 +106,7 @@ export class ReportDetailsManagerComponent implements OnInit {
 
     this.service.getSingleReport(this.authService.currentUser.id, id)
     .subscribe((data: ReportModel) => {
-      console.dir(data);
-      let date = data.report.date.split('/').map(Number);
+      let date = data.report.date.split('-').map(Number);
       data.report.dateModel = {year: date[2], month: date[1], day: date[0]}; 
 
       this.storage.selectedReport = data;
@@ -127,7 +127,7 @@ export class ReportDetailsManagerComponent implements OnInit {
     let data: any = {}; 
     data = {
       language: f.language,
-      date: f.date.day + '/' + f.date.month + '/' + f.date.year,
+      date: f.date.day + '-' + f.date.month + '-' + f.date.year,
       filedby: f.filedBy,
       begining: {
         start: f.beginTime,

@@ -4,83 +4,93 @@
 
 <div class="card-body">
 
-  <div *ngIf="isLoading" class="loading"></div>
+  <!-- <div *ngIf="isLoading" class="loading"></div> -->
 
-  <div class="row">
+  <div *ngIf="storage.donation">
+    <div class="row">
 
-    <div class="col-md-4 form-group">
-      <label for="leader">&nbsp;&nbsp;&nbsp;Denom: </label>
-      <select 
-        placeholder="Select" 
-        ngModel
-        name="denom"
-        #denom="ngModel" 
-        class="form-control custom-select select-box"
-      >
-        <option style="color: lightgray" value="" disabled selected>- Select Denom -</option>
-        <option value="1" >1</option>
-        <option value="2" >2</option>
-        <option value="5" >5</option>
-        <option value="10" >10</option>
-        <option value="20" >20</option>
-        <option value="50" >50</option>
-        <option value="100" >100</option>
-        <option value="200" >200</option>
-        <option value="500" >500</option>
-        <option value="2000" >2000</option>
-      </select>
-    </div>
-
-    <div class="col-md-4 form-group">
-      <label for="leader">&nbsp;&nbsp;&nbsp;Quanity: </label>
-      <input ngModel name="qty" #qty="ngModel" id="leader" type="number" class="form-control">
-    </div>
-
-    <div class="col-md-1">
-      <button type="button" class="bttn pull-right btn-round" (click)="addToTable(denom.value, qty.value);">
-        +
-      </button>
-    </div>
-  </div>
-
-  <div style="overflow-x: auto;" class="row">
-    <div class="col-md-9 text-center">
-      <table class="table">
-          <thead class=" text-primary">
-            <th> Denom
-            </th>
-            <th> Qty
-            </th>
-            <th> Total
-            </th>
-            <th> Delete
-            </th>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of storage.donation.general; let i = index">
-              <td> {{item.denom}} </td>
-              <td> {{item.quantity}} </td>
-              <td> {{item.denom * item.quantity}}</td>
-              <td>
-                <a
-                  (click)="storage.donation.general.splice(i, 1); calculateSum();"
-                  style="color: #f44141; cursor: pointer;"
-                >
-                  <i class="far fa-trash-alt"></i>
-                </a>
-              </td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td class="text-primary">Grand Total</td>
-              <td></td>
-              <td>{{sum}}</td>
-              <td></td>
-            </tr>
-          </tfoot>
-        </table>
+      <div class="col-md-4 form-group">
+        <label for="leader">&nbsp;&nbsp;&nbsp;Denom: </label>
+        <select 
+          placeholder="Select" 
+          ngModel
+          name="denom"
+          #denom="ngModel" 
+          class="form-control custom-select select-box"
+        >
+          <option style="color: lightgray" value="" disabled selected>- Select Denom -</option>
+          <option value="1" >1</option>
+          <option value="2" >2</option>
+          <option value="5" >5</option>
+          <option value="10" >10</option>
+          <option value="20" >20</option>
+          <option value="50" >50</option>
+          <option value="100" >100</option>
+          <option value="200" >200</option>
+          <option value="500" >500</option>
+          <option value="2000" >2000</option>
+        </select>
       </div>
-  </div>
 
+      <div class="col-md-4 form-group">
+        <label for="leader">&nbsp;&nbsp;&nbsp;Quanity: </label>
+        <input ngModel name="qty" #qty="ngModel" id="leader" type="number" class="form-control">
+      </div>
+
+      <div class="col-md-1">
+        <button type="button" class="bttn pull-right btn-round" (click)="addToTable(denom.value, qty.value);">
+          +
+        </button>
+      </div>
+    </div>
+
+    <div style="overflow-x: auto;" class="row">
+      <div class="col-md-9 text-center">
+        <table class="table">
+            <thead class=" text-primary">
+              <th> Denom
+              </th>
+              <th> Qty
+              </th>
+              <th> Total
+              </th>
+              <th> Delete
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of storage.donation.general; let i = index">
+                <td> {{item.denom}} </td>
+                <td> {{item.quantity}} </td>
+                <td> {{item.denom * item.quantity}}</td>
+                <td>
+                  <a
+                    (click)="storage.donation.general.splice(i, 1); calculateSum();"
+                    style="color: #f44141; cursor: pointer;"
+                  >
+                    <i class="far fa-trash-alt"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td class="text-primary">Grand Total</td>
+                <td></td>
+                <td>{{calculateSum()}}</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-9">
+          <button [disabled]="isLoading" (click)="submit()" class="btn btn-danger btn-round pull-right">
+            {{submitBtn}}
+            <img *ngIf="isLoading" src="../../../../assets/img/tail-spin.svg" class="pull-right"/>
+          </button>
+      </div>
+    </div>
+  </div>
 </div>

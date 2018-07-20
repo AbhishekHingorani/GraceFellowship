@@ -18,9 +18,9 @@ export class ManageDonationCategoriesComponent implements OnInit {
   newCategoryName: string = "";
 
   constructor(
-    private router: Router, 
-    private storage: DataStorage, 
-    private service: BackEndCalls
+    public router: Router, 
+    public storage: DataStorage, 
+    public service: BackEndCalls
   ) { }
 
   ngOnInit() {
@@ -54,9 +54,7 @@ export class ManageDonationCategoriesComponent implements OnInit {
         category: this.newCategoryName
       });
 
-      this.newCategoryName = "";
-      console.log(this.categoryList);
-      
+      this.newCategoryName = "";      
       this.toggleLoading();
     },
     error => {
@@ -72,7 +70,6 @@ export class ManageDonationCategoriesComponent implements OnInit {
     .subscribe(data => {
       this.categoryList = data;
       this.isLoading = false;
-      console.log(this.categoryList);
     })
   }
 
@@ -97,15 +94,11 @@ export class ManageDonationCategoriesComponent implements OnInit {
     let index = this.categoryList.map(function(x){ return x.id; }).indexOf(id);
     let oldName = this.categoryList[index].category;
     this.categoryList[index].category = newName;
-
-    console.log(oldName + ", " + newName);
-
+    
     let data = {category: newName}
 
     this.service.editDonationCategory(id, data)
     .subscribe(data => {
-      console.log("data : ");
-      console.log(data);
       if(data<1 || data==null){
         this.categoryList[index].category = oldName;
       }

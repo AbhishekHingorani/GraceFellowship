@@ -25,6 +25,9 @@ export const ROUTES: RouteInfo[] = [
     
     //----Volunteer Routes----//
     { path: '/volunteer/donation', title: 'Donation',  icon: 'business_money-coins', class: '', type: 'volunteer' },  
+    
+    //----Trustee Routes----//
+    { path: '/trustee/summary-reports', title: 'Reports',  icon: 'education_atom', class: '', type: 'trustee' }  
 ];
 
 @Component({
@@ -35,7 +38,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);

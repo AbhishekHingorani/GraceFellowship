@@ -27,11 +27,11 @@ export class ViewCampusMembersComponent implements OnInit {
   isTableLoadingForTheFirstTime: boolean = true;
   
   constructor(
-    private router: Router, 
-    private authService: AuthService,
-    private activatedRoute: ActivatedRoute, 
-    private storage: DataStorage,
-    private service: BackEndCalls
+    public router: Router, 
+    public authService: AuthService,
+    public activatedRoute: ActivatedRoute, 
+    public storage: DataStorage,
+    public service: BackEndCalls
   ) { }
 
   ngOnInit() {
@@ -49,9 +49,7 @@ export class ViewCampusMembersComponent implements OnInit {
   fetchBatchMembers(id){
     this.service.getBatchMembersOfCampus_Campus(id)
     .subscribe((data: MemberModel[]) => {
-      this.storage.membersList = data;
-      console.log(this.storage.membersList);
-      
+      this.storage.membersList = data;      
       this.dtTrigger.next();
       
       this.isLoading = false;
@@ -65,6 +63,7 @@ export class ViewCampusMembersComponent implements OnInit {
   deleteMember(id: string){
     //searching id from array and deleting it
     let index = this.storage.membersList.map(function(x){ return x.id; }).indexOf(id);
+    let tempMember = this.storage.membersList[index];
     this.storage.membersList.splice(index,1);
 
     this.rerenderTable();
@@ -72,7 +71,9 @@ export class ViewCampusMembersComponent implements OnInit {
     //Sending delete request to server
     this.service.deleteMember_Campus(this.authService.currentUser.id, id)
     .subscribe(data => {
-      console.log(data);
+    },error => {
+      this.storage.membersList.push(tempMember);
+      swal('Error','There was an error deleting the member','error');
     });
   }
 

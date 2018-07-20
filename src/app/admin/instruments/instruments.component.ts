@@ -20,9 +20,9 @@ export class InstrumentsComponent implements OnInit {
   newInstrumentName: string = "";
 
   constructor(
-    private router: Router, 
-    private storage: DataStorage, 
-    private service: BackEndCalls
+    public router: Router, 
+    public storage: DataStorage, 
+    public service: BackEndCalls
   ) { }
 
   ngOnInit() {
@@ -72,8 +72,6 @@ export class InstrumentsComponent implements OnInit {
       });
 
       this.newInstrumentName = "";
-      console.log(this.instrumentList);
-      
       this.toggleLoading();
     },
     error => {
@@ -90,7 +88,6 @@ export class InstrumentsComponent implements OnInit {
     .subscribe(data => {
       this.instrumentList = data;
       this.isLoading = false;
-      console.log(this.instrumentList);
     })
   }
 
@@ -116,14 +113,10 @@ export class InstrumentsComponent implements OnInit {
     let oldName = this.instrumentList[index].name;
     this.instrumentList[index].name = newName;
 
-    console.log(oldName + ", " + newName);
-
     let data = {instrument: newName}
 
     this.service.editInstrument(this.selectedCampusId, id, data)
     .subscribe(data => {
-      console.log("data : ");
-      console.log(data);
       if(data<1 || data==null){
         this.instrumentList[index].name = oldName;
       }

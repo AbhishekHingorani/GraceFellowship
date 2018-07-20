@@ -9,7 +9,11 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 export class VolunteerManagerComponent implements OnInit {
 
   @ViewChild('tabs') ngbTabSet;
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private cd: ChangeDetectorRef) {}
+  constructor(
+    public router: Router, 
+    public activatedRoute: ActivatedRoute, 
+    public cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {}
 

@@ -41,7 +41,7 @@
               style="color: gray; text-transform: lowercase;"
             >
           </div>
-          <div *ngIf="username.dirty && !username.valid && !username.value==''" class="error">
+          <div *ngIf="username.dirty && !username.valid && !(username.value=='')" class="error">
             Username should follow "[a/c/v/t]-###.." this pattern.
           </div>
           <!-- End: Username Textbox -->

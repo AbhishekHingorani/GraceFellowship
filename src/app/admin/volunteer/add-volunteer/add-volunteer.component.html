@@ -33,7 +33,7 @@
       </div>
     </div>
 
-    <div *ngIf="fullname.dirty && !fullname.valid && !fullname.value==''" class="error">
+    <div *ngIf="fullname.dirty && !fullname.valid && !(fullname.value=='')" class="error">
       This feild must not be empty!
     </div>
     <!-- #FullName -->
@@ -54,7 +54,7 @@
       </div>
     </div>
 
-    <div *ngIf="username.dirty && !username.valid && !username.value==''" class="error">
+    <div *ngIf="username.dirty && !username.valid && !(username.value=='')" class="error">
       Username should follow "v-###.." this pattern.
     </div>
     <!-- #Username -->
@@ -75,7 +75,7 @@
       </div>
 
     </div>
-    <div *ngIf="password.dirty && !password.valid && !password.value==''" class="error">
+    <div *ngIf="password.dirty && !password.valid && !(password.value=='')" class="error">
       Password should be minimum 6 character.
     </div>
     <!-- #Password -->
@@ -116,7 +116,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="email.dirty && !email.valid && !email.value==''" class="error">
+    <div *ngIf="email.dirty && !email.valid && !(email.value=='')" class="error">
       Email is incorrect.
     </div>
     <!-- #Email -->
@@ -137,7 +137,7 @@
       </div>
     </div>
     
-    <div *ngIf="contact.dirty && !contact.valid && !contact.value==''" class="error">
+    <div *ngIf="contact.dirty && !contact.valid && !(contact.value=='')" class="error">
       Contact should be a 10 digit no.
     </div>
     <!-- #Contact No -->

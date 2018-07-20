@@ -16,9 +16,9 @@ export class EndingDetailsComponent implements OnInit {
   isLoading = false;
 
   constructor(
-    private authService: AuthService,
-    private service: BackEndCalls,
-    private storage: DataStorage
+    public authService: AuthService,
+    public service: BackEndCalls,
+    public storage: DataStorage
   ) { }
 
   ngOnInit() {
@@ -47,8 +47,6 @@ export class EndingDetailsComponent implements OnInit {
         prayer: f.prayer
       }
     }
-
-    console.log(data);
 
     this.service.editEndingDetails(this.authService.currentUser.id, this.storage.selectedReport.report.id, data)
     .subscribe(result => {

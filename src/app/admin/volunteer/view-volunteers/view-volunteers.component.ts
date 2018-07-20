@@ -26,9 +26,9 @@ export class ViewVolunteersComponent implements OnInit {
   isTableLoadingForTheFirstTime: boolean = true;
 
   constructor(
-    private router: Router, 
-    private storage: DataStorage,
-    private service: BackEndCalls
+    public router: Router, 
+    public storage: DataStorage,
+    public service: BackEndCalls
   ) { }
 
   ngOnInit() {
@@ -89,7 +89,6 @@ export class ViewVolunteersComponent implements OnInit {
     //Sending delete reques to server
     this.service.deleteVolunteer(this.currentlySelectedCampusId, id)
     .subscribe(data => {
-      console.log(data);
     },error => {
       swal('Error','There was an error deleting the volunteer','error');
       this.volunteers.push(tempVolunteer);

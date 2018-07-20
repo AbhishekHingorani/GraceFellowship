@@ -2,8 +2,6 @@
     <h5 class="title">{{submitBtn}} Member</h5>
   </div>
   
-  <div *ngIf="campusLoading" class="loading"></div>
-  
   <form #f="ngForm" (ngSubmit)="submit(f.value)" autocomplete="nope">
     <div class="card-body">
       <!-- Date -->
@@ -39,7 +37,7 @@
         </div>
       </div>
   
-      <div *ngIf="fullname.dirty && !fullname.valid && !fullname.value==''" class="error">
+      <div *ngIf="fullname.dirty && !fullname.valid && !(fullname.value=='')" class="error">
         This feild must not be empty!
       </div>
       <!-- #FullName -->
@@ -58,7 +56,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="email.dirty && !email.valid && !email.value==''" class="error">
+      <div *ngIf="email.dirty && !email.valid && !(email.value=='')" class="error">
         Email is incorrect.
       </div>
       <!-- #Email -->
@@ -78,7 +76,7 @@
         </div>
       </div>
       
-      <div *ngIf="contact.dirty && !contact.valid && !contact.value==''" class="error">
+      <div *ngIf="contact.dirty && !contact.valid && !(contact.value=='')" class="error">
         Contact should be a 10 digit no.
       </div>
       <!-- #Contact No -->

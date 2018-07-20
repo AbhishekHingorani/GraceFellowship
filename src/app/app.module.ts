@@ -24,7 +24,8 @@ import { DataStorage } from './services/Providers/DataStorage';
 const jwtConf = {
   config: {
     tokenGetter: tokenGetter,
-    whitelistedDomains: ['grace-fellowship.herokuapp.com'],
+    //whitelistedDomains: ['grace-fellowship.herokuapp.com'],
+    whitelistedDomains: ['mis.graceahmedabad.com:9797'],
     throwNoTokenError: true,
     //authScheme: ' ',
     globalHeaders: [{'Content-Type': 'application/json'}],

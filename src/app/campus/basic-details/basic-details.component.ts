@@ -12,13 +12,14 @@ import { AuthService } from '../../services/AuthGuards/auth.service';
 })
 export class BasicDetailsComponent implements OnInit {
 
+  focus; focus1;
   submitBtn = "Edit";
   isLoading = false;
   
   constructor(
-    private authService: AuthService,
-    private service: BackEndCalls,
-    private storage: DataStorage
+    public authService: AuthService,
+    public service: BackEndCalls,
+    public storage: DataStorage
   ) { }
 
   ngOnInit() {}
@@ -29,7 +30,7 @@ export class BasicDetailsComponent implements OnInit {
       start: f.beginTime,
       prayer: f.prayer
     }
-    f.date = f.date.day + '/' + f.date.month + '/' + f.date.year;
+    f.date = f.date.day + '-' + f.date.month + '-' + f.date.year;
     this.storage.selectedReport.report.date = f.date;
     delete f.beginTime;
     delete f.prayer;

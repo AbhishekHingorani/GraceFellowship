@@ -10,9 +10,9 @@ export class MembersManagerComponent implements OnInit {
 
   @ViewChild('tabs') ngbTabSet;
   constructor(
-    private router: Router, 
-    private activatedRoute: ActivatedRoute, 
-    private cd: ChangeDetectorRef
+    public router: Router, 
+    public activatedRoute: ActivatedRoute, 
+    public cd: ChangeDetectorRef
   ) {}
 
   ngOnInit() {}

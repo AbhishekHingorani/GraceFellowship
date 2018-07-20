@@ -1,8 +1,8 @@
 <div class="panel-header panel-header-md">
   <div class="row">
     <div class="col-11 col-sm-6  ">
-      <div *ngIf="storage.selectedReport" class="header-txt">
-        {{storage.selectedReport.report.date}} ~ {{storage.selectedReport.report.begining.start}} ~ {{storage.selectedReport.report.language}}
+      <div *ngIf="storage.donation" class="header-txt">
+        {{storage.donation.report.date}} ~ {{storage.donation.report.begining.start}} ~ {{storage.donation.report.language}}
       </div>
     </div>
     <div class="col-1 col-sm-6  ">
@@ -22,7 +22,7 @@
 
       <div class="card">
 
-        <!-- <ngb-tabset *ngIf="storage.selectedReport" #tabs="ngbTabset" type="tabs" justify="justified"> -->
+        <!-- <ngb-tabset *ngIf="storage.donation" #tabs="ngbTabset" type="tabs" justify="justified"> -->
         <ngb-tabset #tabs="ngbTabset" type="tabs" justify="justified">
 
           <ngb-tab id="offerings">
@@ -92,7 +92,7 @@
             <td>
               <button 
                 (click)="selectReport(report.id); c('selected')" 
-                style="color:#41a9f4; cursor: pointer;" 
+                style="background-color:#41a9f4; cursor: pointer;" 
                 placement="top" 
                 ngbTooltip="Select report"
                 class="btn btn-primary"

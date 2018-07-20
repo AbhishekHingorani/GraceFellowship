@@ -8,12 +8,19 @@ import {BackEndCalls} from '../BackendHandling/backend-calls.service';
 import {HttpHeaders, HttpClient, HttpErrorResponse} from '@angular/common/http'
 import { Observable } from 'rxjs/Observable';
 import { Http, RequestOptions, Headers } from '@angular/http';
+import { DataStorage } from '../Providers/DataStorage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private router: Router, private http: Http,private service: BackEndCalls, public jwtHelper: JwtHelperService) {}
+  constructor(
+    public router: Router, 
+    public http: Http,
+    public service: BackEndCalls, 
+    public jwtHelper: JwtHelperService,
+    public storage: DataStorage
+  ) {}
 
 
   login(credentials) { 
@@ -25,7 +32,6 @@ export class AuthService {
 
     return this.http.post( this.service.getURL() + '/login', JSON.stringify(credentials), options)
      .map(result => {
-       console.log("yeah...");
        let response = result.json();
        let token = response['token'];
         if (token) {          
@@ -39,7 +45,6 @@ export class AuthService {
   }
 
   errorHandler(error: HttpErrorResponse){
-    console.log(error.status);
     if(error.status == 500)
       return Observable.throw("Internal Server Error");
     else if(error.status == 400 || error.status == 401)
@@ -49,6 +54,14 @@ export class AuthService {
   logout() { 
     localStorage.removeItem("token")
     this.router.navigate(['/login']);
+    
+    this.storage.allReports = null;
+    this.storage.campusList = null;
+    this.storage.donation = null;
+    this.storage.member = null;
+    this.storage.membersList = null;
+    this.storage.selectedReport = null;
+    this.storage.volunteer = null;
   }
 
   isLoggedIn() { 

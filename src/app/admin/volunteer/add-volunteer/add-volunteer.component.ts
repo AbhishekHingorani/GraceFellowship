@@ -15,6 +15,7 @@ import { DataStorage } from '../../../services/Providers/DataStorage';
 })
 export class AddVolunteerComponent implements OnInit {
 
+  focus; focus0; focus2; focus3; focus4; focus5;
   doesPasswordMatch: boolean = false;
   volunteer: VolunteerModel;
   submitBtn: string = "Add";
@@ -25,10 +26,10 @@ export class AddVolunteerComponent implements OnInit {
   campusId: string;
 
   constructor(
-    private router: Router, 
-    private activatedRoute: ActivatedRoute, 
-    private service: BackEndCalls,
-    private storage: DataStorage,
+    public router: Router, 
+    public activatedRoute: ActivatedRoute, 
+    public service: BackEndCalls,
+    public storage: DataStorage,
   ) { }
 
   ngOnInit() {
@@ -85,8 +86,6 @@ export class AddVolunteerComponent implements OnInit {
 
     this.toggleLoading();
     delete data.confirmPassword;
-
-    console.log(data);
     
     //If isEdit is false then send request to add the volunteer else to edit.
     if(this.isEdit == false){
@@ -100,7 +99,6 @@ export class AddVolunteerComponent implements OnInit {
     else{
       this.service.editVolunteer(this.campusId, this.volunteer.id, data)
       .subscribe(response => {
-        console.log(response == 1);
         if(response >= 1)
           swal('Success', 'Volunteer Edited Successfully', 'success');
           this.toggleLoading();
@@ -112,9 +110,7 @@ export class AddVolunteerComponent implements OnInit {
     if(this.isLoading){
       this.isLoading = false;
       this.submitBtn = this.isEdit ? "Edit" : "Add";
-    }else{
-      console.log("idhar aya");
-      
+    }else{      
       this.isLoading = true;
       this.submitBtn = "";
     }

@@ -27,9 +27,9 @@ export class ViewMembersComponent implements OnInit {
   isTableLoadingForTheFirstTime: boolean = true;
   
   constructor(
-    private router: Router, 
-    private storage: DataStorage,
-    private service: BackEndCalls
+    public router: Router, 
+    public storage: DataStorage,
+    public service: BackEndCalls
   ) { }
 
   ngOnInit() {
@@ -69,7 +69,6 @@ export class ViewMembersComponent implements OnInit {
     .subscribe((data: MemberModel[]) => {
       //this.members = JSON.parse(JSON.stringify(data)).batch_members;
       this.members = data;
-      console.log(this.members);
       
       if(this.isTableLoadingForTheFirstTime){
         this.dtTrigger.next();
@@ -89,6 +88,7 @@ export class ViewMembersComponent implements OnInit {
   deleteMember(id: string){
     //searching id from array and deleting it
     let index = this.members.map(function(x){ return x.id; }).indexOf(id);
+    let tempMember = this.members[index];
     this.members.splice(index,1);
 
     this.rerenderTable();
@@ -96,7 +96,9 @@ export class ViewMembersComponent implements OnInit {
     //Sending delete request to server
     this.service.deleteMember(this.currentlySelectedCampusId, id)
     .subscribe(data => {
-      console.log(data);
+    },error => {
+      this.members.push(tempMember);
+      swal('Error',"There was an error deleting the member",'error');
     });
   }
 

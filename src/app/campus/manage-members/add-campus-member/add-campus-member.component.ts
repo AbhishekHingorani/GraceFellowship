@@ -16,6 +16,7 @@ const date = new Date;
 })
 export class AddCampusMemberComponent implements OnInit {
 
+  focus0; focus1; focus5; focus6; focus10;
   model: NgbDateStruct;
   member: MemberModel;
   submitBtn: string = "Add";
@@ -23,10 +24,10 @@ export class AddCampusMemberComponent implements OnInit {
   isLoading: boolean = false;
 
   constructor(
-    private activatedRoute: ActivatedRoute, 
-    private service: BackEndCalls,
-    private storage: DataStorage,
-    private authService: AuthService
+    public activatedRoute: ActivatedRoute, 
+    public service: BackEndCalls,
+    public storage: DataStorage,
+    public authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -65,7 +66,6 @@ export class AddCampusMemberComponent implements OnInit {
   }
 
   submit(formValues){
-    console.log(formValues);
     this.toggleLoading();
     let campusId = this.authService.currentUser.id;
     formValues.join_date = this.model.day + '-' + this.model.month + '-' + this.model.year;
@@ -99,7 +99,6 @@ export class AddCampusMemberComponent implements OnInit {
     else{
         this.service.editMember_Campus(campusId, this.member)
         .subscribe(response => {
-          console.log(response == 1);
           if(response >= 1)
             swal('Success', 'Member Edited Successfully', 'success');
             this.toggleLoading();

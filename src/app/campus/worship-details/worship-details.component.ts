@@ -17,9 +17,9 @@ export class WorshipDetailsComponent implements OnInit {
   instrumentPlayers = {};
 
   constructor(
-    private authService: AuthService,
-    private service: BackEndCalls,
-    private storage: DataStorage
+    public authService: AuthService,
+    public service: BackEndCalls,
+    public storage: DataStorage
   ) { }
 
   ngOnInit() {

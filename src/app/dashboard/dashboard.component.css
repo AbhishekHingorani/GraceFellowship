@@ -1,0 +1,32 @@
+.centered {
+    height: 100%;
+    margin: 0;
+}
+
+.bgimg {
+    background-image: url('../../assets/img/crossbg2_2.jpg');
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    color: white;
+    font-size: 15px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.middle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+hr {
+    width: 40%;
+    border-top: 1px solid rgba(230, 230, 230, 1)
+}
+
+h1{
+    margin-bottom: 5px;
+}

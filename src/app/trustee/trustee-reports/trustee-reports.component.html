@@ -1,0 +1,108 @@
+<script src="./responsive-tables.js"></script>
+
+<div class="panel-header panel-header-sm">
+</div>
+
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="card">
+
+        <div class="card-header">
+          <h5 class="title">Reports</h5>
+        </div>
+
+        <div *ngIf="isLoading" class="loading"></div>
+
+        <div class="card-body">
+          <div class="container">
+
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <label for="leader">&nbsp;&nbsp;&nbsp;Month: </label>
+                <select placeholder="Select" ngModel name="month" #month="ngModel" class="form-control custom-select select-box">
+                  <option style="color: lightgray" value="" disabled selected>- Select Month -</option>
+                  <option value="1">January</option>
+                  <option value="2">February</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">August</option>
+                  <option value="9">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+                </select>
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label for="leader">&nbsp;&nbsp;&nbsp;Year: </label>
+                <select placeholder="Select" ngModel name="year" #year="ngModel" class="form-control custom-select select-box">
+                  <option style="color: lightgray" value="" disabled selected>- Select Year -</option>
+                  <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                </select>
+              </div>
+
+              <div class="col-md-2">
+                <button [disabled]="isLoading" (click)="submit(month.value, year.value)" class="btn btn-danger btn-round" style="margin-top:23px;">
+                  {{submitBtn}}
+                  <img *ngIf="isLoading" src="../../../../assets/img/tail-spin.svg" class="pull-right" />
+                </button>
+              </div>
+            </div>
+
+
+            <div *ngIf="campusSummaryReports" class="row">
+              <div class="col-md-12 text-center">
+                <div *ngFor="let campus of campusSummaryReports">
+                  <div *ngIf="campus.reports.length > 0" style="overflow-x: auto;">
+                    <br><h1>{{campus.name}}</h1><br>
+                    <table class="responsive">
+                      <thead>
+                        <th>Date</th>
+                        <th>Lang</th>
+                        <th>start time</th>
+                        <th>msg start time</th>
+                        <th>closing time</th>
+                        <th>men</th>
+                        <th>women</th>
+                        <th>new</th>
+                        <th>total</th>
+                        <th>offerings</th>
+                        <th>tithe</th>
+                        <th>cheque</th>
+                        <th>Total</th>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of campus?.reports">
+                          <td>{{item?.date}}</td>
+                          <td>{{item?.language | slice:0:3}}</td>
+                          <td>{{item?.begining?.start}}</td>
+                          <td>{{item?.sermon?.start | slice:0:5}}</td>
+                          <td>{{item?.ending?.time | slice:0:5}}</td>
+                          <td>{{item?.attendance?.male}}</td>
+                          <td>{{item?.attendance?.female}}</td>
+                          <td>{{item?.attendance?.new}}</td>
+                          <td>{{item?.attendance?.total}}</td>
+                          <td class="offerings">{{item?.general_total}} &#8377;</td>
+                          <td class="offerings">{{item?.tithe_total}} &#8377;</td>
+                          <td class="offerings">{{item?.cheque_total}} &#8377;</td>
+                          <td class="offerings">{{item?.cheque_total + item?.general_total + item?.tithe_total}} &#8377;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

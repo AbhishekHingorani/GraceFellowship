@@ -11,60 +11,46 @@
           <h5 class="title">Categories List</h5>
         </div>
 
-        <div *ngIf="isLoading" class="loading"></div>                  
-        
+        <div *ngIf="isLoading" class="loading"></div>
+
         <div class="card-body">
-      
+
           <div class="container">
-            <div *ngIf="selectedCampusId != ''">
-              <div style="font-size: 12px" class="text-muted">Current Donation Categories:</div>
+            <div style="font-size: 12px" class="text-muted">Current Donation Categories: (click on the name to edit)</div>
 
-              <div class="row">
-                <div class="col-md-6">
-                  
-                  <ul class="list-group">
-                    <li
-                      *ngFor="let category of categoryList" 
-                      class="list-group-item d-flex justify-content-between align-items-center"
-                    >
-                      <a 
-                        style="cursor: pointer;"
-                        [swal]="{ title: 'Edit Category', input: 'text', inputValue: category.category, showCancelButton: true, confirmButtonColor: '#dc3545'}"
-                        (confirm)="editCategory(category.id, $event)"
-                      >
-                        {{category.category}}
-                      </a>
-                      <span 
-                        (click)="deleteCategory(category.id);" 
-                        class="badge badge-danger badge-pill"
-                        style="cursor: pointer;"
-                      >
-                        <i style="padding:5px" class="far fa-trash-alt"></i>
-                      </span>
-                    </li>
-                  </ul>
+            <div class="row">
+              <div class="col-md-6">
 
-                </div>
+                <ul class="list-group">
+                  <li *ngFor="let category of categoryList" class="list-group-item d-flex justify-content-between align-items-center">
+                    <a style="cursor: pointer;" [swal]="{ title: 'Edit Category', input: 'text', inputValue: category.category, showCancelButton: true, confirmButtonColor: '#dc3545'}"
+                      (confirm)="editCategory(category.id, $event)">
+                      {{category.category}}
+                    </a>
+                    <span (click)="deleteCategory(category.id);" class="badge badge-danger badge-pill" style="cursor: pointer;">
+                      <i style="padding:5px" class="far fa-trash-alt"></i>
+                    </span>
+                  </li>
+                </ul>
 
               </div>
-              <br>
-              <div class="row">
-                  <div class="col-md-5">
-                      <div class="form-group">
-                          <input [(ngModel)]="newCategoryName" type="text" value="" placeholder="Add New Category..." class="form-control" />
-                      </div>
-                  </div>
-    
-                  <div class="col-md-1">
-                    <button class="bttn pull-right btn-round"
-                      (click)="addCategory()"
-                    >
-                        {{submitBtn}}
-                        <img *ngIf="isAddCategoryLoading" src="../../../../assets/img/tail-spin.svg" class="pull-right"/>
-                      </button>
-                  </div>
+
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="form-group">
+                  <input [(ngModel)]="newCategoryName" type="text" value="" placeholder="Add New Category..." class="form-control" />
                 </div>
               </div>
+
+              <div class="col-md-1">
+                <button class="bttn pull-right btn-round" (click)="addCategory()">
+                  {{submitBtn}}
+                  <img *ngIf="isAddCategoryLoading" src="../../../../assets/img/tail-spin.svg" class="pull-right" />
+                </button>
+              </div>
+            </div>
           </div>
 
         </div>

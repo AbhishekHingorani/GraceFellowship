@@ -11,6 +11,7 @@ import { DataStorage } from '../../services/Providers/DataStorage';
 })
 export class ManageCampusComponent implements OnInit {
 
+  focus0; focus1; focus2; focus3; focus4;
   isLoading: boolean = true;
   isAddCampusLoading: boolean = false;
   campusList;
@@ -18,9 +19,9 @@ export class ManageCampusComponent implements OnInit {
   submitBtn: string = "Add";
 
   constructor(
-    private router: Router,
-    private storage: DataStorage,
-    private service: BackEndCalls
+    public router: Router,
+    public storage: DataStorage,
+    public service: BackEndCalls
   ) { }
 
   ngOnInit() {

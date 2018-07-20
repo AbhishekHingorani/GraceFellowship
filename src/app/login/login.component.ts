@@ -10,22 +10,22 @@ import { AuthService } from './../services/AuthGuards/auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  focus; focus1;
   invalidLogin: boolean = false; 
   isLoading: boolean = false;
   submitBtn: string = "Login";
   errorMsg: string = "";
 
   constructor(
-    private router: Router, 
-    private authService: AuthService,
-    private route: ActivatedRoute
+    public router: Router, 
+    public authService: AuthService,
+    public route: ActivatedRoute
   ) { }
 
   ngOnInit(){}
 
   signIn(credentials) {
     this.toggleLoading();
-    console.log(JSON.stringify(credentials));
     
     this.authService.login(credentials)
       .subscribe(result => { 
@@ -41,7 +41,6 @@ export class LoginComponent implements OnInit {
         this.toggleLoading();
         this.errorMsg = error;
         this.invalidLogin = true;
-        console.log("error");
       });
   } 
 

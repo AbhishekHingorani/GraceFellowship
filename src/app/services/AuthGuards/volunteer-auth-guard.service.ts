@@ -9,8 +9,8 @@ import { AuthService } from './auth.service';
 export class VolunteerAuthGuard implements CanActivate {
 
   constructor(
-    private router: Router,
-    private authService: AuthService
+    public router: Router,
+    public authService: AuthService
   ) { }
 
   canActivate(route, state: RouterStateSnapshot) {

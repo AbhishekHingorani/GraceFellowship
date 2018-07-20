@@ -6,9 +6,10 @@ import { HttpClient } from "@angular/common/http";
 })
 export class BackEndCalls
 {
-  constructor(private http: HttpClient) {}
+  constructor(public http: HttpClient) {}
 
-  private URL = "https://grace-fellowship.herokuapp.com";
+  private URL = "http://mis.graceahmedabad.com:9797";
+  //private URL = "https://grace-fellowship.herokuapp.com";
   //private URL = "http://5b18c6fd3f38e20014a22f3f.mockapi.io";
 
    
@@ -108,6 +109,10 @@ export class BackEndCalls
     return this.http.post(this.URL + '/admin/trustee', data);
   }
 
+  changeTrusteePassword(trusteeId, data){
+    return this.http.patch(this.URL + '/admin/trustee/' + trusteeId, data);
+  }
+
   /*--------------*/
 
   getAllDonationCategories(){
@@ -203,4 +208,30 @@ export class BackEndCalls
   getAllReports_Volunteer(volunteerId){
     return this.http.get(this.URL + '/volunteer/' + volunteerId + '/reports');
   }
+
+  getSingleDonationReport(volunteerId, reportId){
+    return this.http.get(this.URL + '/volunteer/' + volunteerId + '/report/' + reportId + "/offerings");
+  }
+
+  submitGeneralDonation(volunteerId, reportId, data){
+    return this.http.post(this.URL + '/volunteer/' + volunteerId + '/report/' + reportId + "/offerings/general", data);
+  }
+
+  submitTitheDonation(volunteerId, reportId, data){
+    return this.http.post(this.URL + '/volunteer/' + volunteerId + '/report/' + reportId + "/offerings/tithe", data);
+  }
+
+  submitChequeDonation(volunteerId, reportId, data){
+    return this.http.post(this.URL + '/volunteer/' + volunteerId + '/report/' + reportId + "/offerings/cheque", data);
+  }
+
+  
+  //=====================================================================//
+  //--------------------------- Trustee --------------------------------//
+  //===================================================================//
+
+  getAllTrusteeSummaryReports(trusteeId, month, year){
+    return this.http.get(this.URL + '/trustee/' + trusteeId + '/summary/' + month + '/' + year);
+  }
+
 }

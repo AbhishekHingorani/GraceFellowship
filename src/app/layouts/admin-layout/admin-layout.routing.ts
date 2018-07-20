@@ -15,6 +15,8 @@ import { TrusteeComponent } from '../../admin/trustee/trustee.component';
 import { ReportDetailsManagerComponent } from '../../campus/report-details-manager/report-details-manager.component';
 import { CampusMembersManagerComponent } from '../../campus/manage-members/campus-members-manager/campus-members-manager.component';
 import { DonationManagerComponent } from '../../volunteer/donation-manager/donation-manager.component';
+import { TrusteeReportsComponent } from '../../trustee/trustee-reports/trustee-reports.component'
+import { TrusteeAuthGuard } from '../../services/AuthGuards/trustee-auth-guard.service';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -41,5 +43,9 @@ export const AdminLayoutRoutes: Routes = [
     //------------------------------------------------------------------------------------//
 
     { path: 'volunteer/donation/:id', component: DonationManagerComponent, canActivate: [VolunteerAuthGuard]},
-    { path: 'volunteer/donation', component: DonationManagerComponent, canActivate: [VolunteerAuthGuard]}
+    { path: 'volunteer/donation', component: DonationManagerComponent, canActivate: [VolunteerAuthGuard]},
+
+    //------------------------------------------------------------------------------------//
+
+    { path: 'trustee/summary-reports', component: TrusteeReportsComponent, canActivate: [TrusteeAuthGuard]},
 ];

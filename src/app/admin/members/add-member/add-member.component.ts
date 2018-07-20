@@ -16,6 +16,7 @@ const date = new Date;
 })
 export class AddMemberComponent implements OnInit {
 
+  focus0; focus1; focus2; focus3; focus4;
   member: MemberModel;
   submitBtn: string = "Add";
   isEdit: boolean;
@@ -26,9 +27,9 @@ export class AddMemberComponent implements OnInit {
   model: NgbDateStruct;
 
   constructor(
-    private activatedRoute: ActivatedRoute, 
-    private service: BackEndCalls,
-    private storage: DataStorage,
+    public activatedRoute: ActivatedRoute, 
+    public service: BackEndCalls,
+    public storage: DataStorage,
   ) { }
 
   ngOnInit() {
@@ -107,7 +108,6 @@ export class AddMemberComponent implements OnInit {
     else{
         this.service.editMember(this.campusId, this.member)
         .subscribe(response => {
-          console.log(response == 1);
           if(response >= 1){
             swal('Success', 'Member Edited Successfully', 'success');
             this.toggleLoading();

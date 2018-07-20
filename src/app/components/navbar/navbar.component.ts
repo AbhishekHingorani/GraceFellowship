@@ -22,9 +22,9 @@ export class NavbarComponent implements OnInit {
 
     constructor(
         location: Location,  
-        private element: ElementRef, 
-        private router: Router,  
-        private authService: AuthService
+        public element: ElementRef, 
+        public router: Router,  
+        public authService: AuthService
     ) {
       this.location = location;
           this.sidebarVisible = false;
@@ -47,7 +47,7 @@ export class NavbarComponent implements OnInit {
     collapse(){
       this.isCollapsed = !this.isCollapsed;
       const navbar = document.getElementsByTagName('nav')[0];
-      console.log(navbar);
+      
       if (!this.isCollapsed) {
         navbar.classList.remove('navbar-transparent');
         navbar.classList.add('bg-white');
@@ -165,6 +165,6 @@ export class NavbarComponent implements OnInit {
     }
 
     showCreatorDetail(){
-        swal('Made by: <br><br> Abhishek Hingorani, <br> Dhruvil Shah & <br> Dhruv Acharya');
+        swal('Made by: <br><br> <font color="gray" face="garamond">Abhishek Hingorani, <br> Dhruvil Shah & <br> Dhruv Acharya</font>');
     }
 }

@@ -58,7 +58,7 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="username.dirty && !username.valid && !username.value==''" class="error">
+            <div *ngIf="username.dirty && !username.valid && !(username.value=='')" class="error">
               This field must not be empty!
             </div>
             <!-- #Username -->
@@ -78,7 +78,7 @@
               </div>
             </div>
 
-            <div *ngIf="fullname.dirty && !fullname.valid && !fullname.value==''" class="error">
+            <div *ngIf="fullname.dirty && !fullname.valid && !(fullname.value=='')" class="error">
               This feild must not be empty!
             </div>
             <!-- #FullName -->
@@ -98,7 +98,7 @@
               </div>
             </div>
 
-            <div *ngIf="address.dirty && !address.valid && !address.value==''" class="error">
+            <div *ngIf="address.dirty && !address.valid && !(address.value=='')" class="error">
               This feild must not be empty!
             </div>
             <!-- #FullName -->
@@ -118,7 +118,7 @@
               </div>
 
             </div>
-            <div *ngIf="password.dirty && !password.valid && !password.value==''" class="error">
+            <div *ngIf="password.dirty && !password.valid && !(password.value=='')" class="error">
               Password should be minimum 6 character.
             </div>
             <!-- #Password -->

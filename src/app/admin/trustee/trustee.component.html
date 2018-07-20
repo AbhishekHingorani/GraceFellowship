@@ -29,7 +29,7 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="username.dirty && !username.valid && !username.value==''" class="error">
+            <div *ngIf="username.dirty && !username.valid && !(username.value=='')" class="error">
               Field should match the pattern 't-###..''
             </div>
             <!-- #Username -->
@@ -49,7 +49,7 @@
               </div>
             </div>
 
-            <div *ngIf="fullname.dirty && !fullname.valid && !fullname.value==''" class="error">
+            <div *ngIf="fullname.dirty && !fullname.valid && !(fullname.value=='')" class="error">
               This feild must not be empty!
             </div>
             <!-- #FullName -->
@@ -68,7 +68,7 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="email.dirty && !email.valid && !email.value==''" class="error">
+            <div *ngIf="email.dirty && !email.valid && !(email.value=='')" class="error">
               Email is incorrect.
             </div>
             <!-- #Email -->
@@ -89,7 +89,7 @@
               </div>
             </div>
 
-            <div *ngIf="contact.dirty && !contact.valid && !contact.value==''" class="error">
+            <div *ngIf="contact.dirty && !contact.valid && !(contact.value=='')" class="error">
               Contact should be a 10 digit no.
             </div>
             <!-- #Contact No -->
@@ -109,7 +109,7 @@
               </div>
 
             </div>
-            <div *ngIf="password.dirty && !password.valid && !password.value==''" class="error">
+            <div *ngIf="password.dirty && !password.valid && !(password.value=='')" class="error">
               Password should be minimum 6 character.
             </div>
             <!-- #Password -->
@@ -143,7 +143,7 @@
                     [swal]="{ 
                       title: 'Confirm', 
                       type: 'warning',
-                      text: 'Campus details once saved cannot be edited, so please check that all fields are correct before clicking submit', 
+                      text: 'Trustee details once saved cannot be edited, so please check that all fields are correct before clicking submit', 
                       showCancelButton: true, 
                       confirmButtonText: 'submit'
                     }" (confirm)="submit(f.value)" class="pull-right btn btn-danger btn-round" type="submit">
@@ -164,18 +164,18 @@
 
       <div class="card">
         <div class="card-header">
-          <h5 class="title">Delete Trustee</h5>
+          <h5 class="title">Change Password / Delete Trustee</h5>
         </div>
 
         <div *ngIf="isLoading" class="loading"></div>
 
         <div class="card-body">
 
-
+          <div class="text-muted">Click on the name to change password..</div>
           <ul class="list-group">
             <li *ngFor="let trustee of trusteeList" class="list-group-item d-flex justify-content-between align-items-center">
               <div>
-                {{trustee.name}}
+                <a style="cursor: pointer;" (click)="changePassword(trustee)">{{trustee.name}}</a>
               </div>
               <span 
                 [swal]="{ 

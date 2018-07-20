@@ -25,11 +25,11 @@ declare interface AttendanceData{
 })
 export class MarkAttendanceComponent implements OnInit {
 
-  private data: AttendanceData;
+  data: AttendanceData;
   members: MemberModel[];
   submitBtn = "Submit";
   isLoading = false;
-  othersCount: number;
+  male=0; female=0;
   
   constructor(
     private service: BackEndCalls,
@@ -60,10 +60,19 @@ export class MarkAttendanceComponent implements OnInit {
 
       //assigning new attendees array
       this.data.attendees.new = this.storage.selectedReport.report.attendees.new;
-    }
 
-    this.othersCount = (+this.storage.selectedReport.report.attendance.new - this.storage.selectedReport.report.attendees.new.length);
-    this.members = this.storage.selectedReport.batch_members;      
+
+      this.storage.othersCount = (+this.storage.selectedReport.report.attendance.new - this.storage.selectedReport.report.attendees.new.length);
+    }else {
+      if(!this.storage.newMembers)
+        this.storage.newMembers = [];
+  
+      this.data.attendees.new = this.storage.newMembers;
+    }
+    
+    this.members = this.storage.selectedReport.batch_members;   
+    
+    this.countAttendance();
   }
 
   //Checking if member with 'id' is present in array of present members
@@ -86,27 +95,37 @@ export class MarkAttendanceComponent implements OnInit {
       btnn.value = "All Present";
     }
 
+    this.male = this.female = 0;
+
     for (var i = 0; i < this.members.length; i++) {
       this.members[i].active = val;
-      this.attendanceChanged(this.members[i]);
+
+      if(this.members[i].active){
+        if(this.members[i].gender=="m")
+          this.male++;
+        else
+          this.female++;
+      }
     }
   }
 
   submit(formData){
     this.toggleLoading();
+    this.data.attendance.male = this.data.attendance.female = 0;
     this.data.attendees.members = [];
 
     for (var i = 0; i < this.members.length; i++) {
-      if(this.members[i].active)
+      if(this.members[i].active){
         this.data.attendees.members.push(this.members[i].id);
+        if(this.members[i].gender=="m")
+          this.data.attendance.male++;
+        else
+          this.data.attendance.female++;
+      }
     }
 
-    this.data.attendance.male = this.storage.selectedReport.report.attendance.male;
-    this.data.attendance.female = this.storage.selectedReport.report.attendance.female;
-    this.data.attendance.new = this.data.attendees.new.length + this.othersCount;
-    this.data.attendance.total = (this.storage.selectedReport.report.attendance.male + this.storage.selectedReport.report.attendance.female + this.data.attendance.new);
-
-    console.log(this.data);
+    this.data.attendance.total = this.data.attendance.male + this.data.attendance.female;
+    this.data.attendance.new = this.data.attendees.new.length + this.storage.othersCount;
 
     this.service.markAttendance(this.authService.currentUser.id, this.storage.selectedReport.report.id, this.data)
     .subscribe(response => {
@@ -136,12 +155,16 @@ export class MarkAttendanceComponent implements OnInit {
     }
   }
 
-  attendanceChanged(member){
-    if(member.active)
-      member.gender == 'm' ? this.storage.selectedReport.report.attendance.male-- : this.storage.selectedReport.report.attendance.female--;
-    else
-      member.gender == 'm' ? this.storage.selectedReport.report.attendance.male++ : this.storage.selectedReport.report.attendance.female++;
+  countAttendance(){
+    this.male = this.female = 0;
 
-    member.active = !member.active;
+    for (var i = 0; i < this.members.length; i++) {
+      if(this.members[i].active){
+        if(this.members[i].gender=="m")
+          this.male++;
+        else
+          this.female++;
+      }
+    }
   }
 }

@@ -33,7 +33,7 @@ import { DonationManagerComponent } from '../../volunteer/donation-manager/donat
 import { GeneralDonationComponent } from '../../volunteer/general-donation/general-donation.component';
 import { ChequeDonationComponent } from '../../volunteer/cheque-donation/cheque-donation.component';
 import { TitheDonationComponent } from '../../volunteer/tithe-donation/tithe-donation.component';
-
+import { TrusteeReportsComponent } from '../../trustee/trustee-reports/trustee-reports.component';
 
 @NgModule({
   imports: [
@@ -80,6 +80,8 @@ import { TitheDonationComponent } from '../../volunteer/tithe-donation/tithe-don
     GeneralDonationComponent,
     ChequeDonationComponent,
     TitheDonationComponent,
+
+    TrusteeReportsComponent
   ]
 })
 
